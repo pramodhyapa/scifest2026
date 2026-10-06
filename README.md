@@ -9,9 +9,9 @@ Visitor pages for the Materials Theory booth, one per demo, reached by QR code. 
 | `index.html` | Landing page: all 13 demos by station; live pages are links, the rest say "coming soon" |
 | `superconductor.html` | Demo page (template for the others) |
 | `pvt-surface.html` | Interactive 3D P–V–T surface (made separately; needs internet for three.js) |
-| `assets/site.css` | Shared styles: colours, fonts, layout, dark mode, station accents |
+| `assets/site.css` | Shared "lab notebook" styles: squared paper, fonts, layout, dark mode, station accents (poster colours) |
 | `assets/site.js` | Language switch, quiz, reduced-motion handling |
-| `assets/fonts/` | Fredoka (headings) and Lexend (body), self-hosted, SIL Open Font License |
+| `assets/fonts/` | Familjen Grotesk (text) and IBM Plex Mono (labels, measurements), self-hosted, SIL Open Font License |
 | `assets/media/` | Videos and images, one set per demo |
 | `assets/uu_logo.svg` | Uppsala University logo |
 | `content/` | Page text for review, English and Swedish side by side |
@@ -41,3 +41,11 @@ The page shows one language at a time. It starts in the phone's language (Swedis
 ## Hosting
 
 Plain static files with relative links, so the folder works as-is on GitHub Pages or any web host. No build step, no cookies, no tracking.
+
+## Design ("lab notebook")
+
+- Squared paper background; ink-dark text; each station's poster colour as its accent only (1 violet, 2 blue, 3 rust, 4 green).
+- A demo page is a notebook entry: a mono header line (`Försök 02 · Station 1 · T = 77 K`), then lab-report sections
+  §1 Observation, §2 Explanation, §3 (a measurement or scale), §4 Going deeper, §5 Applications, §6 Self-test, §7 About us.
+- Figures are numbered (`Fig. 1`, `Fig. 2`) with mono captions; diagrams are drawn straight on the grid, to scale where they show numbers.
+- Side notes use the `OBS!` box. Avoid cards, pills, icons and emoji.
