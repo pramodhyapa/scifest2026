@@ -254,7 +254,10 @@ section { display: grid; gap: 14px; }
 [hidden] { display: none !important; }
 .profile { display: grid; justify-items: center; text-align: center; gap: 14px; padding-block: 36px 8px; }
 .avatar { width: 104px; height: 104px; border-radius: 50%; overflow: hidden; border: 4px solid var(--paper-solid); box-shadow: 0 0 0 1.5px var(--ink); }
-.avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar img, .avatar video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.avatar video { object-position: 45% 70%; transform: scale(1.7); transform-origin: 45% 68%; }
+.tile .credit { font-family: var(--font-mono); font-size: .7rem; color: var(--muted); }
+.tile .credit a { color: inherit; }
 .profile .title { align-items: center; font-size: clamp(2rem, 8vw, 2.9rem); }
 .bio { font-size: 1.12rem; line-height: 1.45; max-width: 34ch; display: grid; }
 .bio .line { display: block; }
