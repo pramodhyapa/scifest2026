@@ -19,20 +19,23 @@
   /* ---------------------------------------------------------- balloon */
   function balloon(root) {
     var cv = root.querySelector('canvas'), slider = root.querySelector('input[type=range]');
-    var outT = root.querySelector('[data-out=T]'), outV = root.querySelector('[data-out=V]'),
+    var outT = root.querySelector('[data-out=T]'),
         outS = root.querySelector('[data-out=S]'), status = root.querySelector('[data-out=status]');
     var W = 600, H = 340, ctx = setupCanvas(cv, W, H);
     var cx = 300, cy = 160, R0 = 118, N = 40, O2 = 8;   // about 1 in 5 air molecules is oxygen
     var P = [];
     for (var i = 0; i < N; i++) {
       var a = Math.random() * 2 * Math.PI, r = Math.sqrt(Math.random()) * 0.85, d = Math.random() * 2 * Math.PI;
-      P.push({ x: r * Math.cos(a), y: r * Math.sin(a), vx: Math.cos(d), vy: Math.sin(d), ox: i < O2,
-               lx: (i - O2 / 2 + 0.5) * 0.11, ly: 0.82 });
+      P.push({ x: r * Math.cos(a), y: r * Math.sin(a), vx: Math.cos(d), vy: Math.sin(d), ox: i < O2, idx: i,
+               lx: ((i % 10) - 4.5) * 0.12, ly: 0.8 - Math.floor(i / 10) * 0.1 });
     }
     var last = performance.now();
     function frame(now) {
       var T = +slider.value, dt = Math.min(0.05, (now - last) / 1000); last = now;
-      var R = R0 * Math.cbrt(T / 293), speed = 0.9 * Math.sqrt(T / 293), liquid = T <= 90;
+      // gas fraction: oxygen condenses below 90 K, then nitrogen as we approach 77 K
+      var gas = T > 90 ? 1 : 0.8 * Math.max(0.06, (T - 77) / 13);
+      var R = R0 * Math.cbrt(Math.max(T * gas / 293, 0.0015)), speed = 0.9 * Math.sqrt(T / 293), liquid = T <= 90;
+      var nliq = Math.round((1 - gas) * N);
       var ink = css(cv, '--ink'), acc = css(cv, '--accent'), soft = css(cv, '--accent-soft'), muted = css(cv, '--muted');
       ctx.clearRect(0, 0, W, H);
       // room-temperature size for comparison
@@ -47,7 +50,7 @@
       ctx.bezierCurveTo(cx - 14, cy + R + 40, cx + 14, cy + R + 70, cx, H - 8); ctx.stroke();
       // molecules
       P.forEach(function (p) {
-        if (p.ox && liquid) {                       // oxygen settles as liquid
+        if (liquid && (p.ox || p.idx < nliq)) {    // oxygen, then nitrogen, settles as liquid
           p.x += (p.lx - p.x) * 0.12; p.y += (p.ly - p.y) * 0.12;
         } else if (!reduce) {
           p.x += p.vx * speed * dt; p.y += p.vy * speed * dt;
@@ -62,9 +65,8 @@
         ctx.beginPath(); ctx.arc(px - 2.6, py, 2.8, 0, 2 * Math.PI); ctx.arc(px + 2.6, py, 2.8, 0, 2 * Math.PI); ctx.fill();
       });
       outT.textContent = T + ' K (' + (T - 273) + ' °C)';
-      outV.textContent = Math.round(100 * T / 293) + ' %';
       outS.textContent = Math.round(100 * Math.sqrt(T / 293)) + ' %';
-      if (T <= 77) say(status, 'Så kallt är flytande kväve. Ballongen har krympt till en fjärdedel.', 'This is as cold as liquid nitrogen. The balloon has shrunk to a quarter.');
+      if (T <= 77) say(status, 'Så kallt är flytande kväve. Nu blir även kvävet flytande – ballongen är nästan platt!', 'As cold as liquid nitrogen. Now even the nitrogen turns liquid – the balloon is almost flat!');
       else if (liquid) say(status, 'Under −183 °C blir syret flytande: se dropparna!', 'Below −183 °C the oxygen turns liquid: see the droplets!');
       else if (T < 293) say(status, 'Kallare luft: molekylerna går långsammare och tar mindre plats.', 'Colder air: the molecules slow down and take up less space.');
       else say(status, 'Rumstemperatur. Dra reglaget åt vänster för att kyla ballongen.', 'Room temperature. Drag the slider left to cool the balloon.');
