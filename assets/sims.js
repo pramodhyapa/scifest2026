@@ -133,6 +133,7 @@
   }
 
   document.querySelectorAll('.lab[data-sim]').forEach(function (el) {
-    ({ balloon: balloon, ferro: ferro })[el.getAttribute('data-sim')](el);
+    var f = ({ balloon: balloon, ferro: ferro })[el.getAttribute('data-sim')];
+    if (f) f(el);
   });
 })();

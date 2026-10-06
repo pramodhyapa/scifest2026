@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magnetspelet för två · The co-op magnet game</title>
+<meta name="description" content="Kan ni styra figuren tillsammans – utan att titta? / Can you steer it together – without looking? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="2"
+     data-title-en="The co-op magnet game · SciFest 2026"
+     data-title-sv="Magnetspelet för två · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Magneter</b></span><span lang="en"><b>Magnets</b></span>
+        <span lang="sv">för två spelare</span><span lang="en">for two players</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Magnetspelet för två</span>
+        <span class="both" lang="en">The co-op magnet game</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/coop-game-poster.jpg" aria-label="En figur som styrs genom en labyrint av en magnet. / A figure steered through a maze by a magnet."><source src="assets/media/coop-game.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Animation: magneten bakom brädan (streckad) drar figuren genom banan.</span>
+          <span lang="en"><b>Fig. 1</b> Animation: the magnet behind the board (dashed) pulls the figure along the path.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Magnetiska krafter går rakt igenom papper och kartong. <mark>Du kan flytta saker utan att röra vid dem.</mark></span>
+        <span lang="en">Magnetic forces pass straight through paper and cardboard. <mark>You can move things without touching them.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fanns ett spel för två på en stående bräda:</p>
+          <p lang="en">At our booth there was a game for two on an upright board:</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Guiden</b> står framför brädan och ser banan. Hen får bara ge instruktioner: ”upp, lite vänster, stopp!”</p>
+          <p lang="en"><b>The guide</b> stands in front of the board and can see the path. They can only give directions: “up, a bit left, stop!”</p>
+          <p lang="sv"><b>Föraren</b> står bakom brädan, ser ingenting och flyttar en magnet. Figuren på framsidan följer med.</p>
+          <p lang="en"><b>The mover</b> stands behind the board, sees nothing, and slides a magnet. The figure on the front follows along.</p>
+          <p lang="sv">Rör figuren kanten går den tillbaka till start. Byt roller och försök igen!</p>
+          <p lang="en">If the figure touches the edge, it goes back to the start. Swap roles and try again!</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Hur kan magneten dra genom brädan?</span><span lang="en">How can the magnet pull through the board?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Magnetfält går rakt igenom material som inte är magnetiska: papper, plast, trä och glas. Därför känner figuren dragningen från magneten på andra sidan.</p>
+          <p lang="en">Magnetic fields pass straight through materials that aren't magnetic: paper, plastic, wood and glass. That's why the figure feels the pull of the magnet on the other side.</p>
+          <p lang="sv">Kraften blir snabbt svagare med avståndet. En tjockare bräda och figuren ramlar ner. Och en stålplåt emellan skulle fånga upp fältet – då fungerar inte spelet alls.</p>
+          <p lang="en">The force gets weaker quickly with distance. Make the board thicker and the figure falls off. And a steel sheet in between would soak up the field – then the game wouldn't work at all.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Styr figuren</span><span lang="en">Steer the figure</span></h2>
+        </div>
+        <div class="lab" data-sim="coop">
+          <canvas width="600" height="380" role="img" aria-label="En labyrint med en figur som följer en magnet. / A maze with a figure that follows a magnet."></canvas>
+          <div class="btn-row"><button type="button" class="btn" data-reset><span lang="sv">Börja om</span><span lang="en">Start again</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 2</b> Här ser du både banan och magneten. I monterns spel ser föraren ingenting – det är därför ni måste prata med varandra!</span>
+            <span lang="en"><b>Fig. 2</b> Here you can see both the path and the magnet. In the booth game the mover sees nothing – that's why you have to talk to each other!</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Så fungerar vår forskning också. Teoretiker som vi ser ”kartan” – vi räknar ut vad som borde hända – och experimentforskare har händerna på kontrollerna. Bara när vi pratar med varandra kommer vi i mål.</p>
+          <p lang="en">This is how our research works too. Theorists like us see the “map” – we work out what should happen – and experimental researchers have their hands on the controls. We only reach the goal by talking to each other.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Magnetomrörare</span><span lang="en">Magnetic stirrers</span></span></summary>
+            <div class="body">
+              <p lang="sv">I kemilabb snurrar en magnet under en flaska och får en liten magnetstav inuti att röra om – utan att något behöver gå igenom glaset.</p>
+          <p lang="en">In chemistry labs, a magnet spinning under a flask makes a little magnetic bar inside stir the liquid – with nothing passing through the glass.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Laddning utan sladd</span><span lang="en">Charging without wires</span></span></summary>
+            <div class="body">
+              <p lang="sv">Trådlösa laddare skickar energi genom plasten i din mobil med magnetfält som växlar fram och tillbaka.</p>
+          <p lang="en">Wireless chargers send energy through the plastic of your phone using magnetic fields that flip back and forth.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">LAB</span><span lang="en">LAB</span></span>
+            <h3><span lang="sv">Omrörare</span><span lang="en">Stirrers</span></h3>
+            <p lang="sv">Magneter rör om i slutna flaskor i labb.</p>
+          <p lang="en">Magnets stir sealed flasks in labs.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">LADD</span><span lang="en">CHARGE</span></span>
+            <h3><span lang="sv">Trådlös laddning</span><span lang="en">Wireless charging</span></h3>
+            <p lang="sv">Magnetfält går igenom mobilens skal.</p>
+          <p lang="en">Magnetic fields pass through your phone's case.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">VÅRD</span><span lang="en">MED</span></span>
+            <h3><span lang="sv">Medicin</span><span lang="en">Medicine</span></h3>
+            <p lang="sv">Forskare styr små magnetiska partiklar inuti kroppen med magneter utanför.</p>
+          <p lang="en">Researchers steer tiny magnetic particles inside the body with magnets outside.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">STÄNG</span><span lang="en">CLOSE</span></span>
+            <h3><span lang="sv">Magnetlås</span><span lang="en">Magnetic catches</span></h3>
+            <p lang="sv">Skåpdörrar och väskor stängs med magneter som håller genom tyg och trä.</p>
+          <p lang="en">Cupboard doors and bags close with magnets that hold through fabric and wood.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vilket material går magnetfält INTE igenom lätt?</span><span lang="en">Which material do magnetic fields NOT pass through easily?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Papper</span><span lang="en">Paper</span></span></button>
+              <button type="button"><span><span lang="sv">Trä</span><span lang="en">Wood</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">En stålplåt</span><span lang="en">A steel sheet</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Stål fångar upp fältet.</span><span lang="en">Right! Steel soaks up the field.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Vad händer om brädan blir mycket tjockare?</span><span lang="en">What happens if the board gets much thicker?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Figuren ramlar ner</span><span lang="en">The figure falls off</span></span></button>
+              <button type="button"><span><span lang="sv">Det går lättare</span><span lang="en">It gets easier</span></span></button>
+              <button type="button"><span><span lang="sv">Ingenting</span><span lang="en">Nothing</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Kraften blir snabbt svagare med avståndet.</span><span lang="en">Right! The force gets weaker quickly with distance.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Varför måste guiden och föraren prata?</span><span lang="en">Why do the guide and the mover have to talk?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Bara guiden ser banan</span><span lang="en">Only the guide can see the path</span></span></button>
+              <button type="button"><span><span lang="sv">Magneten behöver ljud</span><span lang="en">The magnet needs sound</span></span></button>
+              <button type="button"><span><span lang="sv">Det är en regel</span><span lang="en">It's just a rule</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Precis som teori och experiment.</span><span lang="en">Right! Just like theory and experiment.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

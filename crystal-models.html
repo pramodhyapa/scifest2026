@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kristallmodeller · Crystal models</title>
+<meta name="description" content="Hur ser salt ut, atom för atom? / What does salt look like, atom by atom? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="3"
+     data-title-en="Crystal models · SciFest 2026"
+     data-title-sv="Kristallmodeller · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Atomer</b></span><span lang="en"><b>Atoms</b></span>
+        <span>NaCl</span>
+        <span>ZnS</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Kristallmodeller</span>
+        <span class="both" lang="en">Crystal models</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/crystal-models-poster.jpg" aria-label="En roterande modell av koksaltets kristall. / A rotating model of the salt crystal."><source src="assets/media/crystal-models.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Animation: koksaltets kristallstruktur (NaCl).</span>
+          <span lang="en"><b>Fig. 1</b> Animation: the crystal structure of table salt (NaCl).</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">I en kristall staplas atomerna i ett mönster som upprepas, ungefär som LEGO. <mark>Mönstret avgör vad materialet kan göra.</mark></span>
+        <span lang="en">In a crystal, atoms stack in a repeating pattern, a bit like LEGO. <mark>The pattern decides what the material can do.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fanns två modeller av kulor och pinnar: kulorna är atomer och pinnarna är bindningarna mellan dem.</p>
+          <p lang="en">At our booth there were two ball-and-stick models: the balls are atoms and the sticks are the bonds between them.</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Röd och vit: koksalt (NaCl).</b> Natrium och klor om vartannat, som ett schackbräde i 3D. Varje atom har 6 grannar.</p>
+          <p lang="en"><b>Red and white: table salt (NaCl).</b> Sodium and chlorine take turns, like a 3D chessboard. Every atom has 6 neighbours.</p>
+          <p lang="sv"><b>Svart och orange: zinkblände (ZnS).</b> Varje atom sitter i en liten pyramid med 4 grannar av den andra färgen.</p>
+          <p lang="en"><b>Black and orange: zinc blende (ZnS).</b> Every atom sits in a little pyramid with 4 neighbours of the other colour.</p>
+        </div>
+        <figure class="fig">
+        <div class="print"><img src="assets/media/crystal-models-photo.jpg" alt="Våra två kristallmodeller. / Our two crystal models." loading="lazy"></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 2</b> Våra modeller i montern: zinkblände (svart och orange) och koksalt (rött och vitt).</span>
+          <span lang="en"><b>Fig. 2</b> Our models at the booth: zinc blende (black and orange) and table salt (red and white).</span>
+        </figcaption>
+      </figure>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Varför spelar mönstret roll?</span><span lang="en">Why does the pattern matter?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Alla fasta ämnen omkring dig – salt, metaller, chippet i din mobil – är byggda av atomer i ordnade mönster. Den minsta biten som upprepas kallas <strong>enhetscell</strong>.</p>
+          <p lang="en">Every solid around you – salt, metals, the chip in your phone – is built from atoms in neat patterns. The smallest piece that repeats is called the <strong>unit cell</strong>.</p>
+          <p lang="sv">Samma atomer i olika mönster ger helt olika material. Kol i zinkbländemönstret (med kol på båda platserna) är <strong>diamant</strong>, det hårdaste naturliga materialet. Kol i platta lager är <strong>grafit</strong>, som i blyertspennor – mjukt och strömledande.</p>
+          <p lang="en">The same atoms in different patterns make completely different materials. Carbon in the zinc-blende pattern (carbon on both kinds of site) is <strong>diamond</strong>, the hardest natural material. Carbon in flat sheets is <strong>graphite</strong>, like in pencils – soft and conducting.</p>
+          <p lang="sv">Byt atomerna i zinkbländemönstret mot kisel så har du materialet i datorchip. Gallium och arsenik ger galliumarsenid, som finns i mobiler.</p>
+          <p lang="en">Swap the atoms in the zinc-blende pattern for silicon and you have the material in computer chips. Gallium and arsenic give gallium arsenide, which is inside phones.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Snurra kristallen</span><span lang="en">Spin the crystal</span></h2>
+        </div>
+        <div class="lab" data-sim="crystal">
+          <canvas width="600" height="380" role="img" aria-label="En 3D-modell av en kristall som går att vrida. / A 3D crystal model you can rotate."></canvas>
+          <div class="btn-row"><button type="button" class="btn" data-kind="nacl" aria-pressed="true"><span lang="sv">Koksalt (NaCl)</span><span lang="en">Table salt (NaCl)</span></button><button type="button" class="btn" data-kind="zb" aria-pressed="false"><span lang="sv">Zinkblände (ZnS)</span><span lang="en">Zinc blende (ZnS)</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 3</b> Dra för att vrida. Räkna grannarna till en atom i mitten av varje modell.</span>
+            <span lang="en"><b>Fig. 3</b> Drag to rotate. Count the neighbours of an atom in the middle of each model.</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Det här är kärnan i vårt arbete. Vi börjar med hur atomerna sitter, och använder kvantmekanik och superdatorer för att räkna ut vad materialet kommer att göra: blir det magnetiskt, leder det ström, är det stabilt? Ibland kan vi förutsäga ett nytt material innan någon har tillverkat det.</p>
+          <p lang="en">This is the heart of our work. We start from how the atoms are arranged, and use quantum mechanics and supercomputers to work out what the material will do: will it be magnetic, will it conduct electricity, is it stable? Sometimes we can predict a new material before anyone has made it.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Se det själv med salt</span><span lang="en">See it yourself with salt</span></span></summary>
+            <div class="body">
+              <p lang="sv">Titta på koksalt i ett förstoringsglas: kornen är små kuber. Formen kommer direkt från det kubiska mönstret i modellen.</p>
+          <p lang="en">Look at table salt through a magnifying glass: the grains are tiny cubes. The shape comes straight from the cubic pattern in the model.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Hur stora är atomerna?</span><span lang="en">How big are the atoms?</span></span></summary>
+            <div class="body">
+              <p lang="sv">De riktiga atomerna är hundratals miljoner gånger mindre än kulorna i modellen. I ett saltkorn finns ungefär en miljard miljarder atomer.</p>
+          <p lang="en">The real atoms are hundreds of millions of times smaller than the balls in the model. A single grain of salt holds about a billion billion atoms.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">CHIP</span><span lang="en">CHIPS</span></span>
+            <h3><span lang="sv">Datorchip</span><span lang="en">Computer chips</span></h3>
+            <p lang="sv">Kisel i diamant- och zinkbländemönstret är grunden för all elektronik.</p>
+          <p lang="en">Silicon in the diamond/zinc-blende pattern is the basis of all electronics.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">LED</span><span lang="en">LED</span></span>
+            <h3><span lang="sv">Lysdioder</span><span lang="en">LEDs</span></h3>
+            <p lang="sv">Kristaller som galliumnitrid avger ljus i olika färger.</p>
+          <p lang="en">Crystals like gallium nitride give off light in different colours.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">SOL</span><span lang="en">SOLAR</span></span>
+            <h3><span lang="sv">Solceller</span><span lang="en">Solar cells</span></h3>
+            <p lang="sv">Hur atomerna sitter avgör hur bra materialet fångar solljus.</p>
+          <p lang="en">How the atoms sit decides how well a material catches sunlight.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">BATT</span><span lang="en">BATT</span></span>
+            <h3><span lang="sv">Batterier</span><span lang="en">Batteries</span></h3>
+            <p lang="sv">Batterier laddas när joner flyttar in i och ut ur kristaller.</p>
+          <p lang="en">Batteries charge as ions move in and out of crystals.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Hur många grannar har en atom i koksalt?</span><span lang="en">How many neighbours does an atom have in table salt?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">4</span><span lang="en">4</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">6</span><span lang="en">6</span></span></button>
+              <button type="button"><span><span lang="sv">12</span><span lang="en">12</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Upp, ner, fram, bak, höger och vänster.</span><span lang="en">Right! Up, down, front, back, left and right.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Vad blir kol i zinkbländemönstret?</span><span lang="en">What does carbon become in the zinc-blende pattern?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Diamant</span><span lang="en">Diamond</span></span></button>
+              <button type="button"><span><span lang="sv">Grafit</span><span lang="en">Graphite</span></span></button>
+              <button type="button"><span><span lang="sv">Kol till grillen</span><span lang="en">Barbecue charcoal</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Samma atomer, annat mönster – helt annat material.</span><span lang="en">Right! Same atoms, different pattern – completely different material.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Vilken form har saltkorn?</span><span lang="en">What shape are salt grains?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Klot</span><span lang="en">Spheres</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Kuber</span><span lang="en">Cubes</span></span></button>
+              <button type="button"><span><span lang="sv">Stjärnor</span><span lang="en">Stars</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Formen kommer från det kubiska atommönstret.</span><span lang="en">Right! The shape comes from the cubic atom pattern.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

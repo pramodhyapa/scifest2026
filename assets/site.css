@@ -208,6 +208,7 @@ section { display: grid; gap: 14px; }
 }
 .lab .btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper-solid); }
 .lab input[type=range]:disabled { opacity: .6; }
+.lab .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
 
 /* Short list of what visitors saw */
 .saw { display: grid; gap: 10px; max-width: 62ch; }

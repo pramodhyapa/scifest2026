@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ljuskvarnen · The light mill</title>
+<meta name="description" content="Vad får vingarna att snurra? / What makes the vanes spin? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="4"
+     data-title-en="The light mill · SciFest 2026"
+     data-title-sv="Ljuskvarnen · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Ljus</b></span><span lang="en"><b>Light</b></span>
+        <span lang="sv">nästan vakuum</span><span lang="en">almost a vacuum</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Ljuskvarnen</span>
+        <span class="both" lang="en">The light mill</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/light-mill-poster.jpg" aria-label="En ljuskvarn med svarta och silvriga vingar som snurrar. / A light mill with black and silver vanes spinning."><source src="assets/media/light-mill.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> En ljuskvarn i solljus. Animation: Nevit Dilmen, <a href="https://commons.wikimedia.org/wiki/File:Radiometer_9965_Nevit.gif">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</span>
+          <span lang="en"><b>Fig. 1</b> A light mill in sunlight. Animation: Nevit Dilmen, <a href="https://commons.wikimedia.org/wiki/File:Radiometer_9965_Nevit.gif">Wikimedia Commons</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Lys på glaskulan och vingarna börjar snurra. Men det är inte ljuset som knuffar – <mark>det är värme.</mark></span>
+        <span lang="en">Shine a light on the glass bulb and the vanes start to spin. But it isn't the light that pushes – <mark>it's heat.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fanns en ljuskvarn: en glaskula där nästan all luft är bortpumpad, med fyra vingar på en nål.</p>
+          <p lang="en">At our booth there was a light mill: a glass bulb with almost all the air pumped out, and four vanes on a needle.</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Lys på den.</b> Med en ficklampa eller solljus börjar vingarna snurra – fortare ju starkare ljuset är.</p>
+          <p lang="en"><b>Shine a light.</b> With a torch or sunlight the vanes start to spin – faster the brighter the light.</p>
+          <p lang="sv"><b>Titta noga.</b> Varje vinge är svart på ena sidan och silvrig på den andra. Vilken sida går först?</p>
+          <p lang="en"><b>Look closely.</b> Every vane is black on one side and silver on the other. Which side goes first?</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Varför snurrar den?</span><span lang="en">Why does it spin?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">De svarta sidorna fångar ljuset och blir varma. De silvriga speglar bort det och förblir svala.</p>
+          <p lang="en">The black sides soak up the light and get warm. The silver sides reflect it and stay cool.</p>
+          <p lang="sv">Det finns fortfarande lite luft kvar i kulan. Luftmolekyler som studsar mot den varma sidan – särskilt vid kanterna – får extra fart och knuffar vingen bakåt. Därför snurrar den med de <strong>svarta sidorna bakåt</strong> och den silvriga sidan först.</p>
+          <p lang="en">There's still a little air left in the bulb. Air molecules bouncing off the warm side – especially at the edges – get an extra kick and push the vane backwards. That's why it spins with the <strong>black sides going backwards</strong> and the silver side first.</p>
+          <p lang="sv">Ljus kan faktiskt knuffa på saker, men alldeles för svagt för det här. Och då skulle den snurra åt andra hållet, eftersom en spegel får dubbelt så stor knuff.</p>
+          <p lang="en">Light really can push on things, but far too weakly for this. And then it would spin the other way, because a mirror gets twice the push.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Skruva upp ljuset</span><span lang="en">Turn up the light</span></h2>
+        </div>
+        <div class="lab" data-sim="mill">
+          <canvas width="600" height="320" role="img" aria-label="En ljuskvarn sedd ovanifrån med en lampa till vänster. / A light mill seen from above with a lamp on the left."></canvas>
+          <div class="controls-row"><label for="br"><span lang="sv">Ljusstyrka</span><span lang="en">Brightness</span></label><span></span><input id="br" type="range" min="0" max="100" step="1" value="60"></div><div class="btn-row"><button type="button" class="btn" data-pressure aria-pressed="false"><span lang="sv">Om ljustryck gjorde det…</span><span lang="en">If light pressure did it…</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 2</b> Vingarna sedda ovanifrån: svart sida och silvrig sida.</span>
+            <span lang="en"><b>Fig. 2</b> The vanes seen from above: black side and silver side.</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Hur ett material tar upp ljus och gör om det till värme, ström eller rörelse beror på dess atomer och elektroner. Att designa material som fångar ljus bättre – till exempel för solceller – är en del av materialfysiken.</p>
+          <p lang="en">How a material takes in light and turns it into heat, electricity or motion depends on its atoms and electrons. Designing materials that catch light better – for example for solar cells – is part of materials physics.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Ett gammalt fysikbråk</span><span lang="en">An old physics argument</span></span></summary>
+            <div class="body">
+              <p lang="sv">William Crookes byggde ljuskvarnen 1873, och fysiker bråkade i åratal om varför den snurrar. James Clerk Maxwells allra sista vetenskapliga artikel handlade om just den här frågan.</p>
+          <p lang="en">William Crookes built the light mill in 1873, and physicists argued for years about why it spins. James Clerk Maxwell's very last scientific paper was about exactly this question.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Varför behövs nästan vakuum?</span><span lang="en">Why does it need almost a vacuum?</span></span></summary>
+            <div class="body">
+              <p lang="sv">Med vanlig luft bromsar luftmotståndet vingarna. Utan någon luft alls finns inga molekyler som kan knuffa. Den snurrar bara när det finns lagom lite luft.</p>
+          <p lang="en">With normal air, air resistance stops the vanes. With no air at all, there are no molecules to do the pushing. It only spins when there's just a little air left.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">SEGEL</span><span lang="en">SAIL</span></span>
+            <h3><span lang="sv">Solsegel</span><span lang="en">Solar sails</span></h3>
+            <p lang="sv">Rymdfarkoster som IKAROS och LightSail 2 har seglat på ljusets tryck i rymden.</p>
+          <p lang="en">Spacecraft like IKAROS and LightSail 2 have sailed on the pressure of sunlight.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KOMET</span><span lang="en">COMET</span></span>
+            <h3><span lang="sv">Kometsvansar</span><span lang="en">Comet tails</span></h3>
+            <p lang="sv">Solljusets tryck hjälper till att blåsa kometers dammsvansar bort från solen.</p>
+          <p lang="en">The pressure of sunlight helps blow comets' dust tails away from the Sun.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">SOL</span><span lang="en">SOLAR</span></span>
+            <h3><span lang="sv">Solfångare</span><span lang="en">Solar heaters</span></h3>
+            <p lang="sv">Svarta ytor fångar solens värme i solfångare på hustak.</p>
+          <p lang="en">Black surfaces capture the Sun's heat in rooftop solar heaters.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">MÄTA</span><span lang="en">MEASURE</span></span>
+            <h3><span lang="sv">Ljusmätare</span><span lang="en">Light meters</span></h3>
+            <p lang="sv">Ljuskvarnen var tidigt ett enkelt sätt att se hur starkt ljuset är.</p>
+          <p lang="en">The light mill was an early, simple way to see how bright light is.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vilken sida av vingen blir varm?</span><span lang="en">Which side of the vane gets warm?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Den svarta</span><span lang="en">The black side</span></span></button>
+              <button type="button"><span><span lang="sv">Den silvriga</span><span lang="en">The silver side</span></span></button>
+              <button type="button"><span><span lang="sv">Ingen</span><span lang="en">Neither</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Svarta ytor fångar ljus, precis som en svart t-shirt i solen.</span><span lang="en">Right! Black surfaces soak up light, like a black T-shirt in the sun.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Vad knuffar vingarna?</span><span lang="en">What pushes the vanes?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Luftmolekyler som studsar mot den varma sidan</span><span lang="en">Air molecules bouncing off the warm side</span></span></button>
+              <button type="button"><span><span lang="sv">Ljuset självt</span><span lang="en">The light itself</span></span></button>
+              <button type="button"><span><span lang="sv">En liten motor</span><span lang="en">A tiny motor</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Det är en värmeeffekt.</span><span lang="en">Right! It's a heat effect.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Skulle den snurra i helt tomt vakuum?</span><span lang="en">Would it spin in a completely empty vacuum?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Ja, fortare</span><span lang="en">Yes, faster</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Nej, det finns inget som knuffar</span><span lang="en">No, there's nothing to push</span></span></button>
+              <button type="button"><span><span lang="sv">Bara i mörker</span><span lang="en">Only in the dark</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Den behöver lagom lite luft.</span><span lang="en">Right! It needs just a little air.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

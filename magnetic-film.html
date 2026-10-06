@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Se osynliga magneter · See invisible magnets</title>
+<meta name="description" content="Kan du se ett magnetfält? Och var gömmer sig magneterna? / Can you see a magnetic field? And where are the magnets hiding? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="2"
+     data-title-en="See invisible magnets · SciFest 2026"
+     data-title-sv="Se osynliga magneter · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Magneter</b></span><span lang="en"><b>Magnets</b></span>
+        <span lang="sv">på affischen ”Magnetismens gåta”</span><span lang="en">on the poster “The Mystery of Magnetism”</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Se osynliga magneter</span>
+        <span class="both" lang="en">See invisible magnets</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/magnetic-film-poster.jpg" aria-label="Grön magnetisk film som visar ränder från en magnet under den. / Green magnetic film showing the stripes of a magnet underneath."><source src="assets/media/magnetic-film.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Magnetisk visningsfilm ovanpå en magnet.</span>
+          <span lang="en"><b>Fig. 1</b> Magnetic viewing film on top of a magnet.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Magnetfält är osynliga – men den här gröna filmen <mark>visar var de finns och åt vilket håll de går.</mark></span>
+        <span lang="en">Magnetic fields are invisible – but this green film <mark>shows you where they are and which way they run.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fanns filmen på två ställen:</p>
+          <p lang="en">At our booth the film turned up in two places:</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Dolda poler.</b> Lägg filmen på en kylskåpsmagnet: ljusa och mörka ränder visar polerna. En stavmagnet har bara två.</p>
+          <p lang="en"><b>Hidden poles.</b> Lay the film on a fridge magnet: light and dark stripes show its poles. A bar magnet has just two.</p>
+          <p lang="sv"><b>Skattjakten.</b> I ruta 3 på affischen <strong>Magnetismens gåta</strong> finns ett sökområde med magneter gömda bakom affischen. Dra filmen över området och räkna magneterna. Håll sedan en märkt magnet nära: stöter den bort eller drar den? Då vet du om N eller S pekar mot dig.</p>
+          <p lang="en"><b>The treasure hunt.</b> In box 3 of the poster <strong>The Mystery of Magnetism</strong> there's a search area with magnets hidden behind the poster. Slide the film over it and count the magnets. Then hold a labelled magnet near each one: does it push or pull? That tells you whether N or S faces you.</p>
+        </div>
+        <figure class="fig">
+        <div class="print"><img src="assets/media/poster-mystery-of-magnetism.jpg" alt="Affischen Magnetismens gåta. / The poster The Mystery of Magnetism." loading="lazy"></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 2</b> Leta efter den här affischen i vår monter. Skattjakten är ruta 3 till höger.</span>
+          <span lang="en"><b>Fig. 2</b> Look for this poster at our booth. The treasure hunt is box 3, on the right.</span>
+        </figcaption>
+      </figure>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Hur kan filmen se magnetfält?</span><span lang="en">How can the film see magnetic fields?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Filmen är full av mikroskopiska kapslar med små nickelflagor i olja. Flagorna är magnetiska och vrider sig efter magnetfältet.</p>
+          <p lang="en">The film is full of microscopic capsules with tiny nickel flakes floating in oil. The flakes are magnetic and turn to follow the magnetic field.</p>
+          <p lang="sv">Där fältet går rakt igenom filmen – vid en pol – ställer sig flagorna på högkant och filmen ser <strong>mörk</strong> ut. Där fältet går längs filmen, mellan polerna, lägger de sig platt och speglar ljuset, så filmen blir <strong>ljus</strong>.</p>
+          <p lang="en">Where the field goes straight through the film – at a pole – the flakes stand on edge and the film looks <strong>dark</strong>. Where the field runs along the film, between the poles, they lie flat and reflect the light, so the film looks <strong>bright</strong>.</p>
+          <p lang="sv">En kylskåpsmagnet är randig: den har många smala ränder med nord och syd om vartannat. Därför fastnar den bra med ena sidan men knappt med den andra.</p>
+          <p lang="en">A fridge magnet is striped: it has many thin strips of north and south side by side. That's why it sticks well with one side but barely with the other.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try" id="treasure">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Lek med filmen</span><span lang="en">Play with the film</span></h2>
+        </div>
+        <div class="lab" data-sim="film">
+          <canvas width="600" height="360" role="img" aria-label="Magnetisk film som visar magneter under sig; skattjakt på en karta. / Magnetic film showing magnets underneath; a treasure hunt on a map."></canvas>
+          <div class="btn-row"><button type="button" class="btn" data-mode="bar" aria-pressed="true"><span lang="sv">Stavmagnet</span><span lang="en">Bar magnet</span></button><button type="button" class="btn" data-mode="fridge" aria-pressed="false"><span lang="sv">Kylskåpsmagnet</span><span lang="en">Fridge magnet</span></button><button type="button" class="btn" data-mode="hunt" aria-pressed="false"><span lang="sv">Skattjakt</span><span lang="en">Treasure hunt</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 3</b> Simulering av filmen, räknad från magneternas fält. Dra magneten – eller i skattjakten förstoringsglaset.</span>
+            <span lang="en"><b>Fig. 3</b> Simulated film, calculated from the magnets' fields. Drag the magnet – or, in the treasure hunt, the magnifying glass.</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Forskare kan sällan se det de studerar, så de använder sonder som känner av något – som magnetism – och gör om det till en bild. Hårddiskar lagrar data som pyttesmå magnetiska områden, och vi räknar på hur sådana områden beter sig i nya material.</p>
+          <p lang="en">Scientists can rarely see what they study, so they use probes that sense something – like magnetism – and turn it into a picture. Hard drives store data as tiny magnetic regions, and we calculate how such regions behave in new materials.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Magneter som inte borde finnas</span><span lang="en">Magnets that shouldn't exist</span></span></summary>
+            <div class="body">
+              <p lang="sv">Affischen <em>Magnetismens gåta</em> berättar att klassisk fysik faktiskt säger att magneter är omöjliga! Elektronernas cirkelbanor tar ut varandra. Först kvantmekaniken, med elektronens spinn, förklarar varför magneter finns.</p>
+          <p lang="en">The poster <em>The Mystery of Magnetism</em> explains that classical physics actually says magnets are impossible! The electrons' circling motions cancel out. Only quantum mechanics, with the electron's spin, explains why magnets exist.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Arkeologer letar likadant</span><span lang="en">Archaeologists search the same way</span></span></summary>
+            <div class="body">
+              <p lang="sv">Med känsliga magnetmätare kan arkeologer hitta begravda murar och eldstäder utan att gräva – precis som du hittade skatterna genom affischen.</p>
+          <p lang="en">With sensitive magnetic sensors, archaeologists can find buried walls and fireplaces without digging – just like you found the treasure through the poster.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">MINNE</span><span lang="en">MEMORY</span></span>
+            <h3><span lang="sv">Hårddiskar</span><span lang="en">Hard drives</span></h3>
+            <p lang="sv">Varje bit är ett litet magnetiskt område som pekar åt ena eller andra hållet.</p>
+          <p lang="en">Every bit is a tiny magnetic region pointing one way or the other.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KORT</span><span lang="en">CARDS</span></span>
+            <h3><span lang="sv">Magnetremsor</span><span lang="en">Magnetic stripes</span></h3>
+            <p lang="sv">Gamla bankkort och hotellnycklar lagrar information i en magnetremsa.</p>
+          <p lang="en">Older bank cards and hotel keys store information in a magnetic stripe.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KONTROLL</span><span lang="en">TESTING</span></span>
+            <h3><span lang="sv">Kvalitetskontroll</span><span lang="en">Quality checks</span></h3>
+            <p lang="sv">Fabriker kontrollerar magneter i motorer och sensorer med samma sorts film.</p>
+          <p lang="en">Factories check the magnets in motors and sensors with the same kind of film.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">MIKRO</span><span lang="en">MICRO</span></span>
+            <h3><span lang="sv">Mikroskop</span><span lang="en">Microscopes</span></h3>
+            <p lang="sv">Magnetiska kraftmikroskop gör bilder av magnetfält som är en miljon gånger finare.</p>
+          <p lang="en">Magnetic force microscopes image fields a million times finer.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Var ser filmen mörk ut?</span><span lang="en">Where does the film look dark?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Där fältet går rakt igenom filmen</span><span lang="en">Where the field goes straight through it</span></span></button>
+              <button type="button"><span><span lang="sv">Där det inte finns något fält</span><span lang="en">Where there is no field</span></span></button>
+              <button type="button"><span><span lang="sv">Överallt</span><span lang="en">Everywhere</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Vid polerna står flagorna på högkant.</span><span lang="en">Right! At the poles the flakes stand on edge.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Hur många poler har en kylskåpsmagnet?</span><span lang="en">How many poles does a fridge magnet have?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">En</span><span lang="en">One</span></span></button>
+              <button type="button"><span><span lang="sv">Två</span><span lang="en">Two</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Många</span><span lang="en">Lots</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Den har många smala ränder med N och S.</span><span lang="en">Right! It has many thin strips of N and S.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Skulle filmen hitta magneterna genom en tjock bok?</span><span lang="en">Would the film find the magnets through a thick book?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Ja, lika bra</span><span lang="en">Yes, just as well</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Nej, fältet blir för svagt</span><span lang="en">No, the field gets too weak</span></span></button>
+              <button type="button"><span><span lang="sv">Bara på natten</span><span lang="en">Only at night</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Magnetfältet blir snabbt svagare med avståndet.</span><span lang="en">Right! The field gets weaker quickly with distance.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

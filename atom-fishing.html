@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atomfiske · Atom fishing</title>
+<meta name="description" content="Kan man flytta en enda atom? / Can you move a single atom? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="3"
+     data-title-en="Atom fishing · SciFest 2026"
+     data-title-sv="Atomfiske · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Atomer</b></span><span lang="en"><b>Atoms</b></span>
+        <span lang="sv">STM</span><span lang="en">STM</span>
+        <span lang="sv">1 nm</span><span lang="en">1 nm</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Atomfiske</span>
+        <span class="both" lang="en">Atom fishing</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/atom-fishing-poster.jpg" aria-label="En mikroskopspets flyttar atomer på en kristallyta. / A microscope tip moving atoms on a crystal surface."><source src="assets/media/atom-fishing.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Animation: en STM-spets lägger magnetiska atomer på rad.</span>
+          <span lang="en"><b>Fig. 1</b> Animation: an STM tip lines up magnetic atoms.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Forskare kan flytta <mark>enskilda atomer, en i taget</mark>, med en supervass nål i ett sveptunnelmikroskop.</span>
+        <span lang="en">Scientists can move <mark>single atoms, one at a time</mark>, with a super-sharp needle in a scanning tunnelling microscope.</span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fanns ett spel: en bräda med ett rutnät som föreställer en kristallyta, med några magnetiska ”atomer” i koppar.</p>
+          <p lang="en">At our booth there was a game: a board with a grid that stands for a crystal surface, with some magnetic “atoms” sitting in cups.</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Fiskespöet är mikroskopets spets.</b> Det har en magnet längst ut.</p>
+          <p lang="en"><b>The fishing rod is the microscope's tip.</b> It has a magnet on the end.</p>
+          <p lang="sv"><b>Fiska försiktigt.</b> Plocka upp atomerna en i taget och flytta dem – precis som en forskare gör.</p>
+          <p lang="en"><b>Fish carefully.</b> Pick up the atoms one at a time and move them – just like a scientist does.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Hur kan man se och flytta atomer?</span><span lang="en">How can you see and move atoms?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Ett <strong>sveptunnelmikroskop</strong> (STM) har en spets som är så vass att den slutar i en enda atom. Den förs över ytan ungefär en nanometer ovanför – hundra tusen gånger tunnare än ett hårstrå.</p>
+          <p lang="en">A <strong>scanning tunnelling microscope</strong> (STM) has a tip so sharp it ends in a single atom. It moves across the surface about a nanometre above it – a hundred thousand times thinner than a hair.</p>
+          <p lang="sv">Elektroner kan hoppa över glappet mellan spetsen och ytan, fast det enligt vanlig fysik är omöjligt. Det kallas <strong>tunnling</strong>, en kvanteffekt. Strömmen ändras kraftigt med avståndet, så mikroskopet kan ”känna” varje atom och rita en bild.</p>
+          <p lang="en">Electrons can jump across the gap between the tip and the surface, even though ordinary physics says they can't. This is called <strong>tunnelling</strong>, a quantum effect. The current changes sharply with distance, so the microscope can “feel” each atom and draw a picture.</p>
+          <p lang="sv">Sänker man spetsen lite till kan den knuffa en atom till en ny plats. År 1989 skrev forskare vid IBM företagets namn med 35 xenonatomer.</p>
+          <p lang="en">Lower the tip a little more and it can nudge an atom to a new spot. In 1989, researchers at IBM spelled out the company's name with 35 xenon atoms.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Var mikroskopet</span><span lang="en">Be the microscope</span></h2>
+        </div>
+        <div class="lab" data-sim="atoms">
+          <canvas width="600" height="360" role="img" aria-label="En kristallyta med rosa atomer som kan flyttas med en spets. / A crystal surface with pink atoms you can move with a tip."></canvas>
+          <div class="btn-row"><button type="button" class="btn" data-reset><span lang="sv">Blanda om</span><span lang="en">Shuffle</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 2</b> Tryck på en rosa atom för att plocka upp den, och på en tom plats för att släppa den. Kan du lägga fyra i rad?</span>
+            <span lang="en"><b>Fig. 2</b> Tap a pink atom to pick it up, and an empty spot to drop it. Can you make four in a row?</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Det här ligger nära vår forskning. Lägger man magnetiska atomer på en supraledare uppstår speciella kvanttillstånd runt dem. Kedjor av sådana atomer kan kanske användas för att bygga framtidens kvantdatorer. Vi räknar på datorer ut vad som händer när atomerna ställs upp på olika sätt – och experimentforskare bygger dem sedan med ett STM.</p>
+          <p lang="en">This is close to our own research. Put magnetic atoms on a superconductor, and special quantum states appear around them. Chains of such atoms might one day be used to build quantum computers. We use computers to work out what happens when the atoms are arranged in different ways – and experimental researchers then build them with an STM.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Nobelpriset för ett mikroskop</span><span lang="en">A Nobel Prize for a microscope</span></span></summary>
+            <div class="body">
+              <p lang="sv">Gerd Binnig och Heinrich Rohrer uppfann sveptunnelmikroskopet 1981 och fick Nobelpriset i fysik 1986.</p>
+          <p lang="en">Gerd Binnig and Heinrich Rohrer invented the scanning tunnelling microscope in 1981 and won the Nobel Prize in Physics in 1986.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">En film gjord av atomer</span><span lang="en">A film made of atoms</span></span></summary>
+            <div class="body">
+              <p lang="sv">”A Boy and His Atom” (2013) är en kort animerad film där varje bildruta byggdes genom att flytta enskilda atomer. Atomerna hölls nästan vid absoluta nollpunkten så att de låg still.</p>
+          <p lang="en">“A Boy and His Atom” (2013) is a short animated film where every frame was made by moving single atoms. The atoms were kept close to absolute zero so they would stay put.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">CHIP</span><span lang="en">CHIPS</span></span>
+            <h3><span lang="sv">Datorchip</span><span lang="en">Computer chips</span></h3>
+            <p lang="sv">Att förstå ytor atom för atom hjälper till att bygga mindre och snabbare transistorer.</p>
+          <p lang="en">Understanding surfaces atom by atom helps build smaller, faster transistors.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KVANT</span><span lang="en">QUANTUM</span></span>
+            <h3><span lang="sv">Kvantdatorer</span><span lang="en">Quantum computers</span></h3>
+            <p lang="sv">Atomkedjor på supraledare är en möjlig byggsten för kvantdatorer.</p>
+          <p lang="en">Chains of atoms on superconductors are one possible building block for quantum computers.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">MINNE</span><span lang="en">MEMORY</span></span>
+            <h3><span lang="sv">Datalagring</span><span lang="en">Data storage</span></h3>
+            <p lang="sv">Forskare har lagrat bitar med bara en handfull atomer per bit.</p>
+          <p lang="en">Researchers have stored bits using just a handful of atoms each.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KEMI</span><span lang="en">CHEM</span></span>
+            <h3><span lang="sv">Katalysatorer</span><span lang="en">Catalysts</span></h3>
+            <p lang="sv">Att se var atomer sitter på en yta visar hur kemiska reaktioner går till.</p>
+          <p lang="en">Seeing where atoms sit on a surface shows how chemical reactions work.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vad står STM för?</span><span lang="en">What does STM stand for?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Sveptunnelmikroskop</span><span lang="en">Scanning tunnelling microscope</span></span></button>
+              <button type="button"><span><span lang="sv">Superteleskop</span><span lang="en">Super telescope</span></span></button>
+              <button type="button"><span><span lang="sv">Stor tung magnet</span><span lang="en">Something Too Magnetic</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt!</span><span lang="en">Right!</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Hur nära ytan är spetsen?</span><span lang="en">How close to the surface is the tip?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">En centimeter</span><span lang="en">A centimetre</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Ungefär en nanometer</span><span lang="en">About a nanometre</span></span></button>
+              <button type="button"><span><span lang="sv">Den rör vid ytan</span><span lang="en">It touches the surface</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Det är ungefär avståndet mellan några få atomer.</span><span lang="en">Right! That's about the size of a few atoms.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Vad är tunnling?</span><span lang="en">What is tunnelling?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">När elektroner hoppar över ett glapp</span><span lang="en">Electrons jumping across a gap</span></span></button>
+              <button type="button"><span><span lang="sv">Att gräva en tunnel</span><span lang="en">Digging a tunnel</span></span></button>
+              <button type="button"><span><span lang="sv">En sorts magnet</span><span lang="en">A kind of magnet</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! En kvanteffekt som vanlig fysik säger är omöjlig.</span><span lang="en">Right! A quantum effect that ordinary physics says is impossible.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

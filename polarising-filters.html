@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Polarisationsfilter · Polarising filters</title>
+<meta name="description" content="Hur kan två filter släcka ljuset? / How can two filters switch off the light? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="4"
+     data-title-en="Polarising filters · SciFest 2026"
+     data-title-sv="Polarisationsfilter · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Ljus</b></span><span lang="en"><b>Light</b></span>
+        <span lang="sv">ljus är en våg</span><span lang="en">light is a wave</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Polarisationsfilter</span>
+        <span class="both" lang="en">Polarising filters</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><svg viewBox="0 0 400 300" aria-hidden="true" style="display:block;width:100%;height:auto">
+  <rect width="400" height="300" fill="#F3F1EA"/>
+  <g fill="#2B2D3A" fill-opacity=".42" stroke="#2B2D3A" stroke-opacity=".6" stroke-width="2">
+    <rect x="70" y="60" width="150" height="150" transform="rotate(-8 145 135)"/>
+    <rect x="165" y="80" width="150" height="150" transform="rotate(22 240 155)"/>
+    <rect x="120" y="120" width="150" height="150" transform="rotate(62 195 195)"/>
+  </g></svg></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Där två filter korsas i rät vinkel blir det mörkt.</span>
+          <span lang="en"><b>Fig. 1</b> Where two filters cross at a right angle, it goes dark.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Ljus kan svänga i olika riktningar. Vissa material släpper bara igenom en riktning – <mark>och det är så din mobilskärm fungerar.</mark></span>
+        <span lang="en">Light can wiggle in different directions. Some materials only let one direction through – <mark>and that's how your phone screen works.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">I vår monter fick du leka med polarisationsfilter:</p>
+          <p lang="en">At our booth you got to play with polarising filters:</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Två filter.</b> Vrid det ena: vid ett kvarts varv blir det nästan helt svart.</p>
+          <p lang="en"><b>Two filters.</b> Turn one of them: at a quarter turn it goes almost completely black.</p>
+          <p lang="sv"><b>Det magiska tredje filtret.</b> Lägg ett filter snett <em>mellan</em> två korsade filter – och ljuset kommer tillbaka!</p>
+          <p lang="en"><b>The magic third filter.</b> Slide a filter at a slant <em>between</em> two crossed filters – and the light comes back!</p>
+          <p lang="sv"><b>Regnbågsplast.</b> En genomskinlig plastgaffel mellan korsade filter visar regnbågsfärger där plasten är spänd.</p>
+          <p lang="en"><b>Rainbow plastic.</b> A clear plastic fork between crossed filters shows rainbow colours where the plastic is stressed.</p>
+          <p lang="sv"><b>Mobilskärmen.</b> Håll ett filter framför en skärm och vrid: vid en viss vinkel blir skärmen svart.</p>
+          <p lang="en"><b>The phone screen.</b> Hold a filter in front of a screen and turn it: at one angle the screen goes black.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Varför blir det mörkt?</span><span lang="en">Why does it go dark?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Ljus är en våg, och i vanligt ljus svänger vågen åt alla håll. Ett polarisationsfilter släpper bara igenom den del av ljuset som svänger åt ett visst håll.</p>
+          <p lang="en">Light is a wave, and in ordinary light the wave wiggles in every direction. A polarising filter only lets through the part of the light that wiggles in one particular direction.</p>
+          <p lang="sv">Efter första filtret svänger allt ljus åt samma håll. Står det andra filtret i rät vinkel kommer inget igenom. Men ett filter snett emellan vrider ljuset en bit i taget – och då kommer en del igenom båda stegen.</p>
+          <p lang="en">After the first filter, all the light wiggles the same way. If the second filter is at a right angle, nothing gets through. But a filter at a slant in between turns the light a little at a time – so some of it gets through both steps.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Vrid filtren</span><span lang="en">Turn the filters</span></h2>
+        </div>
+        <div class="lab" data-sim="polar">
+          <canvas width="600" height="260" role="img" aria-label="En lampa, polarisationsfilter och en skärm som blir ljusare eller mörkare. / A lamp, polarising filters and a screen that gets brighter or darker."></canvas>
+          <div class="controls-row"><label for="pl"><span lang="sv">Sista filtrets vinkel</span><span lang="en">Last filter's angle</span></label><span class="mono"><span lang="sv">ljus:</span><span lang="en">light:</span> <b data-out="I"></b></span><input id="pl" type="range" min="0" max="180" step="1" value="0" data-angle="last"></div><div class="btn-row"><button type="button" class="btn" data-mid aria-pressed="false"><span lang="sv">Lägg till filter i mitten</span><span lang="en">Add a middle filter</span></button></div><div class="controls-row"><label for="pm"><span lang="sv">Mittfiltrets vinkel</span><span lang="en">Middle filter's angle</span></label><span></span><input id="pm" type="range" min="0" max="180" step="1" value="45" data-angle="mid"></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 2</b> Vrid sista filtret till 90° så att det blir mörkt. Lägg sedan till ett filter i mitten!</span>
+            <span lang="en"><b>Fig. 2</b> Turn the last filter to 90° so it goes dark. Then add a filter in the middle!</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Många av materialen vi studerar beter sig olika i olika riktningar – även mot ljus. Magnetiska material kan till och med vrida ljusets svängningsriktning. Experimentforskare använder det för att ”se” magnetism, och vi räknar ut varför det händer.</p>
+          <p lang="en">Many of the materials we study behave differently in different directions – including towards light. Magnetic materials can even twist the direction light wiggles in. Experimental researchers use that to “see” magnetism, and we work out why it happens.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Regnbågsplasten</span><span lang="en">The rainbow plastic</span></span></summary>
+            <div class="body">
+              <p lang="sv">Spänd plast låter ljus som svänger åt olika håll gå olika fort. Mellan korsade filter blir det färger. Ingenjörer använder detta för att hitta svaga punkter i plastdelar.</p>
+          <p lang="en">Stressed plastic makes light wiggling in different directions travel at different speeds. Between crossed filters this shows up as colours. Engineers use it to find weak spots in plastic parts.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Hur skärmen fungerar</span><span lang="en">How the screen works</span></span></summary>
+            <div class="body">
+              <p lang="sv">En LCD-skärm har flytande kristaller mellan två polarisationsfilter. En liten spänning bestämmer om kristallen vrider ljuset eller inte – och tänder eller släcker varje pixel.</p>
+          <p lang="en">An LCD screen has liquid crystals between two polarising filters. A small voltage decides whether the crystal twists the light or not – switching each pixel on or off.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">LCD</span><span lang="en">LCD</span></span>
+            <h3><span lang="sv">Skärmar</span><span lang="en">Screens</span></h3>
+            <p lang="sv">Datorskärmar, klockor och miniräknare använder polarisationsfilter.</p>
+          <p lang="en">Computer screens, watches and calculators use polarising filters.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">SOL</span><span lang="en">SUN</span></span>
+            <h3><span lang="sv">Solglasögon</span><span lang="en">Sunglasses</span></h3>
+            <p lang="sv">Polariserade solglasögon tar bort blänk från vatten och vägar.</p>
+          <p lang="en">Polarised sunglasses cut the glare from water and roads.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">3D</span><span lang="en">3D</span></span>
+            <h3><span lang="sv">3D-bio</span><span lang="en">3D cinema</span></h3>
+            <p lang="sv">3D-glasögon på bio ger varje öga en egen bild med polariserat ljus.</p>
+          <p lang="en">3D cinema glasses give each eye its own picture using polarised light.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">FOTO</span><span lang="en">PHOTO</span></span>
+            <h3><span lang="sv">Kameror</span><span lang="en">Cameras</span></h3>
+            <p lang="sv">Fotografer använder polarisationsfilter för blåare himmel och mindre reflexer.</p>
+          <p lang="en">Photographers use polarising filters for bluer skies and fewer reflections.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vad händer med två filter i rät vinkel?</span><span lang="en">What happens with two filters at a right angle?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Det blir ljusare</span><span lang="en">It gets brighter</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Nästan inget ljus kommer igenom</span><span lang="en">Almost no light gets through</span></span></button>
+              <button type="button"><span><span lang="sv">Det blir rött</span><span lang="en">It turns red</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt!</span><span lang="en">Right!</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Vad händer om du lägger ett snett filter emellan?</span><span lang="en">What happens if you add a slanted filter in between?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">Lite ljus kommer tillbaka</span><span lang="en">Some light comes back</span></span></button>
+              <button type="button"><span><span lang="sv">Det blir ännu mörkare</span><span lang="en">It gets even darker</span></span></button>
+              <button type="button"><span><span lang="sv">Ingenting</span><span lang="en">Nothing</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Det mittersta filtret vrider ljuset en bit i taget.</span><span lang="en">Right! The middle filter turns the light a little at a time.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Var finns polarisationsfilter?</span><span lang="en">Where do you find polarising filters?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">I mobilskärmar</span><span lang="en">In phone screens</span></span></button>
+              <button type="button"><span><span lang="sv">I glödlampor</span><span lang="en">In light bulbs</span></span></button>
+              <button type="button"><span><span lang="sv">I magneter</span><span lang="en">In magnets</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Och i polariserade solglasögon.</span><span lang="en">Right! And in polarised sunglasses.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

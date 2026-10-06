@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kompassgittret · The compass grid</title>
+<meta name="description" content="Vad gör en magnet till en magnet? / What makes a magnet a magnet? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="2"
+     data-title-en="The compass grid · SciFest 2026"
+     data-title-sv="Kompassgittret · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Magneter</b></span><span lang="en"><b>Magnets</b></span>
+        <span lang="sv">på affischen ”Magneternas kvanthemlighet”</span><span lang="en">on the poster “The Quantum Secret of Magnets”</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Kompassgittret</span>
+        <span class="both" lang="en">The compass grid</span>
+      </h1>
+      <figure class="fig">
+        <div class="print"><video autoplay muted loop playsinline preload="auto" poster="assets/media/compass-lattice-poster.jpg" aria-label="Ett rutnät av kompassnålar som följer en magnet. / A grid of compass needles following a magnet."><source src="assets/media/compass-lattice.mp4" type="video/mp4"></video></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Simulering: varje nål vrider sig efter magnetfältet från stavmagneten.</span>
+          <span lang="en"><b>Fig. 1</b> Simulation: every needle turns to follow the bar magnet's field.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Varje atom i en magnet är som en liten kompass. <mark>När alla pekar åt samma håll blir hela materialet en magnet.</mark></span>
+        <span lang="en">Every atom in a magnet is like a tiny compass. <mark>When they all point the same way, the whole material becomes a magnet.</mark></span>
+      </p>
+    </div>
+
+    <main>
+
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Kompassgittret sitter i ruta 4, ”Prova: styr spinnen”, på affischen <strong>Magneternas kvanthemlighet</strong> i vår monter.</p>
+          <p lang="en">The compass grid sits in box 4, “Try it: control the spins”, on the poster <strong>The Quantum Secret of Magnets</strong> at our booth.</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>För en magnet över rutan.</b> Varje nål vrider sig och följer magneten.</p>
+          <p lang="en"><b>Move a magnet over the box.</b> Every needle turns to follow it.</p>
+          <p lang="sv"><b>Håll magneten still.</b> Alla nålar pekar åt samma håll: ”materialet” är magnetiserat.</p>
+          <p lang="en"><b>Hold the magnet still.</b> All the needles point the same way: the “material” is magnetised.</p>
+          <p lang="sv"><b>Knacka på rutan.</b> Nålarna skakar om och hamnar huller om buller – som när en magnet blir varm.</p>
+          <p lang="en"><b>Tap the box.</b> The needles get jumbled up – like a magnet getting hot.</p>
+        </div>
+        <figure class="fig">
+        <div class="print"><img src="assets/media/poster-quantum-secret.jpg" alt="Affischen Magneternas kvanthemlighet. / The poster The Quantum Secret of Magnets." loading="lazy"></div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 2</b> Leta efter den här affischen i vår monter. Kompassgittret sitter i ruta 4 till höger.</span>
+          <span lang="en"><b>Fig. 2</b> Look for this poster at our booth. The compass grid sits in box 4, on the right.</span>
+        </figcaption>
+      </figure>
+      </section>
+
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Varför pekar nålarna åt samma håll?</span><span lang="en">Why do the needles line up?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">En kompassnål är en liten magnet. Den vrider sig tills den pekar längs magnetfältet där den sitter.</p>
+          <p lang="en">A compass needle is a tiny magnet. It turns until it points along the magnetic field where it sits.</p>
+          <p lang="sv">Inuti ett material fungerar varje atom som en ännu mindre magnet, ett så kallat <strong>spinn</strong>. Det kommer från elektronerna. I de flesta material pekar spinnen åt alla håll och tar ut varandra. Men i järn ställer grannatomerna upp sig åt samma håll – då blir hela biten en magnet.</p>
+          <p lang="en">Inside a material, every atom acts like an even tinier magnet, called a <strong>spin</strong>. It comes from the electrons. In most materials the spins point every which way and cancel out. But in iron, neighbouring atoms line up the same way – and the whole piece becomes a magnet.</p>
+          <p lang="sv">Värme skakar om spinnen. Värms järn över 770 °C slutar det att vara magnetiskt.</p>
+          <p lang="en">Heat shakes the spins up. Heat iron above 770 °C and it stops being magnetic.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Dra magneten</span><span lang="en">Drag the magnet</span></h2>
+        </div>
+        <div class="lab" data-sim="compass">
+          <canvas width="600" height="380" role="img" aria-label="Ett rutnät av kompassnålar och en stavmagnet som går att dra. / A grid of compass needles and a bar magnet you can drag."></canvas>
+          <div class="btn-row"><button type="button" class="btn" data-turn><span lang="sv">Vrid magneten</span><span lang="en">Turn the magnet</span></button><button type="button" class="btn" data-shake><span lang="sv">Skaka (värme)</span><span lang="en">Shake (heat)</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 3</b> Långt från magneten pekar nålarna mot norr. Nära magneten följer de fältet: röd spets mot magnetens sydpol.</span>
+            <span lang="en"><b>Fig. 3</b> Far from the magnet the needles point north. Close to it they follow its field: red tip towards the magnet's south pole.</span>
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-res">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Vår forskning</span><span lang="en">Our research</span></p>
+          <h2 id="h-res"><span lang="sv">Vad har det med oss att göra?</span><span lang="en">What does this have to do with us?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Det här är en bild av det vi räknar på. Vi gör datormodeller av material där varje atom är en liten pil, och räknar ut hur pilarna ordnar sig. Så kan vi förutsäga om ett nytt material blir magnetiskt – innan någon har tillverkat det.</p>
+          <p lang="en">This is a picture of what we calculate. We make computer models of materials where every atom is a little arrow, and work out how the arrows arrange themselves. That way we can predict whether a new material will be magnetic – before anyone has made it.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Modellen är inte riktigt som verkligheten</span><span lang="en">The model isn't quite like the real thing</span></span></summary>
+            <div class="body">
+              <p lang="sv">Kompassnålarna känner bara av varandras magnetiska dragning. Riktiga spinn ställer upp sig mest på grund av en kvanteffekt, <strong>utbytesväxelverkan</strong>, som är mycket starkare. Så gittret är en liknelse, inte en kopia.</p>
+          <p lang="en">The compass needles only feel each other's magnetic pull. Real spins line up mostly because of a quantum effect, the <strong>exchange interaction</strong>, which is much stronger. So the grid is an analogy, not a copy.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Motsatt håll: antiferromagneter</span><span lang="en">The opposite: antiferromagnets</span></span></summary>
+            <div class="body">
+              <p lang="sv">I vissa material vill grannspinnen peka åt <em>motsatt</em> håll. Utifrån ser materialet omagnetiskt ut, men inuti är det perfekt ordnat. Sådana material är heta i forskningen om framtidens snabba datorminnen.</p>
+          <p lang="en">In some materials neighbouring spins prefer to point in <em>opposite</em> directions. From outside the material looks non-magnetic, but inside it's perfectly ordered. These materials are hot topics in research on fast computer memory of the future.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">MINNE</span><span lang="en">MEMORY</span></span>
+            <h3><span lang="sv">Hårddiskar</span><span lang="en">Hard drives</span></h3>
+            <p lang="sv">Data lagras som små områden där spinnen pekar åt ena eller andra hållet.</p>
+          <p lang="en">Data is stored as tiny regions where the spins point one way or the other.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">MOTOR</span><span lang="en">MOTOR</span></span>
+            <h3><span lang="sv">Elmotorer</span><span lang="en">Electric motors</span></h3>
+            <p lang="sv">Starka magneter finns i elbilar, vindkraftverk och elcyklar.</p>
+          <p lang="en">Strong magnets are inside electric cars, wind turbines and e-bikes.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">MR</span><span lang="en">MRI</span></span>
+            <h3><span lang="sv">Magnetkameror</span><span lang="en">MRI scanners</span></h3>
+            <p lang="sv">Magnetkameror ”vänder” spinnen i kroppens vätekärnor för att ta bilder.</p>
+          <p lang="en">MRI scanners “flip” the spins in the hydrogen nuclei of your body to take pictures.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">NAV</span><span lang="en">NAV</span></span>
+            <h3><span lang="sv">Kompasser</span><span lang="en">Compasses</span></h3>
+            <p lang="sv">Jorden själv är en stor magnet, och kompassen pekar längs dess fält.</p>
+          <p lang="en">The Earth itself is a giant magnet, and a compass points along its field.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vad är ett spinn?</span><span lang="en">What is a spin?</span></span></h3>
+            <div class="options">
+              <button type="button" data-correct><span><span lang="sv">En liten magnet i varje atom</span><span lang="en">A tiny magnet in every atom</span></span></button>
+              <button type="button"><span><span lang="sv">En sorts virvelvind</span><span lang="en">A kind of whirlwind</span></span></button>
+              <button type="button"><span><span lang="sv">En kompass</span><span lang="en">A compass</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Det kommer från elektronerna.</span><span lang="en">Right! It comes from the electrons.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">När blir ett material en magnet?</span><span lang="en">When does a material become a magnet?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">När spinnen pekar åt alla håll</span><span lang="en">When the spins point every which way</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">När spinnen pekar åt samma håll</span><span lang="en">When the spins point the same way</span></span></button>
+              <button type="button"><span><span lang="sv">När det är kallt</span><span lang="en">When it's cold</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Då samarbetar alla små magneter.</span><span lang="en">Right! Then all the tiny magnets work together.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Vad händer om man värmer en magnet mycket?</span><span lang="en">What happens if you heat a magnet a lot?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Den blir starkare</span><span lang="en">It gets stronger</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Den slutar vara magnetisk</span><span lang="en">It stops being magnetic</span></span></button>
+              <button type="button"><span><span lang="sv">Den smälter direkt</span><span lang="en">It melts straight away</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Värmen skakar om spinnen – järn tappar sin magnetism över 770 °C.</span><span lang="en">Right! The heat jumbles the spins – iron loses its magnetism above 770 °C.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims2.js"></script>
+<!--PAGE-END-->
+</body>
+</html>
