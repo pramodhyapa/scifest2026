@@ -33,7 +33,7 @@ The page shows one language at a time. It starts in the phone's language (Swedis
 ## Making a new demo page
 
 1. Copy `superconductor.html` and rename it (for example `ferrofluid.html`).
-2. Set the station colour on the `.page` wrapper: `data-station="1"`, `"2"`, `"3"`, `"4"` or `"act"`.
+2. Set the station colour on the `.page` wrapper: `data-station="1"`, `"2"`, `"3"` or `"4"`.
 3. Update `data-title-sv` / `data-title-en`, the `<title>` and the description.
 4. Replace the text section by section, always in both languages.
 5. Put the demo's video or image in `assets/media/`.
