@@ -1,0 +1,2132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The P–V–T surface</title>
+<meta name="description" content="An interactive pressure–volume–temperature surface with phase changes, projections and engine cycles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #ECF1EA; --panel: #F5F8F3; --ink: #1B2A32; --muted: #56666C; --rule: #C6D1C8;
+  --grid: rgba(40, 90, 60, .07); --grid2: rgba(40, 90, 60, .14);
+  --red: #D2352B; --hot: #E0582F; --cold: #3F84C6; --wall: #DCE4D9; --iso: #33434A;
+  --c-solid: #7D8AA2; --c-liquid: #4A90C2; --c-gas: #E0C27C; --c-sc: #A68BCF; --c-sl: #6890B6; --c-lv: #9CB7A9; --c-sv: #B4AF9A; --c-ink: var(--ink);
+  --box-interior: #FBFCFA; --box-piston: #AEB8B2; --box-weight: #3A4A52; --box-shine: rgba(255, 255, 255, .55);
+  --serif: "Newsreader", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --ui: "Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", system-ui, sans-serif;
+  --shadow: 0 1px 0 rgba(27, 42, 50, .04), 0 6px 18px -8px rgba(27, 42, 50, .25);
+  color-scheme: light;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #18211D; --panel: #1F2A25; --ink: #E3EAE3; --muted: #98A8A0; --rule: #34443B;
+    --grid: rgba(160, 210, 180, .05); --grid2: rgba(160, 210, 180, .1);
+    --red: #F0564A; --hot: #F0764A; --cold: #5C9EDC; --wall: #24302A; --iso: #C4D0C8;
+    --c-solid: #7A87A0; --c-liquid: #4586B6; --c-gas: #C9AE6C; --c-sc: #957CC0; --c-sl: #5F85AB; --c-lv: #7F9C8E; --c-sv: #9C9884;
+    --box-interior: #243029; --box-piston: #5E6C65; --box-weight: #93A39B; --box-shine: rgba(255, 255, 255, .35);
+    --shadow: 0 6px 18px -8px rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #18211D; --panel: #1F2A25; --ink: #E3EAE3; --muted: #98A8A0; --rule: #34443B;
+  --grid: rgba(160, 210, 180, .05); --grid2: rgba(160, 210, 180, .1);
+  --red: #F0564A; --hot: #F0764A; --cold: #5C9EDC; --wall: #24302A; --iso: #C4D0C8;
+  --c-solid: #7A87A0; --c-liquid: #4586B6; --c-gas: #C9AE6C; --c-sc: #957CC0; --c-sl: #5F85AB; --c-lv: #7F9C8E; --c-sv: #9C9884;
+  --box-interior: #243029; --box-piston: #5E6C65; --box-weight: #93A39B; --box-shine: rgba(255, 255, 255, .35);
+  --shadow: 0 6px 18px -8px rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); background: var(--paper); }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--ui); font-size: 15px; line-height: 1.4; -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; }
+i { font-family: var(--serif); font-style: italic; }
+sub { font-size: .72em; line-height: 0; vertical-align: -.25em; }
+
+.app { max-width: 1800px; margin: 0 auto; padding: 12px 18px 14px; }
+.top { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 16px; margin-bottom: 10px; }
+.top h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 2.1vw, 31px); line-height: 1; margin: 0; letter-spacing: -.01em; white-space: nowrap; }
+.top h1 i { font-weight: 400; }
+.tools { display: flex; align-items: center; gap: 10px; margin-left: auto; pointer-events: auto; }
+.linkbtn { border: 0; background: color-mix(in srgb, var(--paper) 80%, transparent); border-radius: 4px; padding: 4px 6px; color: var(--muted); cursor: pointer; font-size: 14px; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+.linkbtn:hover, .linkbtn[aria-expanded="true"] { color: var(--ink); }
+.langbtn { align-self: start; margin-top: 2px; border: 1px solid var(--ink); background: var(--panel); border-radius: 6px; padding: 5px 12px; cursor: pointer; font-size: 14px; font-weight: 600; }
+.langbtn:hover { background: var(--ink); color: var(--paper); }
+.note { position: absolute; right: 0; top: calc(100% + 6px); pointer-events: auto; z-index: 20; width: min(520px, 92vw); background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; box-shadow: var(--shadow); padding: 14px 16px 12px; }
+.note p { margin: 0 0 10px; font-family: var(--serif); font-size: 15.5px; line-height: 1.5; }
+.note button { border: 1px solid var(--rule); background: var(--paper); border-radius: 5px; padding: 4px 12px; cursor: pointer; font-size: 14px; }
+
+.scen { display: flex; align-items: center; gap: 6px 14px; flex-wrap: wrap; }
+.scen .grp { display: inline-flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.scen .gl { color: var(--muted); font-size: 13px; margin-right: 2px; }
+.chip { border: 1px solid var(--rule); background: var(--panel); border-radius: 18px; padding: 5px 10px; font-size: 13.5px; font-weight: 500; cursor: pointer; transition: background .15s, border-color .15s; white-space: nowrap; }
+.chip:hover { border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 470px; gap: 14px; align-items: stretch; }
+.stage { min-width: 0; display: flex; flex-direction: column; }
+.viewport {
+  position: relative; flex: 1 1 auto; min-height: 340px; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden;
+  background-color: var(--paper);
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+    linear-gradient(var(--grid2) 1px, transparent 1px), linear-gradient(90deg, var(--grid2) 1px, transparent 1px);
+  background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px; background-position: -1px -1px;
+}
+#gl { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+#gl:active { cursor: grabbing; }
+.labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.lab { position: absolute; left: 0; top: 0; white-space: nowrap; will-change: transform; transition: opacity .2s; }
+.lab.off { visibility: hidden; }
+.lab.hidden { opacity: .2; }
+.lab.region { translate: -50% -50%; font-weight: 600; font-size: 13.5px; letter-spacing: .01em; color: var(--ink);
+  text-shadow: 0 0 2px var(--paper), 0 0 4px var(--paper), 0 0 6px var(--paper), 0 0 8px var(--paper); }
+.lab.r-critical, .lab.r-triple { font-weight: 500; font-style: normal; }
+.lab.r-critical { translate: 10px -120%; }
+.lab.r-triple { translate: -50% -135%; }
+.lab.marker { translate: 7px -115%; font-family: var(--serif); font-style: italic; font-size: 17px; font-weight: 500; color: var(--ink);
+  text-shadow: 0 0 2px var(--paper), 0 0 5px var(--paper), 0 0 8px var(--paper); }
+.lab.axis { color: var(--ink); text-shadow: 0 0 3px var(--paper), 0 0 6px var(--paper); }
+.lab.axis.name { translate: -50% -20%; font-size: 19px; }
+.lab.axis.name small { font-family: var(--ui); font-size: 12px; color: var(--muted); margin-left: 5px; font-style: normal; }
+.lab.axis.tick { translate: -50% -10%; font-size: 14px; color: var(--muted); }
+.lab.axis.tick.left { translate: calc(-100% - 2px) -50%; }
+.tip { position: absolute; left: 0; top: 0; pointer-events: none; background: var(--panel); border: 1px solid var(--rule); border-radius: 5px; padding: 6px 9px; box-shadow: var(--shadow); font-size: 13px; max-width: 200px; }
+.tip b { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; }
+.tip span:last-child { color: var(--muted); }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; flex: none; }
+
+.viewbar { position: absolute; top: 10px; left: 10px; right: 10px; display: flex; gap: 8px; flex-wrap: wrap; pointer-events: none; }
+.viewbar .seg { pointer-events: auto; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 6px 11px; font-size: 14px; font-weight: 500; cursor: pointer; border-right: 1px solid var(--rule); white-space: nowrap; }
+.seg button:last-child { border-right: 0; }
+.seg button:hover { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.seg.toggles button[aria-pressed="true"] { background: color-mix(in srgb, var(--ink) 12%, var(--panel)); color: var(--ink); }
+.seg.toggles button[aria-pressed="false"] { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--muted) 60%, transparent); }
+.hint { position: absolute; left: 10px; bottom: 8px; margin: 0; font-size: 12.5px; color: var(--muted); pointer-events: none; background: color-mix(in srgb, var(--paper) 82%, transparent); padding: 2px 6px; border-radius: 3px; }
+.glfail { display: none; position: absolute; inset: 0; place-items: center; padding: 24px; text-align: center; font-family: var(--serif); font-size: 18px; }
+.no-gl .glfail { display: grid; }
+.no-gl #gl, .no-gl .viewbar, .no-gl .hint { display: none; }
+
+.transport { display: flex; align-items: center; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+.is-explore .transport { visibility: hidden; }
+.tbtns { display: flex; gap: 6px; }
+.ib { display: inline-flex; align-items: center; gap: 6px; height: 34px; min-width: 34px; justify-content: center; border: 1px solid var(--rule); background: var(--panel); border-radius: 6px; padding: 0 8px; cursor: pointer; font-weight: 500; font-size: 14px; }
+.ib:hover:not(:disabled) { border-color: var(--muted); }
+.ib:disabled { opacity: .4; cursor: default; }
+.ib svg { width: 18px; height: 18px; fill: currentColor; }
+.ib.play { background: var(--ink); color: var(--paper); border-color: var(--ink); min-width: 44px; }
+#bNextLab { display: none; }
+.is-steps #bNextLab { display: inline; }
+.is-steps #bNext { background: var(--red); border-color: var(--red); color: #fff; padding: 0 12px; }
+.scrubwrap { position: relative; flex: 1 1 200px; min-width: 160px; height: 34px; display: flex; align-items: center; }
+#scrub { width: 100%; accent-color: var(--red); margin: 0; }
+.ticks { position: absolute; left: 8px; right: 8px; top: 27px; height: 6px; pointer-events: none; }
+.ticks span { position: absolute; width: 1px; height: 6px; background: var(--muted); }
+
+.side { background: var(--panel); border: 1px solid var(--rule); border-radius: 4px; padding: 12px 16px 14px; overflow: auto; min-height: 0; }
+.sample { display: grid; grid-template-columns: 238px minmax(0, 1fr); gap: 14px; align-items: end; }
+.boxwrap { height: clamp(250px, 34vh, 340px); }
+#box { width: 100%; height: 100%; display: block; }
+.meas { min-width: 0; padding-bottom: 2px; }
+.readout { border-top: 1px solid var(--rule); }
+.rv { display: grid; grid-template-columns: 22px 1fr; align-items: baseline; padding: 5px 0; border-bottom: 1px solid var(--rule); }
+.rv .k { font-size: 18px; color: var(--muted); }
+.rv .v { font-size: 21px; font-weight: 500; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.rv .u { font-size: 14px; color: var(--muted); font-weight: 400; }
+.phase { padding: 9px 0 2px; }
+.rname { font-family: var(--serif); font-size: 19px; line-height: 1.2; }
+.pbar { display: flex; height: 9px; border-radius: 2px; overflow: hidden; background: var(--rule); margin: 6px 0 4px; }
+.pbar span { height: 100%; transition: width .25s linear; }
+.pbar .s { background: var(--c-solid); } .pbar .l { background: var(--c-liquid); } .pbar .g { background: var(--c-gas); } .pbar .g.sc { background: var(--c-sc); }
+.legend { margin: 0; font-size: 13px; color: var(--muted); min-height: 1.4em; }
+.cap { margin: 10px 0 0; font-size: 12.5px; line-height: 1.35; color: var(--muted); }
+.card { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--ink); }
+.card .step { margin: 0 0 2px; font-size: 13px; color: var(--muted); }
+.card .step:empty { display: none; }
+.card h2 { font-family: var(--serif); font-weight: 500; font-size: 21px; line-height: 1.15; margin: 0 0 5px; }
+.card p#cText { font-family: var(--serif); font-size: 16px; line-height: 1.45; margin: 0; }
+.card .extra { font-family: var(--serif); font-size: 15px; line-height: 1.4; margin: 9px 0 0; padding: 7px 10px; background: color-mix(in srgb, var(--red) 8%, var(--panel)); border-left: 2px solid var(--red); }
+.card.fresh h2, .card.fresh p#cText { animation: fresh .35s ease-out; }
+@keyframes fresh { from { opacity: .15; } to { opacity: 1; } }
+.about { margin-top: 12px; padding-top: 9px; border-top: 1px solid var(--rule); }
+.about .lead { margin: 0; font-size: 13px; color: var(--muted); }
+.about h3 { display: flex; align-items: center; gap: 7px; margin: 2px 0 4px; font-size: 16px; font-weight: 600; }
+.about p#aText { margin: 0; font-size: 14px; line-height: 1.42; }
+#aUnpin { margin-top: 8px; border: 0; background: none; padding: 0; color: var(--red); cursor: pointer; font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+.seg button:focus-visible { outline-offset: -3px; }
+
+@media (min-width: 961px) and (min-height: 600px) {
+  html, body { height: 100%; overflow: hidden; }
+  .app { height: 100%; display: flex; flex-direction: column; }
+  .grid { flex: 1 1 auto; min-height: 0; }
+  .stage, .side { min-height: 0; }
+}
+@media (min-width: 961px) and (max-height: 760px) {
+  .boxwrap { height: 240px; }
+  .card p#cText { font-size: 15px; }
+  .about p#aText { font-size: 13.5px; }
+}
+@media (max-width: 960px) {
+  .app { padding: 12px 12px 18px; }
+  .top { display: flex; flex-wrap: wrap; }
+  .scen .grp { flex-wrap: nowrap; }
+  .langbtn { margin-left: auto; }
+  .scen { order: 3; flex-basis: 100%; flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; margin: 0 -12px; padding-left: 12px; padding-right: 12px; scrollbar-width: none; }
+  .sample { grid-template-columns: 200px minmax(0, 1fr); }
+  .boxwrap { height: 270px; }
+  .scen .gl { white-space: nowrap; }
+  .chip { white-space: nowrap; }
+  .grid { grid-template-columns: 1fr; }
+  .viewport { flex: none; height: clamp(340px, 60vh, 640px); }
+  .side { max-height: none; }
+  .hint { display: none; }
+  .seg button { padding: 5px 8px; font-size: 13.5px; }
+  .viewbar { top: 8px; left: 8px; right: 8px; gap: 6px; }
+  .is-explore .transport { display: none; }
+  .lab.region { font-size: 11.5px; }
+  .lab.marker { font-size: 15px; }
+  .lab.axis.name { font-size: 16px; }
+  .lab.axis.tick { font-size: 12px; }
+  .transport { gap: 8px; }
+  .scrubwrap { order: 5; flex-basis: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.fresh h2, .card.fresh p#cText { animation: none; }
+  .pbar span, .lab { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <h1 data-i18n="title">The <i>P</i>–<i>V</i>–<i>T</i> surface</h1>
+    <nav class="scen" aria-label="Scenarios" data-i18n-aria="scenAria">
+      <span class="grp"><button class="chip" data-s="explore" aria-pressed="true">Explore</button></span>
+      <span class="grp"><span class="gl" data-i18n="phaseChanges">Phase changes</span>
+        <button class="chip" data-s="melting" aria-pressed="false">Melting</button>
+        <button class="chip" data-s="boiling" aria-pressed="false">Boiling</button>
+        <button class="chip" data-s="sublimation" aria-pressed="false">Sublimation</button>
+        <button class="chip" data-s="condensing" aria-pressed="false">Condensing a vapor</button>
+        <button class="chip" data-s="around" aria-pressed="false">Liquid to gas without boiling</button></span>
+      <span class="grp"><span class="gl" data-i18n="cycles">Cycles</span>
+        <button class="chip" data-s="carnot" aria-pressed="false">Carnot engine</button></span>
+    </nav>
+    <button id="langBtn" class="langbtn" lang="sv">Svenska</button>
+  </header>
+  <main class="grid">
+    <section class="stage">
+      <div class="viewport" id="vp">
+        <canvas id="gl" data-i18n-aria="canvasAria"></canvas>
+        <div class="labels" id="labels" aria-hidden="true"></div>
+        <div class="tip" id="tip" hidden></div>
+        <div class="viewbar" id="vbtns">
+          <div class="seg" role="group" data-i18n-aria="viewGroup">
+            <button data-view="d3" aria-pressed="false">3D</button>
+            <button data-view="pt" aria-pressed="false"><i>P</i>–<i>T</i></button>
+            <button data-view="pv" aria-pressed="false"><i>P</i>–<i>V</i></button>
+            <button data-view="rec" aria-pressed="true" data-i18n="vRec">Recommended</button>
+          </div>
+          <div class="seg toggles" role="group" data-i18n-aria="showGroup">
+            <button data-toggle="labels" aria-pressed="true" data-i18n="tLabels">Labels</button>
+            <button data-toggle="iso" aria-pressed="true" data-i18n="tIso">Isotherms</button>
+          </div>
+          <div class="tools">
+            <button id="noteBtn" class="linkbtn" aria-expanded="false" aria-controls="note" data-i18n="noteBtn">About the scales</button>
+          </div>
+          <div id="note" class="note" role="dialog" aria-labelledby="noteBtn" hidden>
+            <p data-i18n="note"></p>
+            <button id="noteClose" data-i18n="noteClose">Close</button>
+          </div>
+        </div>
+        <p class="hint" data-i18n="hint"></p>
+        <div class="glfail"><p data-i18n="glfail">The 3D surface needs three.js from cdnjs.cloudflare.com and WebGL. One of them didn’t load; check the connection and reload the page.</p></div>
+      </div>
+      <div class="transport" id="transport">
+        <div class="seg" id="modes" role="group" data-i18n-aria="modeGroup">
+          <button data-mode="continuous" aria-pressed="true" data-i18n="continuous">Continuous</button>
+          <button data-mode="steps" aria-pressed="false" data-i18n="steps">Step by step</button>
+        </div>
+        <div class="tbtns">
+          <button id="bPrev" class="ib"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 4h2.2v12H5zM16 4.2v11.6L8 10z"/></svg></button>
+          <button id="bPlay" class="ib play"></button>
+          <button id="bNext" class="ib"><span id="bNextLab">Next step</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 4.2v11.6L12 10zM12.8 4H15v12h-2.2z"/></svg></button>
+        </div>
+        <div class="scrubwrap"><input type="range" id="scrub" min="0" max="1000" value="0" data-i18n-aria="scrub"><div class="ticks" id="ticks"></div></div>
+        <div class="seg" id="speeds" role="group" data-i18n-aria="speed">
+          <button data-speed="0.5" aria-pressed="false">0.5×</button>
+          <button data-speed="1" aria-pressed="true">1×</button>
+          <button data-speed="2" aria-pressed="false">2×</button>
+        </div>
+      </div>
+    </section>
+    <aside class="side" data-i18n-aria="sampleAria">
+      <div class="sample">
+        <div class="boxwrap"><canvas id="box" role="img" data-i18n-aria="boxAria"></canvas></div>
+        <div class="meas">
+          <div class="readout">
+            <div class="rv"><span class="k"><i>T</i></span><span class="v"><span id="rT"></span> <span class="u"><i>T</i><sub>c</sub></span></span></div>
+            <div class="rv"><span class="k"><i>P</i></span><span class="v"><span id="rP"></span> <span class="u"><i>P</i><sub>c</sub></span></span></div>
+            <div class="rv"><span class="k"><i>V</i></span><span class="v"><span id="rV"></span> <span class="u"><i>V</i><sub>c</sub></span></span></div>
+          </div>
+          <div class="phase">
+            <span class="rname" id="rRegion"></span>
+            <div class="pbar" aria-hidden="true"><span class="s" id="pbS"></span><span class="l" id="pbL"></span><span class="g" id="pbG"></span></div>
+            <p class="legend" id="legend"></p>
+          </div>
+          <p class="cap" id="boxcap"></p>
+        </div>
+      </div>
+      <article class="card" id="card">
+        <p class="step" id="cStep"></p>
+        <h2 id="cTitle"></h2>
+        <p id="cText"></p>
+        <p class="extra" id="cExtra" hidden></p>
+      </article>
+      <section class="about" data-i18n-aria="aboutAria">
+        <p class="lead" id="aLead"></p>
+        <h3><span class="sw" id="aSwatch"></span><span id="aTitle"></span></h3>
+        <p id="aText"></p>
+        <button id="aUnpin" hidden data-i18n="unpin"></button>
+      </section>
+    </aside>
+  </main>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ===== Physics: reduced van der Waals fluid + schematic solid =====
+const PHYS = (() => {
+  const b = 1 / 3, R = 8 / 3, CV = 1.5 * R;
+  const Tt = 0.6, TMIN = 0.45, TMAX = 1.25, PMAX = 2.0, VMAX = 40;
+  const MELT_SLOPE = 7, VS0 = 0.38;
+  const clamp = (x, a, c) => Math.max(a, Math.min(c, x));
+
+  const Pvdw = (T, v) => 8 * T / (3 * v - 1) - 3 / (v * v);
+  const dPdv = (T, v) => -24 * T / ((3 * v - 1) ** 2) + 6 / (v ** 3);
+
+  function roots(T, P) {
+    // 3P v^3 - (P+8T) v^2 + 9v - 3 = 0
+    const A = -(P + 8 * T) / (3 * P), B = 3 / P, C = -1 / P;
+    const p = B - A * A / 3, q = 2 * A * A * A / 27 - A * B / 3 + C;
+    const disc = q * q / 4 + p * p * p / 27;
+    let ys;
+    if (disc > 0 || Math.abs(p) < 1e-10) {
+      const s = Math.sqrt(disc);
+      ys = [Math.cbrt(-q / 2 + s) + Math.cbrt(-q / 2 - s)];
+    } else {
+      const m = 2 * Math.sqrt(-p / 3);
+      const arg = clamp((3 * q / (2 * p)) * Math.sqrt(-3 / p), -1, 1);
+      const th = Math.acos(arg) / 3;
+      ys = [0, 1, 2].map(k => m * Math.cos(th - 2 * Math.PI * k / 3));
+    }
+    let vs = ys.map(y => y - A / 3).filter(v => v > b + 1e-9);
+    if (!vs.length) vs = [1];
+    vs = vs.map(v => { // Newton polish
+      for (let i = 0; i < 3; i++) {
+        const f = Pvdw(T, v) - P, d = dPdv(T, v);
+        if (Math.abs(d) < 1e-12) break;
+        const nv = v - f / d;
+        if (nv > b + 1e-9) v = nv;
+      }
+      return v;
+    });
+    return vs.sort((x, y) => x - y);
+  }
+  const vLiq = (T, P) => roots(T, P)[0];
+  const vGas = (T, P) => { const r = roots(T, P); return r[r.length - 1]; };
+
+  function spinodals(T) {
+    const f = v => 4 * T * v ** 3 - (3 * v - 1) ** 2;
+    const bis = (lo, hi) => { for (let i = 0; i < 80; i++) { const m = (lo + hi) / 2; (f(lo) * f(m) <= 0) ? hi = m : lo = m; } return (lo + hi) / 2; };
+    return [bis(b + 1e-7, 1), bis(1, 200)];
+  }
+
+  function maxwell(T) {
+    if (T >= 1) return { P: 1, vl: 1, vg: 1 };
+    const [va, vb] = spinodals(T);
+    let lo = Math.max(1e-10, Pvdw(T, va)), hi = Pvdw(T, vb);
+    let res = null;
+    for (let i = 0; i < 90; i++) {
+      const P = (lo + hi) / 2;
+      const r = roots(T, P);
+      const vl = r[0], vg = r[r.length - 1];
+      const area = (8 * T / 3) * Math.log((3 * vg - 1) / (3 * vl - 1)) + 3 / vg - 3 / vl - P * (vg - vl);
+      if (area > 0) lo = P; else hi = P;
+      res = { P, vl, vg };
+    }
+    return res;
+  }
+
+  // saturation table, dense near Tc
+  const NS = 260, SAT = [];
+  for (let i = 0; i <= NS; i++) {
+    const u = i / NS;
+    const T = 1 - (1 - Tt) * (1 - u) * (1 - u);
+    SAT.push(Object.assign({ T }, maxwell(T)));
+  }
+  function sat(T) {
+    if (T >= 1) return { T: 1, P: 1, vl: 1, vg: 1 };
+    if (T <= Tt) return SAT[0];
+    let lo = 0, hi = NS;
+    while (hi - lo > 1) { const m = (lo + hi) >> 1; if (SAT[m].T > T) hi = m; else lo = m; }
+    const a = SAT[lo], c = SAT[hi], f = (T - a.T) / (c.T - a.T);
+    return { T, P: a.P + f * (c.P - a.P), vl: a.vl + f * (c.vl - a.vl), vg: a.vg + f * (c.vg - a.vg) };
+  }
+  function Tsat(P) { // P in [Pt,1]
+    let lo = Tt, hi = 1;
+    for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (sat(m).P > P) hi = m; else lo = m; }
+    return (lo + hi) / 2;
+  }
+
+  const TRIPLE = SAT[0];
+  const Pt = TRIPLE.P;
+  const Avap = Math.log(sat(Tt + 0.01).P / Pt) / (1 / Tt - 1 / (Tt + 0.01));
+  const Bsub = 1.6 * Avap;
+  const Psub = T => Pt * Math.exp(Bsub * (1 / Tt - 1 / T));
+  const Tsub = P => 1 / (1 / Tt - Math.log(P / Pt) / Bsub);
+  const Pmelt = T => Pt + MELT_SLOPE * (T - Tt);
+  const Tmelt = P => Tt + (P - Pt) / MELT_SLOPE;
+  const TMC = Math.min(TMAX, Tmelt(PMAX)); // melting curve leaves the box
+  const vSolid = (T, P) => VS0 * (1 + 0.05 * (T - Tt) - 0.012 * (P - Pt));
+
+  // Entropy (reduced units, arbitrary constant)
+  const S = (T, v) => CV * Math.log(T) + R * Math.log(v - b);
+
+  // cohesion for supercritical / hot fluid (1 = liquid-like, 0 = gas-like)
+  const smooth = x => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+  const cohSC = v => 1 - smooth((Math.log(v) - Math.log(0.55)) / (Math.log(2.2) - Math.log(0.55)));
+
+  // Single-phase state from (T,P,phase)
+  function single(T, P, phase) {
+    let v;
+    if (phase === 'solid') v = vSolid(T, P);
+    else if (phase === 'liquid') v = vLiq(T, P);
+    else v = vGas(T, P);
+    return fluidState(T, P, v, phase);
+  }
+  function fluidState(T, P, v, phase) {
+    const st = { T, P, v, fs: 0, fl: 0, fg: 0, coh: null, region: phase };
+    if (phase === 'solid') st.fs = 1;
+    else if (T >= 1) {
+      st.fg = 1; st.coh = cohSC(v);
+      st.region = P >= 1 ? 'sc' : 'gas';
+    } else if (phase === 'liquid') st.fl = 1;
+    else st.fg = 1;
+    return st;
+  }
+  // Coexistence state, x = mass fraction of phase 2
+  function coex(T, P, v1, v2, ph1, ph2, x) {
+    const st = { T, P, v: v1 + x * (v2 - v1), fs: 0, fl: 0, fg: 0, coh: null };
+    const key = { solid: 'fs', liquid: 'fl', gas: 'fg' };
+    st[key[ph1]] += 1 - x; st[key[ph2]] += x;
+    st.region = { 'solid|liquid': 'SL', 'liquid|gas': 'LV', 'solid|gas': 'SV' }[ph1 + '|' + ph2];
+    return st;
+  }
+
+  return {
+    b, R, CV, Tt, Pt, TMIN, TMAX, PMAX, VMAX, TMC, TRIPLE,
+    Pvdw, roots, vLiq, vGas, sat, Tsat, Psub, Tsub, Pmelt, Tmelt, vSolid, S, cohSC,
+    single, fluidState, coex, clamp, smooth
+  };
+})();
+if (typeof module !== 'undefined') module.exports = PHYS;
+
+// ===== Particle box: molecules in a cylinder =====
+const BOX = (() => {
+  const W = 10.5, COLS = 10, ROWS = 4, N = COLS * ROWS, HS = 3.72, PT = 0.8;
+  const VREF = PHYS.vSolid(PHYS.Tt, PHYS.Pt);
+  // piston height: linear for the solid, logarithmic above; gentler above Vc so every scenario fits one scale
+  const H1 = HS * (1 + Math.log(1 / VREF));
+  const hOf = v => v <= VREF ? HS * v / VREF : v <= 1 ? HS * (1 + Math.log(v / VREF)) : H1 + 2.0 * Math.log(v);
+  const hInv = h => h <= HS ? VREF * h / HS : h <= H1 ? VREF * Math.exp(h / HS - 1) : Math.exp((h - H1) / 2.0);
+  const K = 900, G = 14, KA = 45, RC = 1.55, GAM = 2, KT = 12, SW = 14;
+  let spare = null;
+  const gauss = () => {
+    if (spare !== null) { const s = spare; spare = null; return s; }
+    let u = 0, v = 0; while (u === 0) u = Math.random(); v = Math.random();
+    const m = Math.sqrt(-2 * Math.log(u)); spare = m * Math.sin(2 * Math.PI * v); return m * Math.cos(2 * Math.PI * v);
+  };
+
+  class Sim {
+    constructor() {
+      this.ps = [];
+      for (let k = 0; k < N; k++) this.ps.push({
+        x: 0, y: 0, vx: 0, vy: 0, mode: 's', site: k, role: 'l', c: 1, ct: 1, settle: 1,
+        p1: Math.random() * 6.283, p2: Math.random() * 6.283, w1: 8 + Math.random() * 6, w2: 8 + Math.random() * 6
+      });
+      this.h = HS; this.hv = 0; this.T = 0.55; this.time = 0; this.st = null;
+      this.ps.forEach(p => { const s = this.site(p.site); p.x = s.x; p.y = s.y; });
+    }
+    site(k) {
+      const r = Math.floor(k / COLS), c = k % COLS;
+      const sy = Math.max(0.82, Math.min(1, (this.h - 1) / ((ROWS - 1) * 0.866)));
+      return { x: 0.5 + c + (r % 2) * 0.5, y: 0.5 + r * 0.866 * sy };
+    }
+    setState(st) { this.st = st; }
+    // Instantly jump to a state (used when switching scenarios)
+    snap(st) {
+      this.st = st; this.h = hOf(st.v); this.T = st.T;
+      this.assign();
+      const liq = [], gas = [];
+      this.ps.forEach(p => {
+        if (p.mode === 's') { const s = this.site(p.site); p.x = s.x; p.y = s.y; p.vx = p.vy = 0; p.settle = 1; }
+        else if (p.role === 'l') liq.push(p); else gas.push(p);
+        p.c = p.ct;
+      });
+      const ns = this.ps.filter(p => p.mode === 's').length;
+      let y0 = ns ? this.site(ns - 1).y + 0.95 : 0.5;
+      liq.forEach((p, i) => {
+        const r = Math.floor(i / 10), c = i % 10;
+        p.x = 0.55 + c * 0.94 + (r % 2) * 0.4; p.y = Math.min(y0 + r * 0.9, this.h - 0.5); p.vx = p.vy = 0;
+      });
+      const top = liq.length ? y0 + Math.ceil(liq.length / 10) * 0.9 : y0;
+      gas.forEach(p => {
+        p.x = 0.5 + Math.random() * (W - 1);
+        p.y = Math.min(this.h - 0.5, top + Math.random() * Math.max(0.01, this.h - 0.5 - top));
+        const a = Math.random() * 6.283, s = 7.5 * Math.sqrt(this.T);
+        p.vx = s * Math.cos(a); p.vy = s * Math.sin(a);
+      });
+    }
+    assign() {
+      const st = this.st; if (!st) return;
+      const ps = this.ps;
+      let tS = Math.round(st.fs * N), tG = Math.round(st.fg * N);
+      if (tS + tG > N) tG = N - tS;
+      const tL = N - tS - tG;
+      const S = () => ps.filter(p => p.mode === 's');
+      const L = () => ps.filter(p => p.mode === 'f' && p.role === 'l');
+      const Gs = () => ps.filter(p => p.mode === 'f' && p.role === 'g');
+      const topSolid = () => S().reduce((a, p) => (!a || p.site > a.site) ? p : a, null);
+      const lowest = arr => arr.reduce((a, p) => (!a || p.y < a.y) ? p : a, null);
+      const highest = arr => arr.reduce((a, p) => (!a || p.y > a.y) ? p : a, null);
+      const toFluid = (p, role) => {
+        if (p.mode === 's') { p.vx = (Math.random() - 0.5) * 2; p.vy = Math.random() * 1.5; }
+        p.mode = 'f'; p.role = role;
+        if (role === 'g') { const a = Math.random() * 3.14; const s = 7.5 * Math.sqrt(this.T); p.vx = s * Math.cos(a); p.vy = s * Math.sin(a); }
+      };
+      const toSolid = p => { p.mode = 's'; p.site = S().length; p.settle = 0; };
+      let guard = 0;
+      while (guard++ < 200) {
+        const s = S(), l = L(), g = Gs();
+        if (s.length > tS) { toFluid(topSolid(), l.length < tL ? 'l' : 'g'); continue; }
+        if (g.length > tG) { const p = lowest(g); if (l.length < tL) p.role = 'l'; else toSolid(p); continue; }
+        if (l.length > tL) { if (g.length < tG) { const p = highest(l); p.role = 'g'; if (st.coh == null) { const a = Math.random() * 3.14, sp = 7.5 * Math.sqrt(this.T); p.vx = sp * Math.cos(a); p.vy = Math.abs(sp * Math.sin(a)); } } else toSolid(lowest(l)); continue; }
+        if (s.length < tS) { toSolid(l.length ? lowest(l) : lowest(g)); continue; }
+        if (g.length < tG) { if (l.length) highest(l).role = 'g'; else toFluid(topSolid(), 'g'); continue; }
+        if (l.length < tL) { if (g.length) lowest(g).role = 'l'; else toFluid(topSolid(), 'l'); continue; }
+        break;
+      }
+      const coh = st.coh;
+      ps.forEach(p => { p.ct = p.mode === 's' ? 1 : (coh != null ? coh : (p.role === 'l' ? 1 : 0)); });
+    }
+    step(dt) {
+      if (!this.st) return;
+      dt = Math.min(dt, 0.05);
+      if (!(dt > 1e-4)) return;
+      this.time += dt;
+      const hT = hOf(this.st.v);
+      const hPrev = this.h;
+      if (this.exact) this.h = hT; else this.h += (hT - this.h) * (1 - Math.exp(-dt * 10));
+      this.hv = (this.h - hPrev) / Math.max(dt, 1e-4);
+      this.T += (this.st.T - this.T) * (1 - Math.exp(-dt * 6));
+      this.assign();
+      const ps = this.ps, n = ps.length, T = this.T;
+      ps.forEach(p => { p.c += (p.ct - p.c) * (1 - Math.exp(-dt * 2.5)); });
+      const SUB = 4, sdt = dt / SUB;
+      const vth = 7.5 * Math.sqrt(T);
+      for (let sub = 0; sub < SUB; sub++) {
+        const t = this.time - dt + (sub + 1) * sdt;
+        for (let i = 0; i < n; i++) { ps[i].ax = 0; ps[i].ay = 0; }
+        for (let i = 0; i < n; i++) {
+          const a = ps[i];
+          for (let j = i + 1; j < n; j++) {
+            const b = ps[j];
+            if (a.mode === 's' && b.mode === 's') continue;
+            const dx = b.x - a.x, dy = b.y - a.y, r2 = dx * dx + dy * dy;
+            if (r2 > RC * RC) continue;
+            const r = Math.sqrt(r2) || 1e-6, nx = dx / r, ny = dy / r;
+            let F = 0;
+            if (r < 1) F = K * (1 - r);
+            else F = -KA * a.c * b.c * Math.sin(Math.PI * (r - 1) / (RC - 1));
+            // solid partners are immovable: the fluid partner takes the whole push
+            const ka = a.mode === 's' ? 0 : 1, kb = b.mode === 's' ? 0 : 1;
+            a.ax -= ka * F * nx; a.ay -= ka * F * ny;
+            b.ax += kb * F * nx; b.ay += kb * F * ny;
+          }
+        }
+        const top = this.h - 0.5;
+        for (let i = 0; i < n; i++) {
+          const p = ps[i];
+          if (p.mode === 's') {
+            const s = this.site(p.site);
+            const A = 0.015 + 0.07 * T; // small, so a solid reads as still next to a liquid
+            const tx = s.x + A * Math.sin(p.w1 * t + p.p1), ty = s.y + A * Math.sin(p.w2 * t + p.p2);
+            p.settle = Math.min(1, p.settle + sdt * 1.2);
+            const k = 1 - Math.exp(-sdt * (2.5 + 45 * p.settle * p.settle));
+            p.x += (tx - p.x) * k; p.y += (ty - p.y) * k; p.vx = p.vy = 0;
+            continue;
+          }
+          const c = p.c, gam = GAM * c + 0.02, kT = KT * T;
+          const sig = Math.sqrt(2 * gam * kT / sdt);
+          p.ax += -gam * p.vx + sig * c * gauss() + SW * c * Math.sin(0.9 * p.y + 0.8 * t + p.p1);
+          p.ay += SW * 0.6 * c * Math.sin(0.7 * p.x - 0.6 * t + p.p2);
+          p.ay += -gam * p.vy + sig * c * gauss() - G * c;
+          p.vx += p.ax * sdt; p.vy += p.ay * sdt;
+          const sp = Math.hypot(p.vx, p.vy);
+          if (c < 0.98) {
+            if (sp > 1e-3) { const k = 1 + (1 - c) * Math.min(1, 2 * sdt) * (vth / sp - 1); p.vx *= k; p.vy *= k; }
+            else { const a = Math.random() * 6.283; p.vx = Math.cos(a); p.vy = Math.sin(a); }
+          }
+          const lim = 40; if (sp > lim) { p.vx *= lim / sp; p.vy *= lim / sp; }
+          p.x += p.vx * sdt; p.y += p.vy * sdt;
+          const e = 0.25 + 0.75 * (1 - c);
+          if (p.x < 0.5) { p.x = 0.5; p.vx = Math.abs(p.vx) * e; }
+          if (p.x > W - 0.5) { p.x = W - 0.5; p.vx = -Math.abs(p.vx) * e; }
+          if (p.y < 0.5) { p.y = 0.5; p.vy = Math.abs(p.vy) * e; }
+          if (p.y > top) { p.y = top; if (p.vy > 0) p.vy = -p.vy * e; p.vy += Math.min(0, this.hv); }
+        }
+      }
+    }
+  }
+  return { Sim, hOf, hInv, W, PT, N, HS };
+})();
+if (typeof module !== 'undefined') module.exports = BOX;
+
+// ===== Box renderer (browser only) =====
+// Every scenario is drawn at the same scale and on the same baseline, so the cylinder,
+// plate and weight keep their size; only the cylinder height changes with the volume range.
+const BOXVIEW = (() => {
+  const { W, PT, hOf } = BOX;
+  const HALF = 8.7, BOT = -2.9, DES_H = 22.6;
+  // slider-crank geometry for a volume range: crank radius r, rod L, crank centre cy, drawn wheel radius R
+  function crank(vmin, vmax) {
+    const hmin = hOf(vmin), hmax = hOf(vmax);
+    const r = Math.max(0.6, (hmax - hmin) / 2), R = Math.max(2.4, r + 0.6), L = Math.max(2.4 * r, r + R + 1.0);
+    return { r, R, L, cy: hmax + PT + L - r };
+  }
+  // piston top height for crank angle th (0 = top dead centre, pi = bottom)
+  const pistonY = (g, th) => g.cy + g.r * Math.cos(th) - Math.sqrt(Math.max(0, g.L * g.L - g.r * g.r * Math.sin(th) ** 2));
+  class View {
+    constructor(canvas, sim) {
+      this.cv = canvas; this.ctx = canvas.getContext('2d'); this.sim = sim;
+      this.theta = Math.PI; this.configure({ kind: 'phase', vmin: 0.37, vmax: PHYS.VMAX });
+    }
+    configure({ kind, vmin, vmax }) {
+      this.kind = kind;
+      const hmin = hOf(vmin), hmax = hOf(vmax);
+      if (kind === 'engine') {
+        Object.assign(this, crank(vmin, vmax));
+        this.Hcyl = hmax + PT + 0.7;
+      } else {
+        this.Hcyl = hmax + PT + 1.1;
+      }
+    }
+    resize() {
+      const r = this.cv.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
+      this.cv.width = Math.max(10, Math.round(r.width * dpr)); this.cv.height = Math.max(10, Math.round(r.height * dpr));
+      this.dpr = dpr;
+    }
+    thetaFor(yp, expanding) {
+      const { r, L, cy } = this;
+      const f = th => cy + r * Math.cos(th) - Math.sqrt(Math.max(0, L * L - r * r * Math.sin(th) ** 2));
+      let lo = expanding ? Math.PI : 0, hi = expanding ? 2 * Math.PI : Math.PI;
+      for (let i = 0; i < 44; i++) {
+        const m = (lo + hi) / 2, v = f(m);
+        if (expanding ? v < yp : v > yp) lo = m; else hi = m;
+      }
+      return (lo + hi) / 2;
+    }
+    arrow(x, y0, y1, s, lw) {
+      const ctx = this.ctx, up = y1 < y0, d = (up ? 1 : -1) * 0.34 * s;
+      ctx.lineWidth = lw; ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y1); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x - 0.3 * s, y1 + d); ctx.lineTo(x, y1); ctx.lineTo(x + 0.3 * s, y1 + d); ctx.stroke();
+    }
+    draw(deco, C) {
+      const ctx = this.ctx, cw = this.cv.width, ch = this.cv.height, sim = this.sim, dpr = this.dpr || 1;
+      const T = C.txt || {};
+      ctx.clearRect(0, 0, cw, ch);
+      const s = Math.min(cw / (2 * HALF), ch / DES_H);
+      const X = x => cw / 2 + (x - W / 2) * s, Y = y => ch - 2 * dpr - (y - BOT) * s;
+      const h = sim.h, mid = W / 2;
+      const font = (px, w = 500) => `${w} ${px * dpr}px ${C.font}`;
+      ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+
+      // interior
+      ctx.fillStyle = C.interior;
+      ctx.fillRect(X(0), Y(this.Hcyl), W * s, this.Hcyl * s);
+
+      // heat plate: same size in every scenario
+      const heat = deco.heat;
+      const px0 = X(-0.45), px1 = X(W + 0.45), py0 = Y(-0.18), py1 = Y(-1.45);
+      ctx.save();
+      if (heat === 'hot' || heat === 'cold') {
+        ctx.fillStyle = heat === 'hot' ? C.hot : C.cold;
+        ctx.fillRect(px0, py0, px1 - px0, py1 - py0);
+        ctx.strokeStyle = C.paper; ctx.lineWidth = 1.7 * dpr;
+        const t = performance.now() / 1000, d = heat === 'hot' ? -1 : 1, a = 0.3 * s;
+        for (let i = 0; i < 5; i++) {
+          const cx = X((i + 0.5) * W / 5), cy = (py0 + py1) / 2;
+          const off = ((t * 0.9 + i * 0.37) % 1 - 0.5) * 0.3 * s * d;
+          ctx.beginPath(); ctx.moveTo(cx - a, cy - d * a * 0.5 + off); ctx.lineTo(cx, cy + d * a * 0.5 + off); ctx.lineTo(cx + a, cy - d * a * 0.5 + off); ctx.stroke();
+        }
+      } else if (heat === 'insul') {
+        ctx.fillStyle = C.interior; ctx.fillRect(px0, py0, px1 - px0, py1 - py0);
+        ctx.beginPath(); ctx.rect(px0, py0, px1 - px0, py1 - py0); ctx.clip();
+        ctx.strokeStyle = C.muted; ctx.lineWidth = 1 * dpr;
+        const hh = py0 - py1;
+        for (let x = px0 - hh; x < px1; x += 0.5 * s) { ctx.beginPath(); ctx.moveTo(x, py0); ctx.lineTo(x + hh, py1); ctx.stroke(); }
+      }
+      ctx.restore();
+      ctx.strokeStyle = heat === 'hot' ? C.hot : heat === 'cold' ? C.cold : C.rule;
+      ctx.lineWidth = 1.2 * dpr; ctx.strokeRect(px0, py1, px1 - px0, py0 - py1);
+      if (heat) {
+        ctx.fillStyle = heat === 'hot' ? C.hot : heat === 'cold' ? C.cold : C.muted;
+        ctx.font = font(12, 600); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(heat === 'hot' ? T.heatIn : heat === 'cold' ? T.heatOut : T.insulated, X(mid), Y(-2.2));
+      }
+
+      // molecules
+      ctx.fillStyle = C.red;
+      const pr = 0.46 * s;
+      for (const p of sim.ps) { ctx.beginPath(); ctx.arc(X(p.x), Y(p.y), pr, 0, 6.2832); ctx.fill(); }
+      ctx.fillStyle = C.shine;
+      for (const p of sim.ps) { ctx.beginPath(); ctx.arc(X(p.x - 0.14), Y(p.y + 0.15), pr * 0.28, 0, 6.2832); ctx.fill(); }
+
+      // piston
+      ctx.fillStyle = C.piston;
+      ctx.fillRect(X(0.06), Y(h + PT), (W - 0.12) * s, PT * s);
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2 * dpr; ctx.strokeRect(X(0.06), Y(h + PT), (W - 0.12) * s, PT * s);
+      const top = h + PT;
+      if (this.kind === 'engine') {
+        const th = this.thetaFor(top, !!deco.expanding);
+        this.theta = th;
+        const { r, R, cy } = this;
+        const pinx = mid + r * Math.sin(th), piny = cy + r * Math.cos(th);
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 2 * dpr;
+        ctx.beginPath(); ctx.arc(X(mid), Y(cy), R * s, 0, 6.2832); ctx.stroke();
+        ctx.lineWidth = 1 * dpr; ctx.strokeStyle = C.muted;
+        for (let k = 0; k < 3; k++) { const a = th + k * 2.0944; ctx.beginPath(); ctx.moveTo(X(mid), Y(cy)); ctx.lineTo(X(mid + R * Math.sin(a)), Y(cy + R * Math.cos(a))); ctx.stroke(); }
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 3 * dpr;
+        ctx.beginPath(); ctx.moveTo(X(mid), Y(top)); ctx.lineTo(X(pinx), Y(piny)); ctx.stroke();
+        ctx.fillStyle = C.ink;
+        ctx.beginPath(); ctx.arc(X(pinx), Y(piny), 0.28 * s, 0, 6.2832); ctx.fill();
+        ctx.beginPath(); ctx.arc(X(mid), Y(cy), 0.22 * s, 0, 6.2832); ctx.fill();
+        ctx.beginPath(); ctx.arc(X(mid), Y(top), 0.2 * s, 0, 6.2832); ctx.fill();
+        if (deco.work) {
+          const up = deco.work === 'out', ax = X(mid + R + 0.9);
+          ctx.strokeStyle = C.ink;
+          this.arrow(ax, Y(up ? cy - 1.1 : cy + 1.1), Y(up ? cy + 1.1 : cy - 1.1), s, 1.7 * dpr);
+          ctx.fillStyle = C.ink; ctx.font = font(12, 600); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+          ctx.fillText(up ? T.workOut : T.workIn, ax + 0.45 * s, Y(cy));
+        }
+      } else if (deco.piston === 'weight') {
+        const wh = 1.45;
+        ctx.fillStyle = C.weight;
+        ctx.fillRect(X(mid - 2.4), Y(top + wh), 4.8 * s, wh * s);
+        ctx.fillStyle = C.paper; ctx.font = font(11, 600); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(T.weight, X(mid), Y(top + wh / 2));
+      } else if (deco.piston === 'push' || deco.piston === 'pull') {
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 3 * dpr;
+        ctx.beginPath(); ctx.moveTo(X(mid), Y(top)); ctx.lineTo(X(mid), Y(top + 1.9)); ctx.stroke();
+        const down = deco.piston === 'push';
+        this.arrow(X(mid + 1.4), Y(top + (down ? 1.9 : 0.4)), Y(top + (down ? 0.4 : 1.9)), s, 1.8 * dpr);
+        ctx.fillStyle = C.ink; ctx.font = font(12, 600); ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillText(down ? T.push : T.pull, X(mid + 1.85), Y(top + 1.15));
+      } else {
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 3 * dpr;
+        ctx.beginPath(); ctx.moveTo(X(mid), Y(top)); ctx.lineTo(X(mid), Y(top + 1.3)); ctx.stroke();
+      }
+      // cylinder walls
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 2.6 * dpr;
+      ctx.beginPath(); ctx.moveTo(X(-0.08), Y(this.Hcyl)); ctx.lineTo(X(-0.08), Y(-0.08)); ctx.lineTo(X(W + 0.08), Y(-0.08)); ctx.lineTo(X(W + 0.08), Y(this.Hcyl)); ctx.stroke();
+    }
+  }
+  return { View, crank, pistonY };
+})();
+
+// ===== Interface strings, English and Swedish =====
+const I18N = (() => {
+  const Tc = '<i>T</i><sub>c</sub>', Pc = '<i>P</i><sub>c</sub>', Vc = '<i>V</i><sub>c</sub>';
+  const D = {
+    en: {
+      docTitle: 'The P–V–T surface',
+      title: 'The <i>P</i>–<i>V</i>–<i>T</i> surface',
+      scenAria: 'Scenarios', explore: 'Explore', phaseChanges: 'Phase changes', cycles: 'Cycles',
+      viewGroup: 'View', showGroup: 'Show on the surface', vRec: 'Recommended',
+      tLabels: 'Labels', tIso: 'Isotherms', tWalls: 'Wall projections',
+      hint: 'Drag to turn, scroll to zoom, right-drag to pan, double-click for the recommended view',
+      glfail: 'The 3D surface needs three.js from cdnjs.cloudflare.com and WebGL. One of them didn’t load; check the connection and reload the page.',
+      canvasAria: 'Three-dimensional pressure, volume and temperature surface',
+      modeGroup: 'Playback mode', continuous: 'Continuous', steps: 'Step by step',
+      prev: 'Previous step', next: 'Next step', start: 'Start', play: 'Play', pause: 'Pause', replay: 'Replay this step',
+      scrub: 'Position along the path', speed: 'Speed',
+      sampleAria: 'The sample', boxAria: 'Forty molecules in a cylinder with a piston',
+      capPhase: 'The same 40 molecules throughout. The piston height follows the volume on a compressed scale.',
+      capEngine: 'The cylinder is the engine: its piston turns a flywheel. The plate shows heat flowing in, out, or blocked.',
+      lead: 'The sample is in', leadPinned: 'You selected', unpin: 'Back to the sample’s region', aboutAria: 'About this region',
+      tipExplore: 'Click to put the sample here', tipRead: 'Click to read about it',
+      stepOf: (k, n, a, b) => `Step ${k} of ${n}, from ${a} to ${b}`, intro: name => `${name}, introduction`,
+      solid: 'solid', liquid: 'liquid', vapor: 'vapor', gas: 'gas', scfluid: 'supercritical fluid',
+      rVapor: 'Vapor', rGas: 'Gas', logScale: 'log scale',
+      heatIn: 'heat in', heatOut: 'heat out', insulated: 'insulated', weight: 'weight', push: 'push', pull: 'pull', workOut: 'work out', workIn: 'work in',
+      noteBtn: 'About the scales', noteClose: 'Close',
+      note: `A schematic surface, not to scale: volume is on a logarithmic axis and pressure is stretched so that solid, liquid and gas are all visible at once. The fluid follows the van der Waals equation, and every value is a fraction of the critical temperature ${Tc}, pressure ${Pc} and volume ${Vc}. The solid is a simple model of a substance that shrinks as it freezes, which is the usual case (water is the famous exception).`,
+      langBtn: 'Svenska', langAria: 'Visa sidan på svenska',
+      exploreTitle: 'Explore the surface',
+      exploreText: 'Every point on this surface is an equilibrium state of one substance: a pressure, a volume and a temperature that can exist together. Drag to turn it, scroll or pinch to zoom, and <b>click anywhere on it</b> to put the sample in the cylinder into that state. The view buttons flatten it into its two classic diagrams.',
+      pct: x => Math.round(x * 100) + '%', dec: s => s
+    },
+    sv: {
+      docTitle: 'P–V–T-ytan',
+      title: '<i>P</i>–<i>V</i>–<i>T</i>-ytan',
+      scenAria: 'Scenarier', explore: 'Utforska', phaseChanges: 'Fasövergångar', cycles: 'Kretsprocesser',
+      viewGroup: 'Vy', showGroup: 'Visa på ytan', vRec: 'Rekommenderad',
+      tLabels: 'Etiketter', tIso: 'Isotermer', tWalls: 'Väggprojektioner',
+      hint: 'Dra för att vrida, scrolla för att zooma, högerdra för att panorera, dubbelklicka för rekommenderad vy',
+      glfail: '3D-ytan behöver three.js från cdnjs.cloudflare.com och WebGL. Något av dem laddades inte; kontrollera anslutningen och ladda om sidan.',
+      canvasAria: 'Tredimensionell yta för tryck, volym och temperatur',
+      modeGroup: 'Uppspelning', continuous: 'Kontinuerligt', steps: 'Steg för steg',
+      prev: 'Föregående steg', next: 'Nästa steg', start: 'Starta', play: 'Spela', pause: 'Pausa', replay: 'Spela steget igen',
+      scrub: 'Position längs vägen', speed: 'Hastighet',
+      sampleAria: 'Provet', boxAria: 'Fyrtio molekyler i en cylinder med kolv',
+      capPhase: 'Samma 40 molekyler hela tiden. Kolvens höjd följer volymen i komprimerad skala.',
+      capEngine: 'Cylindern är motorn: kolven driver ett svänghjul. Plattan visar om värme går in, ut eller stoppas.',
+      lead: 'Provet befinner sig i', leadPinned: 'Du valde', unpin: 'Tillbaka till provets område', aboutAria: 'Om området',
+      tipExplore: 'Klicka för att placera provet här', tipRead: 'Klicka för att läsa mer',
+      stepOf: (k, n, a, b) => `Steg ${k} av ${n}, från ${a} till ${b}`, intro: name => `${name}, inledning`,
+      solid: 'fast', liquid: 'vätska', vapor: 'ånga', gas: 'gas', scfluid: 'superkritisk fluid',
+      rVapor: 'Ånga', rGas: 'Gas', logScale: 'log-skala',
+      heatIn: 'värme in', heatOut: 'värme ut', insulated: 'isolerad', weight: 'vikt', push: 'tryck', pull: 'dra', workOut: 'arbete ut', workIn: 'arbete in',
+      noteBtn: 'Om skalorna', noteClose: 'Stäng',
+      note: `En schematisk yta, inte skalenlig: volymen ligger på en logaritmisk axel och trycket är uttöjt så att fast fas, vätska och gas syns samtidigt. Fluiden följer van der Waals ekvation, och alla värden anges som bråkdelar av kritisk temperatur ${Tc}, kritiskt tryck ${Pc} och kritisk volym ${Vc}. Det fasta ämnet är en enkel modell av ett ämne som krymper när det fryser, vilket är det vanliga (vatten är det kända undantaget).`,
+      langBtn: 'English', langAria: 'Show the page in English',
+      exploreTitle: 'Utforska ytan',
+      exploreText: 'Varje punkt på ytan är ett jämviktstillstånd för ett och samma ämne: ett tryck, en volym och en temperatur som kan förekomma tillsammans. Dra för att vrida ytan, scrolla eller nyp för att zooma och <b>klicka var som helst på den</b> för att försätta provet i cylindern i det tillståndet. Vyknapparna plattar till den till de två klassiska diagrammen.',
+      pct: x => Math.round(x * 100) + '\u00a0%', dec: s => s.replace('.', ',')
+    }
+  };
+
+  const REG = {
+    solid: { color: 'solid',
+      en: { name: 'Solid', text: 'Molecules are locked in a lattice and can only vibrate about fixed sites. Squeezing or heating barely changes the volume, so this face of the surface stands almost upright at small <i>V</i>.' },
+      sv: { name: 'Fast fas', text: 'Molekylerna sitter låsta i ett gitter och kan bara vibrera kring fasta platser. Tryck eller uppvärmning ändrar knappt volymen, så den här delen av ytan står nästan lodrätt vid liten <i>V</i>.' } },
+    liquid: { color: 'liquid',
+      en: { name: 'Liquid', text: 'Molecules are still packed close together but slide past one another, so a liquid flows yet resists compression. The liquid face is steep: pressure climbs sharply for a small squeeze.' },
+      sv: { name: 'Vätska', text: 'Molekylerna ligger fortfarande tätt packade men glider förbi varandra, så en vätska flyter men går knappt att trycka ihop. Vätskeytan är brant: trycket stiger kraftigt vid en liten kompression.' } },
+    gas: { color: 'gas',
+      en: { name: 'Gas (vapor)', text: 'Molecules are far apart and move fast, colliding only now and then. Well away from the dome the surface follows the ideal-gas law, <i>PV</i> ≈ <i>nRT</i>. Below the critical temperature a gas is usually called a vapor, because compressing it enough makes it condense.' },
+      sv: { name: 'Gas (ånga)', text: 'Molekylerna är långt ifrån varandra och rör sig snabbt, och krockar bara då och då. En bit från kupolen följer ytan den ideala gaslagen, <i>PV</i> ≈ <i>nRT</i>. Under den kritiska temperaturen kallas en gas oftast ånga, eftersom den kondenserar om den komprimeras tillräckligt.' } },
+    sc: { color: 'sc',
+      en: { name: 'Supercritical fluid', text: 'Above both the critical temperature and the critical pressure there is no difference between liquid and gas. The fluid can be as dense as a liquid or as thin as a gas and changes between the two continuously, without boiling.' },
+      sv: { name: 'Superkritisk fluid', text: 'Över både den kritiska temperaturen och det kritiska trycket finns ingen skillnad mellan vätska och gas. Fluiden kan vara lika tät som en vätska eller lika tunn som en gas och övergår kontinuerligt mellan dem, utan kokning.' } },
+    SL: { color: 'SL',
+      en: { name: 'Solid + liquid', curve: 'Melting curve', text: 'Solid and liquid coexist at the melting temperature. The surface here is made of straight tie lines parallel to the <i>V</i> axis: along each one <i>T</i> and <i>P</i> stay fixed while the share that has melted changes. Seen end-on along <i>V</i>, the band collapses into the melting curve.' },
+      sv: { name: 'Fast + vätska', curve: 'Smältkurva', text: 'Fast fas och vätska samexisterar vid smälttemperaturen. Ytan består här av raka konnoder parallella med <i>V</i>-axeln: längs varje konnod är <i>T</i> och <i>P</i> fasta medan andelen som har smält ändras. Sett längs <i>V</i>-axeln krymper bandet till smältkurvan.' } },
+    LV: { color: 'LV',
+      en: { name: 'Liquid + vapor', curve: 'Boiling curve', text: 'Under this dome liquid and vapor coexist. Each tie line joins a saturated liquid on the left to a saturated vapor on the right, at one temperature and one pressure; where the state sits along the line gives the share that is vapor (the lever rule). Seen end-on along <i>V</i>, the dome collapses into the boiling curve.' },
+      sv: { name: 'Vätska + ånga', curve: 'Kokpunktskurva', text: 'Under den här kupolen samexisterar vätska och ånga. Varje konnod förbinder mättad vätska till vänster med mättad ånga till höger, vid en och samma temperatur och ett och samma tryck; var tillståndet ligger längs linjen anger hur stor andel som är ånga (hävstångsregeln). Sett längs <i>V</i>-axeln krymper kupolen till kokpunktskurvan.' } },
+    SV: { color: 'SV',
+      en: { name: 'Solid + vapor', curve: 'Sublimation curve', text: 'Below the triple-point pressure a solid turns directly into vapor. Solid and vapor coexist across this band, which collapses onto the sublimation curve in the <i>P</i>–<i>T</i> diagram.' },
+      sv: { name: 'Fast + ånga', curve: 'Sublimeringskurva', text: 'Under trippelpunktens tryck övergår ett fast ämne direkt till ånga. Fast fas och ånga samexisterar över det här bandet, som krymper till sublimeringskurvan i <i>P</i>–<i>T</i>-diagrammet.' } },
+    triple: { color: 'ink',
+      en: { name: 'Triple line', curve: 'Triple point', text: 'The single temperature and pressure at which solid, liquid and vapor coexist. On the <i>P</i>–<i>V</i>–<i>T</i> surface it is a line, because the proportions of the three phases, and so the volume, can vary; in the <i>P</i>–<i>T</i> diagram it shrinks to the triple point.' },
+      sv: { name: 'Trippellinje', curve: 'Trippelpunkt', text: 'Den enda temperatur och det enda tryck där fast fas, vätska och ånga samexisterar. På <i>P</i>–<i>V</i>–<i>T</i>-ytan är det en linje, eftersom andelarna av de tre faserna, och därmed volymen, kan variera; i <i>P</i>–<i>T</i>-diagrammet krymper den till trippelpunkten.' } },
+    critical: { color: 'ink',
+      en: { name: 'Critical point', text: `The top of the liquid + vapor dome, where saturated liquid and saturated vapor become identical. The critical isotherm (dashed) passes through it with a horizontal inflection. Every value on this page is a fraction of the critical values ${Tc}, ${Pc} and ${Vc}.` },
+      sv: { name: 'Kritisk punkt', text: `Toppen av kupolen för vätska + ånga, där mättad vätska och mättad ånga blir identiska. Den kritiska isotermen (streckad) passerar här med en horisontell inflexionspunkt. Alla värden på sidan anges som bråkdelar av de kritiska värdena ${Tc}, ${Pc} och ${Vc}.` } }
+  };
+
+  let lang = 'en';
+  try { const q = new URLSearchParams(location.search).get('lang'); const s = q || localStorage.getItem('pvt-lang'); if (s === 'sv' || s === 'en') lang = s; } catch (e) { /* storage unavailable */ }
+  const listeners = [];
+  const I = {
+    D, REG,
+    get lang() { return lang; },
+    t: k => D[lang][k],
+    L: o => (o && typeof o === 'object' && ('en' in o)) ? o[lang] : o,
+    reg: k => Object.assign({ color: REG[k].color }, REG[k][lang]),
+    num: (x, d) => D[lang].dec(x.toFixed(d)),
+    set(l) {
+      lang = l;
+      try { localStorage.setItem('pvt-lang', l); } catch (e) { /* ignore */ }
+      listeners.forEach(f => f(l));
+    },
+    on: f => listeners.push(f)
+  };
+  return I;
+})();
+
+// ===== Display mapping + scenario definitions =====
+const MAP = (() => {
+  const P = PHYS;
+  const WX = 10, HY = 6, DZ = 8, VOFF = 0.32;
+  const LMIN = Math.log(P.vSolid(P.TMIN, P.PMAX) - VOFF) - 0.04, LMAX = Math.log(P.VMAX - VOFF);
+  const X = v => WX * (Math.log(Math.max(v - VOFF, 1e-9)) - LMIN) / (LMAX - LMIN);
+  const Vinv = x => Math.exp(LMIN + x / WX * (LMAX - LMIN)) + VOFF;
+  const Y = p => HY * Math.pow(Math.max(p, 0) / P.PMAX, 0.6);
+  const Pinv = y => P.PMAX * Math.pow(Math.max(y, 0) / HY, 1 / 0.6);
+  const Z = T => -DZ * (T - P.TMIN) / (P.TMAX - P.TMIN);
+  const Tinv = z => P.TMIN + (-z / DZ) * (P.TMAX - P.TMIN);
+  const TD = u => 1 - (1 - P.Tt) * (1 - u) * (1 - u); // dense near Tc
+  return { WX, HY, DZ, X, Vinv, Y, Pinv, Z, Tinv, TD };
+})();
+
+const SCEN = (() => {
+  const P = PHYS, { Vinv, X } = MAP;
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const N = 48;
+  const range = (a, b, n = N) => Array.from({ length: n + 1 }, (_, i) => lerp(a, b, i / n));
+
+  // entropy of any state (coexistence uses the lever rule)
+  function entropy(st) {
+    if (st._s != null) return st._s;
+    return P.S(st.T, st.v);
+  }
+  const isobar = (Ta, Tb, p, phase, n) => range(Ta, Tb, n).map(T => P.single(T, p, phase));
+  const isothermV = (T, va, vb, phase, n = N) => range(X(va), X(vb), n).map(x => { const v = Vinv(x); return P.fluidState(T, P.Pvdw(T, v), v, phase); });
+  const isothermP = (T, pa, pb, phase, n = N) => range(pa, pb, n).map(p => P.single(T, p, phase));
+  function coexLV(T, xa, xb, n = N) {
+    const s = P.sat(T);
+    return range(xa, xb, n).map(x => {
+      const st = P.coex(T, s.P, s.vl, s.vg, 'liquid', 'gas', x);
+      st._s = (1 - x) * P.S(T, s.vl) + x * P.S(T, s.vg);
+      if (x <= 0) { st.region = 'liquid'; } else if (x >= 1) { st.region = 'gas'; }
+      return st;
+    });
+  }
+  function coexSL(T, xa, xb, n = N) {
+    const p = P.Pmelt(T), vs = P.vSolid(T, p), vl = P.vLiq(T, p);
+    return range(xa, xb, n).map(x => { const st = P.coex(T, p, vs, vl, 'solid', 'liquid', x); if (x <= 0) st.region = 'solid'; if (x >= 1) st.region = 'liquid'; return st; });
+  }
+  function coexSV(T, xa, xb, n = N) {
+    const p = P.Psub(T), vs = P.vSolid(T, p), vg = P.vGas(T, p);
+    return range(xa, xb, n).map(x => { const st = P.coex(T, p, vs, vg, 'solid', 'gas', x); if (x <= 0) st.region = 'solid'; if (x >= 1) st.region = 'gas'; return st; });
+  }
+  const bisect = (f, lo, hi, it = 80) => { const flo = f(lo); for (let i = 0; i < it; i++) { const m = (lo + hi) / 2; if ((f(m) > 0) === (flo > 0)) lo = m; else hi = m; } return (lo + hi) / 2; };
+  const f2 = x => x.toFixed(2);
+  const pct = x => Math.round(x * 100) + '%';
+
+  // Heat taken in and net work, integrated along the closed path
+  function cycleNumbers(states) {
+    let W = 0, Qin = 0, Tmin = Infinity, Tmax = -Infinity;
+    for (let i = 0; i < states.length; i++) {
+      const a = states[i], b = states[(i + 1) % states.length];
+      W += 0.5 * (a.P + b.P) * (b.v - a.v);
+      const dQ = 0.5 * (a.T + b.T) * (entropy(b) - entropy(a));
+      if (dQ > 0) Qin += dQ;
+      Tmin = Math.min(Tmin, a.T); Tmax = Math.max(Tmax, a.T);
+    }
+    return { W, Qin, eta: W / Qin, carnot: 1 - Tmin / Tmax, Tmin, Tmax };
+  }
+
+  const HOT = { heat: 'hot', piston: 'weight' };
+  const L2 = (en, sv) => ({ en, sv });
+  const Tc = '<i>T</i><sub>c</sub>', Pc = '<i>P</i><sub>c</sub>', Pt = '<i>P</i><sub>t</sub>', iT = '<i>T</i>', iP = '<i>P</i>', iV = '<i>V</i>';
+  const PTv = '<i>P</i>–<i>T</i>', PVv = '<i>P</i>–<i>V</i>';
+  const pctL = x => L2(Math.round(x * 100) + '%', Math.round(x * 100) + '&nbsp;%');
+  const sv = x => String(x).replace('.', ',');
+
+  function melting() {
+    const p = 0.5, Tm = P.Tmelt(p);
+    return {
+      id: 'melting', name: L2('Melting', 'Smältning'), kind: 'phase', cycle: false,
+      view: { az: Math.PI / 2, el: 0, extra: [[P.Tt, P.Pt, 1], [1, 1.05, 1], [0.47, 1.1, 1], [0.8, 0.2, 1]], maxZoom: 1.8 },
+      intro: {
+        title: L2('Melting at constant pressure', 'Smältning vid konstant tryck'),
+        text: L2(`A weight on the piston holds the pressure at 0.5 ${Pc} while heat flows in from below. In the ${PTv} view the path is a horizontal line that crosses the melting curve: the whole melting stage happens at that one crossing point, while the cylinder shows the solid turning into liquid. Switch to 3D to see the stage spread out across the solid + liquid band.`,
+          `En vikt på kolven håller trycket på 0,5 ${Pc} medan värme strömmar in underifrån. I ${PTv}-vyn är vägen en vågrät linje som korsar smältkurvan: hela smältningen sker i just den skärningspunkten, medan cylindern visar hur det fasta ämnet blir vätska. Byt till 3D för att se smältningen utbredd över bandet fast + vätska.`)
+      },
+      segs: [
+        { title: L2('Warming the solid', 'Uppvärmning av det fasta ämnet'), text: L2('The molecules stay locked in their lattice and only vibrate harder. The volume hardly changes, which is why the solid face of the surface stands almost upright.', 'Molekylerna sitter kvar i sitt gitter och vibrerar bara kraftigare. Volymen ändras knappt, och därför står ytans fasta del nästan lodrätt.'), dur: 3.2, deco: HOT, states: isobar(0.5, Tm, p, 'solid') },
+        { title: L2('Melting', 'Smältning'), text: L2(`At the melting temperature the heat no longer raises ${iT}. It goes into breaking up the lattice while solid and liquid coexist, so the point waits on the melting curve. On the 3D surface it would instead be crossing the solid + liquid band along a tie line.`, `Vid smälttemperaturen höjer värmen inte längre ${iT}. Den går åt till att bryta upp gittret medan fast fas och vätska samexisterar, så punkten står still på smältkurvan. På 3D-ytan rör den sig i stället över bandet fast + vätska längs en konnod.`), dur: 5, deco: HOT, states: coexSL(Tm, 0, 1), param: 'index' },
+        { title: L2('Warming the liquid', 'Uppvärmning av vätskan'), text: L2('Once the last crystal is gone the temperature climbs again. The molecules are still packed together, but now they slide past one another.', 'När den sista kristallen är borta stiger temperaturen igen. Molekylerna ligger fortfarande tätt, men nu glider de förbi varandra.'), dur: 3.2, deco: HOT, states: isobar(Tm, 0.75, p, 'liquid') }
+      ]
+    };
+  }
+
+  function boiling() {
+    const p = 0.5, Tb = P.Tsat(p);
+    return {
+      id: 'boiling', name: L2('Boiling', 'Kokning'), kind: 'phase', cycle: false,
+      view: { az: Math.PI / 2, el: 0, extra: [[P.Tt, P.Pt, 1], [1.02, 1.08, 1], [0.7, 0.2, 1]], maxZoom: 1.9 },
+      intro: {
+        title: L2('Boiling at constant pressure', 'Kokning vid konstant tryck'),
+        text: L2(`A liquid is heated under a fixed pressure of 0.5 ${Pc} until it is all vapor. In the ${PTv} view the path is a horizontal line across the boiling curve, which shows at once the temperature at which this pressure makes it boil. The boiling itself sits at that crossing point; switch to ${PVv} to see the large jump in volume.`,
+          `En vätska värms under ett fast tryck på 0,5 ${Pc} tills allt är ånga. I ${PTv}-vyn är vägen en vågrät linje över kokpunktskurvan, och man ser direkt vid vilken temperatur vätskan kokar vid det här trycket. Själva kokningen sker i skärningspunkten; byt till ${PVv} för att se det stora volymsprånget.`)
+      },
+      segs: [
+        { title: L2('Warming the liquid', 'Uppvärmning av vätskan'), text: L2('The liquid expands a little as it warms, and its temperature climbs toward the boiling curve.', 'Vätskan utvidgar sig lite när den värms, och temperaturen stiger mot kokpunktskurvan.'), dur: 3, deco: HOT, states: isobar(0.72, Tb, p, 'liquid') },
+        { title: L2('Boiling', 'Kokning'), text: L2(`At the boiling temperature liquid and vapor coexist. Heat keeps flowing in, yet ${iT} and ${iP} stay fixed, so the point waits on the curve while molecules escape into the vapor and the volume grows about sixfold.`, `Vid koktemperaturen samexisterar vätska och ånga. Värme strömmar fortfarande in men ${iT} och ${iP} ligger still, så punkten väntar på kurvan medan molekyler lämnar vätskan och volymen växer ungefär sexfaldigt.`), dur: 5.5, deco: HOT, states: coexLV(Tb, 0, 1), param: 'index' },
+        { title: L2('Heating the vapor', 'Uppvärmning av ångan'), text: L2(`With the liquid gone, the vapor behaves more and more like an ideal gas, its volume growing roughly in step with ${iT}.`, `När vätskan är borta beter sig ångan alltmer som en ideal gas, och volymen växer ungefär i takt med ${iT}.`), dur: 3.2, deco: HOT, states: isobar(Tb, 1.05, p, 'gas') }
+      ]
+    };
+  }
+
+  function sublimation() {
+    const p = 0.05, Ts = P.Tsub(p);
+    return {
+      id: 'sublimation', name: L2('Sublimation', 'Sublimering'), kind: 'phase', cycle: false,
+      view: { az: Math.PI / 2, el: 0, extra: [[P.Tt, P.Pt, 1], [0.7, P.sat(0.7).P, 1], [0.46, 0.002, 1]], maxZoom: 2.2 },
+      intro: {
+        title: L2('Sublimation below the triple point', 'Sublimering under trippelpunkten'),
+        text: L2(`Below the triple-point pressure (here 0.05 ${Pc}, while ${Pt} ≈ 0.09 ${Pc}) there is no liquid at any temperature, so heating takes the solid straight to vapor; dry ice does this at atmospheric pressure. A weight keeps the pressure fixed, and the piston rises on its own as the vapor forms. The ${PTv} view shows at a glance that the isobar passes beneath the triple point, meeting the sublimation curve instead of the melting and boiling curves.`,
+          `Under trippelpunktens tryck (här 0,05 ${Pc}, medan ${Pt} ≈ 0,09 ${Pc}) finns ingen vätska vid någon temperatur, så uppvärmning för det fasta ämnet direkt till ånga; torris gör så vid atmosfärstryck. En vikt håller trycket fast, och kolven stiger av sig själv när ångan bildas. ${PTv}-vyn visar direkt att isobaren passerar under trippelpunkten och möter sublimeringskurvan i stället för smält- och kokpunktskurvorna.`)
+      },
+      segs: [
+        { title: L2('Warming the solid', 'Uppvärmning av det fasta ämnet'), text: L2('The lattice vibrates more strongly as the temperature rises.', 'Gittret vibrerar kraftigare när temperaturen stiger.'), dur: 3, deco: HOT, states: isobar(0.48, Ts, p, 'solid') },
+        { title: L2('Sublimation', 'Sublimering'), text: L2('On the sublimation curve solid and vapor coexist. Molecules leave the crystal straight into the vapor and the volume grows enormously. In this view the whole stage sits on a single point of the curve, so watch the cylinder.', 'På sublimeringskurvan samexisterar fast fas och ånga. Molekyler lämnar kristallen direkt ut i ångan och volymen växer enormt. I den här vyn sker hela steget i en enda punkt på kurvan, så titta på cylindern.'), dur: 5.5, deco: HOT, states: coexSV(Ts, 0, 1), param: 'index' },
+        { title: L2('Heating the vapor', 'Uppvärmning av ångan'), text: L2('Only a thin vapor remains, spreading its molecules through the whole cylinder.', 'Bara en tunn ånga finns kvar, med molekylerna utspridda i hela cylindern.'), dur: 3, deco: HOT, states: isobar(Ts, 0.66, p, 'gas') }
+      ]
+    };
+  }
+
+  function condensing() {
+    const T = 0.85, s = P.sat(T);
+    const COLD = { heat: 'cold', piston: 'push' };
+    return {
+      id: 'condensing', name: L2('Condensing a vapor', 'Kondensering av ånga'), kind: 'phase', cycle: false,
+      view: { az: 0, el: 0, extra: [[1, 1.15, 1], [T, 1.4, 0.5]], maxZoom: 1.6 },
+      intro: {
+        title: L2('Condensing a vapor by compression', 'Kondensering av ånga genom kompression'),
+        text: L2(`The cylinder sits in a cold bath that holds ${iT} at 0.85 ${Tc} while the piston is pushed in. This is the classic isotherm measured by Andrews and explained by van der Waals. The ${PVv} view is used because in ${PTv} the whole isotherm is a vertical line and the condensation stage shrinks to one point, while here its long flat stretch across the dome is visible.`,
+          `Cylindern står i ett kallt bad som håller ${iT} vid 0,85 ${Tc} medan kolven trycks in. Det är den klassiska isotermen som Andrews mätte och van der Waals förklarade. ${PVv}-vyn används eftersom hela isotermen blir en lodrät linje i ${PTv} och kondensationen krymper till en punkt, medan dess långa plana del tvärs över kupolen syns här.`)
+      },
+      segs: [
+        { title: L2('Compressing the vapor', 'Kompression av ångan'), text: L2(`The pressure rises as the volume shrinks, at first roughly as ${iP} ∝ 1/${iV}.`, `Trycket stiger när volymen minskar, till en början ungefär som ${iP} ∝ 1/${iV}.`), dur: 3.5, deco: COLD, states: isothermV(T, 9, s.vg, 'gas') },
+        { title: L2('Condensation', 'Kondensation'), text: L2('At the saturation pressure droplets appear. Pushing further turns vapor into liquid at constant pressure, and the heat released flows into the bath. This flat stretch of the isotherm is a tie line across the dome.', 'Vid mättnadstrycket bildas droppar. När kolven trycks vidare blir ånga till vätska vid konstant tryck, och värmen som frigörs går ut i badet. Den plana delen av isotermen är en konnod tvärs över kupolen.'), dur: 5.5, deco: COLD, states: coexLV(T, 1, 0), param: 'index' },
+        { title: L2('Compressing the liquid', 'Kompression av vätskan'), text: L2('With only liquid left, the pressure shoots up for a tiny change in volume: liquids are nearly incompressible.', 'När bara vätska finns kvar skjuter trycket i höjden för en mycket liten volymändring: vätskor är nästan inkompressibla.'), dur: 3, deco: COLD, states: isothermP(T, s.P, 1.3, 'liquid') }
+      ]
+    };
+  }
+
+  function supercritical() {
+    return {
+      id: 'around', name: L2('Liquid to gas without boiling', 'Från vätska till gas utan kokning'), kind: 'phase', cycle: false,
+      view: { az: Math.PI / 2, el: 0, extra: [[1, 1, 1], [0.8, 0.45, 1], [1.18, 1.35, 1]], maxZoom: 2.2 },
+      intro: {
+        title: L2('From liquid to gas without boiling', 'Från vätska till gas utan kokning'),
+        text: L2(`The boiling curve stops at the critical point. By going around it, first above ${Pc} and then above ${Tc}, a liquid can become a gas continuously, without ever entering the liquid + vapor dome and without a moment of boiling. The ${PTv} view makes the detour around the end of the curve plain.`,
+          `Kokpunktskurvan tar slut i den kritiska punkten. Genom att gå runt den, först över ${Pc} och sedan över ${Tc}, kan en vätska bli gas kontinuerligt, utan att någonsin gå in i kupolen för vätska + ånga och utan ett ögonblicks kokning. ${PTv}-vyn gör omvägen runt kurvans slut tydlig.`)
+      },
+      segs: [
+        { title: L2(`Heating past ${Tc} at high pressure`, `Uppvärmning förbi ${Tc} vid högt tryck`), text: L2(`At 1.2 ${Pc} the liquid is heated beyond the critical temperature. It thins out gradually into a supercritical fluid: no surface forms and no bubbles appear.`, `Vid 1,2 ${Pc} värms vätskan över den kritiska temperaturen. Den tunnas gradvis ut till en superkritisk fluid: ingen yta bildas och inga bubblor uppstår.`), dur: 4, deco: HOT, states: isobar(0.85, 1.15, 1.2, 'liquid') },
+        { title: L2('Expanding at constant temperature', 'Expansion vid konstant temperatur'), text: L2(`Still above ${Tc}, the pressure is lowered below ${Pc} by pulling the piston. The fluid spreads smoothly through the cylinder; it is now a gas, yet no boundary was crossed.`, `Fortfarande över ${Tc} sänks trycket under ${Pc} genom att kolven dras ut. Fluiden sprider sig jämnt i cylindern; nu är den en gas, men ingen gräns har passerats.`), dur: 4, deco: { heat: 'hot', piston: 'pull' }, states: isothermP(1.15, 1.2, 0.6, 'gas') },
+        { title: L2('Cooling the gas', 'Avkylning av gasen'), text: L2(`Cooling at 0.6 ${Pc} brings it back below ${Tc} as an ordinary vapor. It started as a liquid and ended as a vapor, like the boiling scenario, but never had a coexistence stage.`, `Avkylning vid 0,6 ${Pc} för den tillbaka under ${Tc} som vanlig ånga. Den började som vätska och slutade som ånga, precis som vid kokningen, men utan något steg där två faser samexisterar.`), dur: 3.5, deco: { heat: 'cold', piston: 'weight' }, states: isobar(1.15, 0.92, 0.6, 'gas') }
+      ]
+    };
+  }
+
+  function rankine() {
+    const PL = 0.3, PH = 0.8, T3 = 1.03;
+    const T1 = P.Tsat(PL), s1sat = P.sat(T1), v1 = s1sat.vl, s1 = P.S(T1, v1);
+    const Tis = (s, v) => Math.exp((s - P.R * Math.log(v - P.b)) / P.CV);
+    const v2 = bisect(v => P.Pvdw(Tis(s1, v), v) - PH, v1 * 0.85, v1);
+    const pump = range(v1, v2, 24).map(v => { const T = Tis(s1, v); const st = P.fluidState(T, P.Pvdw(T, v), v, 'liquid'); st._s = s1; return st; });
+    const T2 = pump[pump.length - 1].T, Tb = P.Tsat(PH);
+    const heatL = isobar(T2, Tb, PH, 'liquid', 30);
+    const boil = coexLV(Tb, 0, 1);
+    const superheat = isobar(Tb, T3, PH, 'gas', 30);
+    const v3 = superheat[superheat.length - 1].v, s3 = P.S(T3, v3);
+    const vIs = T => P.b + Math.exp((s3 - P.CV * Math.log(T)) / P.R);
+    const inDome = T => T < 1 && vIs(T) < P.sat(T).vg;
+    const Te = bisect(T => (inDome(T) ? 1 : -1), T1, Math.min(T3, 0.9999));
+    const turbState = T => {
+      if (!inDome(T)) { const v = vIs(T); const st = P.fluidState(T, P.Pvdw(T, v), v, 'gas'); st._s = s3; return st; }
+      const s = P.sat(T), sl = P.S(T, s.vl), sg = P.S(T, s.vg), x = Math.min(1, (s3 - sl) / (sg - sl));
+      const st = P.coex(T, s.P, s.vl, s.vg, 'liquid', 'gas', x); st._s = s3; return st;
+    };
+    const turbine = [...range(T3, Te, 24), ...range(Te, T1, 30).slice(1)].map(turbState);
+    const x4 = turbine[turbine.length - 1].fg;
+    const cond = coexLV(T1, x4, 0);
+    const all = [...pump, ...heatL.slice(1), ...boil.slice(1), ...superheat.slice(1), ...turbine.slice(1), ...cond.slice(1, -1)];
+    const nums = cycleNumbers(all);
+    const e = pctL(nums.eta), c = pctL(nums.carnot), wet = pctL(1 - x4);
+    const effText = L2(`Over one turn the engine converts about <b>${e.en}</b> of the heat it takes in into work. A Carnot engine working between the same extreme temperatures (${f2(nums.Tmin)} and ${f2(nums.Tmax)} ${Tc}) could reach ${c.en}; the difference comes mostly from heating the cold liquid up to the boiling point.`,
+      `Under ett varv omvandlar motorn ungefär <b>${e.sv}</b> av den upptagna värmen till arbete. En Carnotmotor mellan samma extrema temperaturer (${sv(f2(nums.Tmin))} och ${sv(f2(nums.Tmax))} ${Tc}) skulle kunna nå ${c.sv}; skillnaden beror mest på att den kalla vätskan måste värmas upp till kokpunkten.`);
+    const ins = { heat: 'insul' };
+    return {
+      id: 'rankine', name: L2('Steam engine (Rankine)', 'Ångmaskin (Rankine)'), kind: 'engine', cycle: true, hidden: true, nums, effText,
+      view: { az: 0.62, el: 0.36, extra: [[1, 1, 1]], maxZoom: 2 },
+      intro: {
+        title: L2('Steam engine: the Rankine cycle', 'Ångmaskin: Rankinecykeln'),
+        text: L2('The working fluid is pumped as a liquid, boiled and superheated at high pressure, expanded to deliver work, then condensed back to liquid. A power plant uses a separate pump, boiler, turbine and condenser; here a single cylinder does the four jobs in turn. The 3D view is used because it shows how the loop wraps around the liquid + vapor dome, which neither projection shows at once.',
+          'Arbetsmediet pumpas som vätska, kokas och överhettas vid högt tryck, expanderar och uträttar arbete och kondenseras sedan tillbaka till vätska. Ett kraftverk har separat pump, panna, turbin och kondensor; här gör en enda cylinder de fyra jobben i tur och ordning. 3D-vyn används eftersom den visar hur slingan lindar sig runt kupolen för vätska + ånga, vilket ingen av projektionerna visar på en gång.')
+      },
+      segs: [
+        { title: L2('Pumping the liquid', 'Pumpning av vätskan'), text: L2(`Insulated, the liquid is squeezed from ${PL} to ${PH} ${Pc}. Liquids are nearly incompressible, so this costs very little work.`, `Isolerad trycks vätskan ihop från ${sv(PL)} till ${sv(PH)} ${Pc}. Vätskor är nästan inkompressibla, så det kostar mycket lite arbete.`), dur: 2.4, deco: { ...ins, work: 'in', expanding: false }, states: pump },
+        { title: L2('Heating to the boiling point', 'Uppvärmning till kokpunkten'), text: L2('In the boiler, at constant high pressure, heat brings the liquid up to its boiling temperature.', 'I pannan, vid konstant högt tryck, värms vätskan upp till sin koktemperatur.'), dur: 2.8, deco: { heat: 'hot', work: 'out', expanding: true }, states: heatL },
+        { title: L2('Boiling', 'Kokning'), text: L2(`Heat turns liquid into vapor at constant ${iT} and ${iP}. The volume grows against the piston, so work is already coming out.`, `Värmen förvandlar vätska till ånga vid konstant ${iT} och ${iP}. Volymen växer mot kolven, så arbete kommer redan ut.`), dur: 4, deco: { heat: 'hot', work: 'out', expanding: true }, states: boil, param: 'index' },
+        { title: L2('Superheating', 'Överhettning'), text: L2('The vapor is heated past the boiling temperature so that it stays mostly dry during the expansion.', 'Ångan värms över koktemperaturen så att den förblir mestadels torr under expansionen.'), dur: 2.4, deco: { heat: 'hot', work: 'out', expanding: true }, states: superheat },
+        { title: L2('Expansion', 'Expansion'), text: L2(`Insulated, the vapor expands and cools as it pushes the piston: most of the work comes out here. It dips into the dome, ending with about ${wet.en} of it condensed into droplets.`, `Isolerad expanderar ångan och svalnar medan den trycker kolven: det mesta arbetet kommer ut här. Den går in i kupolen och slutar med ungefär ${wet.sv} kondenserat till droppar.`), dur: 3.6, deco: { ...ins, work: 'out', expanding: true }, states: turbine },
+        { title: L2('Condensing', 'Kondensering'), text: L2('Touching the cold side at low pressure, the wet vapor gives up its heat and condenses completely. The piston returns to the starting volume and the loop closes.', 'I kontakt med den kalla sidan vid lågt tryck avger den fuktiga ångan sin värme och kondenserar helt. Kolven återgår till startvolymen och slingan sluts.'), dur: 4, deco: { heat: 'cold', work: 'in', expanding: false }, states: cond, param: 'index' }
+      ]
+    };
+  }
+
+  function carnot() {
+    const Th = 1.2, Tcold = 0.85, g = P.CV / P.R;
+    const v1 = 3.2, v2 = 8.5;
+    const v3 = P.b + (v2 - P.b) * Math.pow(Th / Tcold, g), v4 = P.b + (v1 - P.b) * Math.pow(Th / Tcold, g);
+    const adiabat = (Ta, Tb, va) => range(Ta, Tb).map(T => { const v = P.b + (va - P.b) * Math.pow(Ta / T, g); return P.fluidState(T, P.Pvdw(T, v), v, 'gas'); });
+    const segs = [isothermV(Th, v1, v2, 'gas'), adiabat(Th, Tcold, v2), isothermV(Tcold, v3, v4, 'gas'), adiabat(Tcold, Th, v4)];
+    const all = segs.flatMap(s => s.slice(0, -1));
+    const nums = cycleNumbers(all);
+    const e = pctL(nums.eta), lim = pctL(1 - Tcold / Th);
+    const effText = L2(`Integrating around the loop, the net work is <b>${e.en}</b> of the heat taken in, matching the Carnot limit 1 − ${Tcold}/${Th} = ${lim.en}. No engine working between these two temperatures can do better.`,
+      `Integrerat runt slingan är nettoarbetet <b>${e.sv}</b> av den upptagna värmen, i överensstämmelse med Carnotgränsen 1 − ${sv(Tcold)}/${sv(Th)} = ${lim.sv}. Ingen motor mellan dessa två temperaturer kan göra bättre ifrån sig.`);
+    return {
+      id: 'carnot', name: L2('Carnot engine', 'Carnotmotor'), kind: 'engine', cycle: true, crank: true, nums, effText,
+      view: { az: Math.PI / 2, el: 0, extra: [[1, 1.02, 1], [0.8, 0.2, 1], [1.24, 0.12, 1]], maxZoom: 2.2 },
+      intro: {
+        title: L2('The Carnot engine', 'Carnotmotorn'),
+        text: L2(`Two isotherms joined by two adiabats, run entirely in the gas region. The hot reservoir is at ${Th} ${Tc} and the cold one at ${Tcold} ${Tc}. The ${PTv} view is used because the two isotherms become vertical lines at exactly those temperatures, the two numbers that set the efficiency, and it shows the whole cycle clear of the boiling curve. The work per cycle is the area of the loop in the ${PVv} view.`,
+          `Två isotermer förbundna av två adiabater, helt i gasområdet. Den varma reservoaren håller ${sv(Th)} ${Tc} och den kalla ${sv(Tcold)} ${Tc}. ${PTv}-vyn används eftersom de två isotermerna blir lodräta linjer vid just de temperaturerna, de två tal som bestämmer verkningsgraden, och den visar att hela kretsprocessen ligger fri från kokpunktskurvan. Arbetet per varv är slingans area i ${PVv}-vyn.`)
+      },
+      segs: [
+        { title: L2('Isothermal expansion', 'Isoterm expansion'), text: L2('In contact with the hot reservoir the gas expands and draws in heat, which keeps its temperature constant.', 'I kontakt med den varma reservoaren expanderar gasen och tar upp värme, som håller temperaturen konstant.'), dur: 3.6, deco: { heat: 'hot', work: 'out', expanding: true }, states: segs[0] },
+        { title: L2('Adiabatic expansion', 'Adiabatisk expansion'), text: L2('Insulated, the gas keeps expanding and cools down to the cold temperature as it does work.', 'Isolerad fortsätter gasen att expandera och svalnar till den kalla temperaturen medan den uträttar arbete.'), dur: 3, deco: { heat: 'insul', work: 'out', expanding: true }, states: segs[1] },
+        { title: L2('Isothermal compression', 'Isoterm kompression'), text: L2('Touching the cold reservoir, the gas is compressed and gives heat away, staying at the cold temperature.', 'I kontakt med den kalla reservoaren komprimeras gasen och avger värme, och stannar vid den kalla temperaturen.'), dur: 3.6, deco: { heat: 'cold', work: 'in', expanding: false }, states: segs[2] },
+        { title: L2('Adiabatic compression', 'Adiabatisk kompression'), text: L2('Insulated again, compression heats the gas back to the hot temperature and the loop closes.', 'Isolerad igen värms gasen av kompressionen tillbaka till den varma temperaturen, och slingan sluts.'), dur: 3, deco: { heat: 'insul', work: 'in', expanding: false }, states: segs[3] }
+      ]
+    };
+  }
+
+  const LIST = [melting, boiling, sublimation, condensing, supercritical, rankine, carnot];
+  return { build: () => LIST.map(f => f()), cycleNumbers, entropy };
+})();
+if (typeof module !== 'undefined') module.exports = { MAP, SCEN };
+
+// ===== App =====
+(() => {
+  'use strict';
+  const Ph = PHYS, { WX, HY, DZ, X, Vinv, Y, Pinv, Z, Tinv, TD } = MAP;
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const RM = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const lerp = (a, b, t) => a + (b - a) * t;
+  const clamp = Ph.clamp;
+  const range = (a, b, n) => Array.from({ length: n + 1 }, (_, i) => lerp(a, b, i / n));
+
+  if (!window.THREE) { document.body.classList.add('no-gl'); return; }
+
+  // ---------- theme ----------
+  const C = {};
+  function readTheme() {
+    const cs = getComputedStyle(document.documentElement);
+    const g = n => cs.getPropertyValue(n).trim();
+    Object.assign(C, {
+      paper: g('--paper'), panel: g('--panel'), ink: g('--ink'), muted: g('--muted'), rule: g('--rule'),
+      red: g('--red'), hot: g('--hot'), cold: g('--cold'), wall: g('--wall'),
+      solid: g('--c-solid'), liquid: g('--c-liquid'), gas: g('--c-gas'), sc: g('--c-sc'), SL: g('--c-sl'), LV: g('--c-lv'), SV: g('--c-sv'),
+      interior: g('--box-interior'), piston: g('--box-piston'), weight: g('--box-weight'), shine: g('--box-shine'),
+      iso: g('--iso'), font: '"Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif'
+    });
+  }
+  readTheme();
+
+  const REG = I18N.REG;
+
+  // ---------- renderer ----------
+  const vp = $('#vp'), canvas = $('#gl');
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  } catch (e) { document.body.classList.add('no-gl'); return; }
+  renderer.setPixelRatio(Math.min(2, window.devicePixelRatio || 1));
+  renderer.setClearColor(0x000000, 0);
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 200);
+  scene.add(camera);
+  const amb = new THREE.AmbientLight(0xffffff, 0.6); scene.add(amb);
+  const sun = new THREE.DirectionalLight(0xffffff, 0.52);
+  sun.position.set(-0.4, 0.9, 1); camera.add(sun); camera.add(sun.target); sun.target.position.set(0, 0, -1);
+
+  const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
+  const W3 = (T, p, v) => V3(X(v), Y(p), Z(T));
+  const col = c => new THREE.Color(c);
+
+  // ---------- surface patches ----------
+  function patch(nu, nv, fn) {
+    const pos = new Float32Array((nu + 1) * (nv + 1) * 3); let k = 0;
+    for (let i = 0; i <= nu; i++) for (let j = 0; j <= nv; j++) {
+      const p = fn(i / nu, j / nv); pos[k++] = p[0]; pos[k++] = p[1]; pos[k++] = p[2];
+    }
+    const idx = [];
+    for (let i = 0; i < nu; i++) for (let j = 0; j < nv; j++) {
+      const a = i * (nv + 1) + j, b = a + nv + 1;
+      idx.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    g.setIndex(idx); g.computeVertexNormals();
+    return g;
+  }
+  const { Tt, TMIN, TMAX, PMAX, TMC } = Ph;
+  const vGasC = (T, p) => Math.min(Ph.vGas(T, p), Ph.VMAX);
+  const PATCHES = [
+    ['solid', 20, 22, (u, w) => { const T = lerp(TMIN, Tt, u), y = lerp(Y(Ph.Psub(T)), HY, w), p = Pinv(y); return [X(Ph.vSolid(T, p)), y, Z(T)]; }],
+    ['solid', 20, 22, (u, w) => { const T = lerp(Tt, TMC, u), y = lerp(Y(Ph.Pmelt(T)), HY, w), p = Pinv(y); return [X(Ph.vSolid(T, p)), y, Z(T)]; }],
+    ['SV', 24, 24, (u, w) => { const T = lerp(TMIN, Tt, u), p = Ph.Psub(T); return [lerp(X(Ph.vSolid(T, p)), X(vGasC(T, p)), w), Y(p), Z(T)]; }],
+    ['SL', 24, 16, (u, w) => { const T = lerp(Tt, TMC, u), p = Ph.Pmelt(T); return [lerp(X(Ph.vSolid(T, p)), X(Ph.vLiq(T, p)), w), Y(p), Z(T)]; }],
+    ['LV', 64, 30, (u, w) => { const T = TD(u), s = Ph.sat(T); return [lerp(X(s.vl), X(s.vg), w), Y(s.P), Z(T)]; }],
+    ['liquid', 30, 30, (u, w) => { const T = lerp(Tt, TMC, u), y = lerp(Y(Ph.sat(T).P), Y(Ph.Pmelt(T)), w), p = Pinv(y); return [X(Ph.vLiq(T, p)), y, Z(T)]; }],
+    ['liquid', 30, 30, (u, w) => { const T = 1 - (1 - TMC) * (1 - u) * (1 - u), y = lerp(Y(Ph.sat(T).P), HY, w), p = Pinv(y); return [X(Ph.vLiq(T, p)), y, Z(T)]; }],
+    ['sc', 30, 30, (u, w) => { const T = lerp(1, TMAX, u), y = lerp(Y(1), HY, w), p = Pinv(y); return [X(Ph.vLiq(T, p)), y, Z(T)]; }],
+    ['gas', 24, 40, (u, w) => { const T = lerp(TMIN, Tt, u), x = lerp(X(vGasC(T, Ph.Psub(T))), WX, w), v = Vinv(x); return [x, Y(Ph.Pvdw(T, v)), Z(T)]; }],
+    ['gas', 60, 40, (u, w) => { const T = TD(u), x = lerp(X(Ph.sat(T).vg), WX, w), v = Vinv(x); return [x, Y(Ph.Pvdw(T, v)), Z(T)]; }],
+    ['gas', 30, 40, (u, w) => { const T = lerp(1, TMAX, u), x = lerp(X(Ph.vLiq(T, 1)), WX, w), v = Vinv(x); return [x, Y(Ph.Pvdw(T, v)), Z(T)]; }]
+  ];
+  const surf = new THREE.Group(); scene.add(surf);
+  const surfMeshes = [];
+  const surfMats = {};
+  for (const [region, nu, nv, fn] of PATCHES) {
+    if (!surfMats[region]) surfMats[region] = new THREE.MeshLambertMaterial({ color: col(C[region]), side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 2, polygonOffsetUnits: 3 });
+    const m = new THREE.Mesh(patch(nu, nv, fn), surfMats[region]);
+    m.userData.region = region; surf.add(m); surfMeshes.push(m);
+  }
+
+  // ---------- lines & tubes ----------
+  class PolyCurve extends THREE.Curve {
+    constructor(pts) {
+      super();
+      this.pts = pts.filter((p, i) => i === 0 || p.distanceTo(pts[i - 1]) > 1e-6);
+      if (this.pts.length < 2) this.pts.push(this.pts[0].clone().add(V3(1e-4, 0, 0)));
+      this.cum = [0];
+      for (let i = 1; i < this.pts.length; i++) this.cum.push(this.cum[i - 1] + this.pts[i].distanceTo(this.pts[i - 1]));
+      this.len = this.cum[this.cum.length - 1];
+    }
+    getPoint(t, target = new THREE.Vector3()) {
+      const d = clamp(t, 0, 1) * this.len, c = this.cum;
+      let lo = 0, hi = c.length - 1;
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if (c[m] > d) hi = m; else lo = m; }
+      const f = (d - c[lo]) / Math.max(1e-9, c[hi] - c[lo]);
+      return target.copy(this.pts[lo]).lerp(this.pts[hi], f);
+    }
+  }
+  const tube = (pts, r, mat, segs) => { const cv = new PolyCurve(pts); return new THREE.Mesh(new THREE.TubeGeometry(cv, segs || Math.min(900, Math.max(8, cv.pts.length * 2)), r, 7, false), mat); };
+  const line = (pts, mat) => { const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), mat); if (mat.isLineDashedMaterial) l.computeLineDistances(); return l; };
+
+  const inkTubeMat = new THREE.MeshBasicMaterial({ color: col(C.ink) });
+  const isoMat = new THREE.LineBasicMaterial({ color: col(C.iso), transparent: true, opacity: 0.55 });
+  const critMat = new THREE.LineDashedMaterial({ color: col(C.ink), dashSize: 0.14, gapSize: 0.09, transparent: true, opacity: 0.9 });
+
+  // boundary curves (as T,P,v triples)
+  const satL = range(0, 1, 90).map(u => { const T = TD(u), s = Ph.sat(T); return W3(T, s.P, s.vl); });
+  const satG = range(0, 1, 90).map(u => { const T = TD(u), s = Ph.sat(T); return W3(T, s.P, s.vg); });
+  const meltS = range(Tt, TMC, 30).map(T => W3(T, Ph.Pmelt(T), Ph.vSolid(T, Ph.Pmelt(T))));
+  const meltL = range(Tt, TMC, 30).map(T => W3(T, Ph.Pmelt(T), Ph.vLiq(T, Ph.Pmelt(T))));
+  const subS = range(TMIN, Tt, 30).map(T => W3(T, Ph.Psub(T), Ph.vSolid(T, Ph.Psub(T))));
+  const Tsv = (() => { let lo = TMIN, hi = Tt; for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2; if (Ph.vGas(m, Ph.Psub(m)) > Ph.VMAX) lo = m; else hi = m; } return hi; })();
+  const subG = range(Tsv, Tt, 30).map(T => W3(T, Ph.Psub(T), Ph.vGas(T, Ph.Psub(T))));
+  const TR = Ph.TRIPLE, vsT = Ph.vSolid(Tt, Ph.Pt);
+  const triplePts = [W3(Tt, Ph.Pt, vsT), W3(Tt, Ph.Pt, TR.vg)];
+  const bounds = new THREE.Group(); scene.add(bounds);
+  const cpPos = W3(1, 1, 1);
+  const cpSphere = new THREE.Mesh(new THREE.SphereGeometry(0.1, 18, 12), inkTubeMat); cpSphere.position.copy(cpPos); scene.add(cpSphere);
+  let boundsZoom = 0;
+  function buildBounds(zoom) {
+    if (boundsZoom && Math.abs(Math.log(zoom / boundsZoom)) < 0.22) return;
+    boundsZoom = zoom;
+    bounds.children.slice().forEach(o => { bounds.remove(o); o.geometry.dispose(); });
+    const k = 1 / Math.pow(zoom, 0.85);
+    [satL, [...satG].reverse(), meltS, meltL, subS, subG].forEach(p => bounds.add(tube(p, 0.024 * k, inkTubeMat)));
+    bounds.add(tube(triplePts, 0.045 * k, inkTubeMat, 20));
+    cpSphere.scale.setScalar(k);
+  }
+  buildBounds(1);
+  const cpPick = new THREE.Mesh(new THREE.SphereGeometry(0.28, 10, 8), new THREE.MeshBasicMaterial({ visible: false })); cpPick.position.copy(cpPos); cpPick.userData.region = 'critical'; scene.add(cpPick);
+  const tripPick = new THREE.Mesh(new THREE.TubeGeometry(new PolyCurve(triplePts), 10, 0.16, 6), new THREE.MeshBasicMaterial({ visible: false })); tripPick.userData.region = 'triple'; scene.add(tripPick);
+
+  // outline of the cut edges of the surface (keeps the silhouette crisp)
+  const edgeMat = new THREE.LineBasicMaterial({ color: col(C.ink), transparent: true, opacity: 0.45 });
+  const edges = new THREE.Group(); scene.add(edges);
+  function buildEdges() {
+    const topPts = range(TMIN, TMAX, 80).map(T => T <= TMC ? V3(X(Ph.vSolid(T, PMAX)), HY, Z(T)) : V3(X(Ph.vLiq(T, PMAX)), HY, Z(T)));
+    edges.add(line(topPts, edgeMat));
+    edges.add(line(range(0, 1, 50).map(w => { const T = TMAX, x = lerp(X(Ph.vLiq(T, PMAX)), WX, w); return V3(x, Y(Ph.Pvdw(T, Vinv(x))), Z(T)); }), edgeMat));
+    edges.add(line(isotherm(TMIN), edgeMat));
+    edges.add(line(range(TMIN, TMAX, 80).map(T => V3(WX, Y(Ph.Pvdw(T, Ph.VMAX)), Z(T))), edgeMat));
+  }
+
+  // isotherm across all regions
+  function isotherm(T) {
+    const pts = [];
+    const down = (pa, pb, vf, n = 24) => { for (const y of range(Y(pa), Y(pb), n)) { const p = Pinv(y); pts.push(W3(T, p, vf(p))); } };
+    const across = (p, va, vb, n = 24, pv = null) => { for (const x of range(X(va), X(vb), n)) { const v = Vinv(x); pts.push(W3(T, pv ? pv(v) : p, v)); } };
+    if (T < Tt) {
+      const ps = Ph.Psub(T), vg = vGasC(T, ps);
+      down(PMAX, ps, p => Ph.vSolid(T, p), 8);
+      across(ps, Ph.vSolid(T, ps), vg, 20);
+      if (vg < Ph.VMAX) across(0, vg, Ph.VMAX, 30, v => Ph.Pvdw(T, v));
+    } else if (T < 1) {
+      const s = Ph.sat(T);
+      if (T < TMC) { const pm = Ph.Pmelt(T); down(PMAX, pm, p => Ph.vSolid(T, p), 6); across(pm, Ph.vSolid(T, pm), Ph.vLiq(T, pm), 6); down(pm, s.P, p => Ph.vLiq(T, p), 30); }
+      else down(PMAX, s.P, p => Ph.vLiq(T, p), 30);
+      across(s.P, s.vl, s.vg, 20);
+      across(0, s.vg, Ph.VMAX, 40, v => Ph.Pvdw(T, v));
+    } else {
+      across(0, Ph.vLiq(T, PMAX), Ph.VMAX, 90, v => Ph.Pvdw(T, v));
+    }
+    return pts;
+  }
+  buildEdges();
+  const isoGroup = new THREE.Group(); scene.add(isoGroup);
+  [0.5, 0.55, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.05, 1.1, 1.15, 1.2].forEach(T => isoGroup.add(line(isotherm(T), isoMat)));
+  const critLine = line(isotherm(1), critMat); scene.add(critLine);
+
+  // ---------- walls with projections ----------
+  const XW = -0.55, ZW = -DZ - 0.55;
+  const walls = new THREE.Group(); scene.add(walls);
+  const wallPT = new THREE.Group(), wallPV = new THREE.Group(); walls.add(wallPT, wallPV);
+  const wallMat = new THREE.MeshBasicMaterial({ color: col(C.wall), transparent: true, opacity: 0.55, side: THREE.DoubleSide, depthWrite: false });
+  const wallLine = new THREE.LineBasicMaterial({ color: col(C.ink), transparent: true, opacity: 0.8 });
+  const wallFrame = new THREE.LineBasicMaterial({ color: col(C.muted), transparent: true, opacity: 0.5 });
+  const fillMats = {};
+  const fillMat = key => fillMats[key] || (fillMats[key] = new THREE.MeshBasicMaterial({ color: col(C[key]), transparent: true, opacity: 0.42, side: THREE.DoubleSide, depthWrite: false }));
+  // polygon on the P–T wall: pts [T,P] -> (XW, Y(P), Z(T))
+  function ptPoly(pts, key) {
+    const shape = new THREE.Shape(pts.map(([T, p]) => new THREE.Vector2(Z(T), Y(p))));
+    const g = new THREE.ShapeGeometry(shape);
+    const a = g.attributes.position;
+    for (let i = 0; i < a.count; i++) { const zx = a.getX(i), yy = a.getY(i); a.setXYZ(i, XW + 0.01, yy, zx); }
+    const m = new THREE.Mesh(g, fillMat(key)); m.renderOrder = 1; return m;
+  }
+  function pvPoly(pts, key) { // pts [x, y] in world
+    const shape = new THREE.Shape(pts.map(([x, y]) => new THREE.Vector2(x, y)));
+    const m = new THREE.Mesh(new THREE.ShapeGeometry(shape), fillMat(key)); m.position.z = ZW + 0.01; m.renderOrder = 1; return m;
+  }
+  function buildWalls() {
+    // backgrounds
+    const ptBg = new THREE.Mesh(new THREE.PlaneGeometry(DZ, HY), wallMat); ptBg.rotation.y = Math.PI / 2; ptBg.position.set(XW, HY / 2, -DZ / 2); wallPT.add(ptBg);
+    const pvBg = new THREE.Mesh(new THREE.PlaneGeometry(WX, HY), wallMat); pvBg.position.set(WX / 2, HY / 2, ZW); wallPV.add(pvBg);
+    wallPT.add(line([V3(XW, 0, 0), V3(XW, HY, 0), V3(XW, HY, -DZ), V3(XW, 0, -DZ), V3(XW, 0, 0)], wallFrame));
+    wallPV.add(line([V3(0, 0, ZW), V3(0, HY, ZW), V3(WX, HY, ZW), V3(WX, 0, ZW), V3(0, 0, ZW)], wallFrame));
+    // P–T regions
+    const sub = range(TMIN, Tt, 30).map(T => [T, Ph.Psub(T)]);
+    const vap = range(0, 1, 60).map(u => { const T = TD(u); return [T, Ph.sat(T).P]; });
+    const melt = range(Tt, TMC, 10).map(T => [T, Ph.Pmelt(T)]);
+    wallPT.add(ptPoly([...sub, ...melt, [TMC, PMAX], [TMIN, PMAX]], 'solid'));
+    wallPT.add(ptPoly([...vap, [1, PMAX], [TMC, PMAX], ...[...melt].reverse()], 'liquid'));
+    wallPT.add(ptPoly([[TMIN, 0], [TMAX, 0], [TMAX, 1], [1, 1], ...[...vap].reverse(), ...[...sub].reverse().slice(1)], 'gas'));
+    wallPT.add(ptPoly([[1, 1], [TMAX, 1], [TMAX, PMAX], [1, PMAX]], 'sc'));
+    const ptc = a => a.map(([T, p]) => V3(XW + 0.02, Y(p), Z(T)));
+    [sub, vap, melt].forEach(c => wallPT.add(line(ptc(c), wallLine)));
+    // P–V regions
+    const pv = (v, p) => [X(v), Y(p)];
+    const dome = [...range(0, 1, 70).map(u => { const T = TD(u), s = Ph.sat(T); return pv(s.vl, s.P); }), ...range(1, 0, 70).map(u => { const T = TD(u), s = Ph.sat(T); return pv(s.vg, s.P); })];
+    wallPV.add(pvPoly(dome, 'LV'));
+    const slL = range(Tt, TMC, 20).map(T => pv(Ph.vSolid(T, Ph.Pmelt(T)), Ph.Pmelt(T)));
+    const slR = range(TMC, Tt, 20).map(T => pv(Ph.vLiq(T, Ph.Pmelt(T)), Ph.Pmelt(T)));
+    wallPV.add(pvPoly([...slL, ...slR], 'SL'));
+    const svL = range(Tt, TMIN, 30).map(T => pv(Ph.vSolid(T, Ph.Psub(T)), Ph.Psub(T)));
+    const svR = range(TMIN, Tt, 40).map(T => pv(vGasC(T, Ph.Psub(T)), Ph.Psub(T)));
+    wallPV.add(pvPoly([...svL, [WX, 0], ...svR], 'SV'));
+    const solidL = range(TMIN, TMC, 30).map(T => pv(Ph.vSolid(T, PMAX), PMAX));
+    wallPV.add(pvPoly([pv(Ph.vSolid(TMIN, Ph.Psub(TMIN)), Ph.Psub(TMIN)), ...[...svL].reverse(), ...slL, ...[...solidL].reverse()], 'solid'));
+    const pvc = a => a.map(([x, y]) => V3(x, y, ZW + 0.02));
+    wallPV.add(line(pvc(dome), wallLine));
+    wallPV.add(line(pvc([pv(vsT, Ph.Pt), pv(TR.vg, Ph.Pt)]), wallLine));
+    wallPV.add(line(pvc(slL), wallLine)); wallPV.add(line(pvc([...slR].reverse()), wallLine));
+    wallPV.add(line(pvc(svR.filter(p => p[0] < WX - 1e-3)), wallLine));
+    const crit = isotherm(1).map(p => V3(p.x, p.y, ZW + 0.02));
+    wallPV.add(line(crit, critMat));
+    // points
+    const dotG = new THREE.CircleGeometry(0.075, 16);
+    const mkDot = (pos, rotY, g) => { const m = new THREE.Mesh(dotG, inkTubeMat); m.position.copy(pos); if (rotY) m.rotation.y = Math.PI / 2; g.add(m); };
+    mkDot(V3(XW + 0.03, Y(Ph.Pt), Z(Tt)), true, wallPT); mkDot(V3(XW + 0.03, Y(1), Z(1)), true, wallPT); mkDot(V3(X(1), Y(1), ZW + 0.03), false, wallPV);
+  }
+  buildWalls();
+
+  // ---------- axes ----------
+  const axisMat = new THREE.LineBasicMaterial({ color: col(C.ink) });
+  const axes = new THREE.Group(); scene.add(axes);
+  const ZF = 0.55, XR = WX + 0.55;
+  axes.add(line([V3(-0.55, 0, ZF), V3(XR, 0, ZF)], axisMat));
+  axes.add(line([V3(XR, 0, ZF), V3(XR, 0, -DZ - 0.3)], axisMat));
+  axes.add(line([V3(-0.55, 0, ZF), V3(-0.55, HY + 0.35, ZF)], axisMat));
+  const tk = 0.16;
+  const ticksV = [1, 10].map(v => X(v)), ticksT = [Tt, 1].map(Z), ticksP = [Ph.Pt, 1].map(Y);
+  ticksV.forEach(x => axes.add(line([V3(x, 0, ZF), V3(x, -tk, ZF)], axisMat)));
+  ticksT.forEach(z => axes.add(line([V3(XR, 0, z), V3(XR, -tk, z)], axisMat)));
+  ticksP.forEach(y => { axes.add(line([V3(-0.55, y, ZF), V3(-0.55 - tk, y, ZF)], axisMat)); axes.add(line([V3(-0.55, y, ZF), V3(-0.55, y, ZF + tk)], axisMat)); });
+
+  // ---------- HTML labels ----------
+  const layer = $('#labels');
+  const labels = [];
+  function mkLabel(cls, html, pos, opt = {}) {
+    const el = document.createElement('div'); el.className = 'lab ' + cls; el.innerHTML = html; layer.appendChild(el);
+    const L = Object.assign({ el, pos, html, visible: true, group: cls.split(' ')[0] }, opt); labels.push(L); return L;
+  }
+  const i = s => `<i>${s}</i>`;
+  const sub = (a, b) => `<i>${a}</i><sub>${b}</sub>`;
+  // axis labels: 'axis' says along which world direction the axis runs, so it hides when seen end-on
+  mkLabel('axis name', '', V3(XR - 0.1, -0.55, ZF), { axis: V3(1, 0, 0), text: () => `${i('V')}<small>${I18N.t('logScale')}</small>` });
+  mkLabel('axis name', i('T'), V3(XR, -0.55, -DZ - 0.3), { axis: V3(0, 0, 1) });
+  mkLabel('axis name', `${i('P')}`, V3(-0.55, HY + 0.7, ZF), { axis: V3(0, 1, 0) });
+  mkLabel('axis tick', sub('V', 'c'), V3(X(1), -0.42, ZF), { axis: V3(1, 0, 0) });
+  mkLabel('axis tick', `10${sub('V', 'c')}`, V3(X(10), -0.42, ZF), { axis: V3(1, 0, 0) });
+  mkLabel('axis tick', sub('T', 't'), V3(XR, -0.42, Z(Tt)), { axis: V3(0, 0, 1) });
+  mkLabel('axis tick', sub('T', 'c'), V3(XR, -0.42, Z(1)), { axis: V3(0, 0, 1) });
+  mkLabel('axis tick left', sub('P', 't'), V3(-0.85, Y(Ph.Pt), ZF + 0.3), { axis: V3(0, 1, 0) });
+  mkLabel('axis tick left', sub('P', 'c'), V3(-0.85, Y(1), ZF + 0.3), { axis: V3(0, 1, 0) });
+
+  const midX = (T, p, va, vb, f = 0.5) => V3(lerp(X(va), X(vb), f), Y(p), Z(T));
+  const regionLabels = [
+    ['solid', W3(0.53, 1.25, Ph.vSolid(0.53, 1.25))],
+    ['liquid', W3(0.8, 1.45, Ph.vLiq(0.8, 1.45))],
+    ['gas', (() => { const T = 1.08, v = 21; return W3(T, Ph.Pvdw(T, v), v); })()],
+    ['sc', W3(1.16, 1.55, Ph.vLiq(1.16, 1.55))],
+    ['SL', (() => { const T = 0.7, p = Ph.Pmelt(T); return midX(T, p, Ph.vSolid(T, p), Ph.vLiq(T, p)); })()],
+    ['LV', (() => { const T = 0.78, s = Ph.sat(T); return midX(T, s.P, s.vl, s.vg, 0.55); })()],
+    ['SV', (() => { const T = 0.52, p = Ph.Psub(T); return midX(T, p, Ph.vSolid(T, p), vGasC(T, p), 0.62); })()],
+    ['triple', V3(X(7), Y(Ph.Pt), Z(Tt))],
+    ['critical', cpPos.clone()]
+  ];
+  // names follow the language; coexistence regions are named after their curve in the P–T view
+  regionLabels.forEach(([key, pos]) => mkLabel('region r-' + key, '', pos, { key, text: vk => { const r = I18N.reg(key); return vk === 'pt' && r.curve ? r.curve : r.name; } }));
+
+  // ---------- camera ----------
+  const cam = { az: 0.72, el: 0.42, zoom: 1, target: V3(WX / 2, HY / 2, -DZ / 2) };
+  const VIEW_H = 11;
+  const dirOf = (az, el) => V3(Math.cos(el) * Math.sin(az), Math.sin(el), Math.cos(el) * Math.cos(az));
+  function basis(az, el) {
+    const d = dirOf(az, el), right = V3(0, 1, 0).cross(d).normalize(), up = d.clone().cross(right).normalize();
+    return { d, right, up };
+  }
+  function vpSize() { return { w: Math.max(50, vp.clientWidth), h: Math.max(50, vp.clientHeight) }; }
+  function applyCam() {
+    const { w, h } = vpSize(), asp = w / h, H = VIEW_H / cam.zoom;
+    camera.left = -H * asp / 2; camera.right = H * asp / 2; camera.top = H / 2; camera.bottom = -H / 2;
+    camera.position.copy(cam.target).addScaledVector(dirOf(cam.az, cam.el), 60);
+    camera.up.set(0, 1, 0); camera.lookAt(cam.target);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld();
+  }
+  // insets (px) the overlays take from the viewport: top bar and bottom hint
+  const INSET = { top: 64, bottom: 44, side: 28 };
+  function fit(az, el, pts, maxZoom = 6, pad = 1.12) {
+    const { d, right, up } = basis(az, el), { w, h } = vpSize();
+    const vb = document.getElementById('vbtns');
+    INSET.top = (vb ? vb.offsetHeight : 40) + 22;
+    INSET.bottom = w < 700 ? 16 : 40; INSET.side = w < 700 ? 10 : 28;
+    let a0 = Infinity, a1 = -Infinity, b0 = Infinity, b1 = -Infinity, cs = 0;
+    pts.forEach(p => { const a = p.dot(right), b = p.dot(up); a0 = Math.min(a0, a); a1 = Math.max(a1, a); b0 = Math.min(b0, b); b1 = Math.max(b1, b); cs += p.dot(d); });
+    const aw = Math.max(0.5, a1 - a0) * pad, bh = Math.max(0.5, b1 - b0) * pad;
+    const uw = w - 2 * INSET.side, uh = h - INSET.top - INSET.bottom;
+    // world height H covers h px; need aw*(h/H) <= uw and bh*(h/H) <= uh
+    const H = Math.max(aw * h / uw, bh * h / uh);
+    const zoom = clamp(VIEW_H / H, 0.4, maxZoom);
+    const Hz = VIEW_H / zoom, pxw = Hz / h;
+    // shift centre so the box sits in the usable area (between top bar and bottom hint)
+    const cb = (b0 + b1) / 2 + (INSET.top - INSET.bottom) / 2 * pxw;
+    const target = right.clone().multiplyScalar((a0 + a1) / 2).addScaledVector(up, cb).addScaledVector(d, cs / pts.length);
+    return { az, el, zoom, target };
+  }
+  const FULL = [];
+  [-0.6, WX + 0.6].forEach(x => [-0.7, HY + 0.8].forEach(y => [ZF + 0.1, -DZ - 0.6].forEach(z => FULL.push(V3(x, y, z)))));
+  const VIEWS = {
+    d3: () => fit(0.72, 0.42, FULL, 6, 1.0),
+    pt: () => fit(Math.PI / 2, 0, FULL, 6, 1.02),
+    pv: () => fit(0, 0, FULL, 6, 1.02)
+  };
+  let tween = null;
+  function goView(v, instant) {
+    let daz = v.az - cam.az; daz = Math.atan2(Math.sin(daz), Math.cos(daz));
+    const to = { az: cam.az + daz, el: v.el, zoom: v.zoom, target: v.target.clone() };
+    if (instant || RM.matches) { Object.assign(cam, to); tween = null; camChanged(); return; }
+    tween = { from: { az: cam.az, el: cam.el, zoom: cam.zoom, target: cam.target.clone() }, to, t0: performance.now(), dur: 950 };
+  }
+  function stepTween(now) {
+    if (!tween) return;
+    let f = clamp((now - tween.t0) / tween.dur, 0, 1);
+    const e = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;
+    const a = tween.from, b = tween.to;
+    cam.az = lerp(a.az, b.az, e); cam.el = lerp(a.el, b.el, e);
+    cam.zoom = Math.exp(lerp(Math.log(a.zoom), Math.log(b.zoom), e));
+    cam.target.lerpVectors(a.target, b.target, e);
+    camChanged();
+    if (f >= 1) tween = null;
+  }
+  let camDirty = true, occlusionAt = 0;
+  function camChanged() { camDirty = true; }
+  const isProjection = () => cam.el < 0.02 && (Math.abs(Math.sin(cam.az)) < 0.02 || Math.abs(Math.cos(cam.az)) < 0.02);
+  const viewKind = () => (cam.el < 0.02 && Math.abs(Math.cos(cam.az)) < 0.02) ? 'pt' : (cam.el < 0.02 && Math.abs(Math.sin(cam.az)) < 0.02) ? 'pv' : 'd3';
+
+  // expose to part 2
+  window.__APP = {
+    Ph, MAP, C, REG, readTheme, scene, camera, renderer, vp, canvas, surfMeshes, surfMats, bounds, isoGroup, critLine, walls, wallPT, wallPV, axes, labels, mkLabel,
+    cam, applyCam, fit, VIEWS, buildBounds, goView, stepTween, camChanged, isProjection, viewKind, basis, dirOf, W3, V3, col, PolyCurve, tube, line,
+    inkTubeMat, isoMat, critMat, wallMat, wallLine, wallFrame, fillMats, edgeMat, axisMat, amb, sun, cpPick, tripPick, XW, ZW, VIEW_H, INSET,
+    getCamDirty: () => camDirty, clearCamDirty: () => { camDirty = false; }, getOcclusionAt: () => occlusionAt, setOcclusionAt: t => { occlusionAt = t; },
+    RM, $, $$, lerp, clamp, range, vGasC, get tween() { return tween; }, cancelTween: () => { tween = null; }
+  };
+})();
+
+// ===== App part 2: scenarios, player, interaction =====
+(() => {
+  'use strict';
+  const A = window.__APP; if (!A) return;
+  const { Ph, MAP, C, REG, scene, camera, renderer, vp, canvas, surfMeshes, cam, applyCam, fit, VIEWS, goView, stepTween, camChanged,
+    viewKind, basis, W3, V3, col, tube, line, labels, mkLabel, $, $$, lerp, clamp, RM, XW, ZW } = A;
+  const { X, Y, Z, Vinv, Pinv, Tinv, WX, HY, DZ } = MAP;
+
+  // ---------- scenarios ----------
+  const SCS = SCEN.build();
+  const EXPLORE = {
+    id: 'explore', name: 'Explore', kind: 'phase', explore: true,
+    intro: { title: { en: I18N.D.en.exploreTitle, sv: I18N.D.sv.exploreTitle }, text: { en: I18N.D.en.exploreText, sv: I18N.D.sv.exploreText } }
+  };
+  function prepare(sc) {
+    let t = 0, gl = 0; const pts = []; let vmin = Infinity, vmax = -Infinity;
+    sc.segs.forEach((g, gi) => {
+      g.t0 = t; g.t1 = t + g.dur; t = g.t1;
+      const smp = g.states.map(st => ({ st, w: W3(st.T, st.P, st.v) }));
+      let acc = 0;
+      smp.forEach((s, k) => { if (k) acc += s.w.distanceTo(smp[k - 1].w); s.arc = acc; vmin = Math.min(vmin, s.st.v); vmax = Math.max(vmax, s.st.v); });
+      smp.forEach((s, k) => { s.s = (g.param === 'index' || acc < 1e-6) ? k / (smp.length - 1) : s.arc / acc; s.gl = gl + s.arc; });
+      smp.forEach((s, k) => { if (gi === 0 || k > 0) pts.push(s.w); });
+      gl += acc; g.samples = smp;
+    });
+    sc.total = t; sc.len = gl; sc.pts = pts; sc.vmin = vmin; sc.vmax = vmax;
+    if (sc.crank) {
+      // the flywheel turns at a steady rate; segment times follow from the crank angle at each corner
+      const g = BOXVIEW.crank(vmin, vmax), TW = 2 * Math.PI;
+      const thOf = (y, expanding) => { let lo = expanding ? Math.PI : 0, hi = expanding ? TW : Math.PI; for (let i = 0; i < 60; i++) { const m = (lo + hi) / 2, v = BOXVIEW.pistonY(g, m); if (expanding ? v < y : v > y) lo = m; else hi = m; } return (lo + hi) / 2; };
+      let prev = -Infinity; const th = sc.segs.map(sg => { let a = thOf(BOX.hOf(sg.samples[0].st.v) + BOX.PT, !!sg.deco.expanding); while (a < prev - 1e-9) a += TW; prev = a; return a; });
+      const total = t, th0 = th[0];
+      sc.segs.forEach((sg, k) => { sg.t0 = total * (th[k] - th0) / TW; sg.t1 = k + 1 < th.length ? total * (th[k + 1] - th0) / TW : total; sg.dur = sg.t1 - sg.t0; });
+      sc.crankG = g; sc.th0 = th0;
+    }
+    const L = sc.cycle ? sc.segs.map((_, k) => String(k + 1)) : 'ABCDEFG'.split('');
+    sc.markers = sc.segs.map((g, k) => ({ label: L[k], w: g.samples[0].w }));
+    if (!sc.cycle) { const g = sc.segs[sc.segs.length - 1]; sc.markers.push({ label: L[sc.segs.length], w: g.samples[g.samples.length - 1].w }); }
+  }
+  SCS.forEach(prepare);
+
+  function mix(a, b, g) {
+    const st = {}; ['T', 'P', 'v', 'fs', 'fl', 'fg'].forEach(k => { st[k] = lerp(a[k], b[k], g); });
+    st.coh = (a.coh != null && b.coh != null) ? lerp(a.coh, b.coh, g) : (g < 0.5 ? a : b).coh;
+    st.region = (g < 0.5 ? a : b).region;
+    return st;
+  }
+  const ease = f => f < 0.5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+  function evalAt(sc, t, eased) {
+    const segs = sc.segs;
+    let i = 0; while (i < segs.length - 1 && t > segs[i].t1) i++;
+    const g = segs[i];
+    let f = clamp((t - g.t0) / g.dur, 0, 1); if (eased) f = ease(f);
+    const s = g.samples;
+    let lo = 0, hi = s.length - 1, q;
+    if (sc.crank) {
+      // crank angle -> piston height -> volume -> state on this segment (volume is monotonic within a segment)
+      const th = sc.th0 + 2 * Math.PI * (g.t0 + f * g.dur) / sc.total;
+      const v = BOX.hInv(BOXVIEW.pistonY(sc.crankG, th) - BOX.PT);
+      const up = s[s.length - 1].st.v > s[0].st.v;
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if ((s[m].st.v > v) === up) hi = m; else lo = m; }
+      q = clamp((v - s[lo].st.v) / ((s[hi].st.v - s[lo].st.v) || 1e-9), 0, 1);
+    } else {
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if (s[m].s > f) hi = m; else lo = m; }
+      q = clamp((f - s[lo].s) / Math.max(1e-9, s[hi].s - s[lo].s), 0, 1);
+    }
+    return { st: mix(s[lo].st, s[hi].st, q), w: s[lo].w.clone().lerp(s[hi].w, q), gl: lerp(s[lo].gl, s[hi].gl, q), seg: i };
+  }
+
+  // ---------- path objects ----------
+  const pathGroup = new THREE.Group(); scene.add(pathGroup);
+  const redMat = new THREE.MeshBasicMaterial({ color: col(C.red) });
+  const redFaint = new THREE.MeshBasicMaterial({ color: col(C.red), transparent: true, opacity: 0.3 });
+  const redGhost = new THREE.MeshBasicMaterial({ color: col(C.red), transparent: true, opacity: 0.22, depthTest: false, depthWrite: false });
+  const shadowMat = new THREE.LineBasicMaterial({ color: col(C.red), transparent: true, opacity: 0.75 });
+  const dotMat = new THREE.MeshBasicMaterial({ color: col(C.red), depthTest: false, transparent: true });
+  const haloMat = new THREE.MeshBasicMaterial({ color: col(C.paper), depthTest: false, transparent: true, opacity: 0.95 });
+  const markMat = new THREE.MeshBasicMaterial({ color: col(C.ink), depthTest: false, transparent: true });
+  const dot = new THREE.Mesh(new THREE.SphereGeometry(0.12, 20, 14), dotMat); dot.renderOrder = 31;
+  const halo = new THREE.Mesh(new THREE.SphereGeometry(0.19, 20, 14), haloMat); halo.renderOrder = 30;
+  scene.add(dot, halo);
+  const shDotGeo = new THREE.CircleGeometry(0.09, 16);
+  const shMat = new THREE.MeshBasicMaterial({ color: col(C.red), side: THREE.DoubleSide });
+  const shPT = new THREE.Mesh(shDotGeo, shMat); shPT.rotation.y = Math.PI / 2; shPT.renderOrder = 5;
+  const shPV = new THREE.Mesh(shDotGeo, shMat); shPV.renderOrder = 5;
+  A.wallPT.add(shPT); A.wallPV.add(shPV);
+  let trav = null, pathSegs = 1;
+  const markerObjs = [];
+  function clearPath() {
+    pathGroup.children.slice().forEach(o => { pathGroup.remove(o); o.geometry && o.geometry.dispose(); });
+    [A.wallPT, A.wallPV].forEach(g => g.children.filter(o => o.userData.shadow).forEach(o => { g.remove(o); o.geometry.dispose(); }));
+    markerObjs.forEach(m => { scene.remove(m.mesh); m.label.el.remove(); labels.splice(labels.indexOf(m.label), 1); });
+    markerObjs.length = 0; trav = null;
+  }
+  let pathZoom = 0;
+  function buildTubes(sc, zoom) {
+    pathGroup.children.slice().forEach(o => { pathGroup.remove(o); o.geometry && o.geometry.dispose(); });
+    trav = null; pathZoom = zoom;
+    if (!sc || !sc.pts) return;
+    const r = 0.042 / Math.pow(zoom, 0.85);
+    pathSegs = Math.min(1400, Math.max(200, sc.pts.length * 3));
+    const faint = tube(sc.pts, r * 0.9, redFaint, pathSegs); pathGroup.add(faint);
+    const ghost = tube(sc.pts, r * 0.9, redGhost, pathSegs); ghost.renderOrder = 8; pathGroup.add(ghost);
+    trav = tube(sc.pts, r * 1.25, redMat, pathSegs); trav.renderOrder = 9; pathGroup.add(trav);
+  }
+  function buildPath(sc, zoom) {
+    clearPath();
+    if (!sc.pts) return;
+    buildTubes(sc, zoom);
+    const a = line(sc.pts.map(p => V3(XW + 0.03, p.y, p.z)), shadowMat), b = line(sc.pts.map(p => V3(p.x, p.y, ZW + 0.03)), shadowMat);
+    a.userData.shadow = b.userData.shadow = true; A.wallPT.add(a); A.wallPV.add(b);
+    sc.markers.forEach(m => {
+      const mesh = new THREE.Mesh(new THREE.SphereGeometry(0.075, 12, 10), markMat); mesh.position.copy(m.w); mesh.renderOrder = 25; scene.add(mesh);
+      const label = mkLabel('marker', m.label, m.w.clone(), {});
+      markerObjs.push({ mesh, label });
+    });
+  }
+  function setTraversed(frac) {
+    if (!trav) return;
+    trav.geometry.setDrawRange(0, Math.floor(clamp(frac, 0, 1) * pathSegs) * 7 * 6);
+  }
+
+  // ---------- molecule box ----------
+  const boxCanvas = $('#box');
+  const sim = new BOX.Sim();
+  const bview = new BOXVIEW.View(boxCanvas, sim);
+  function configureBox(sc) {
+    if (sc.explore) bview.configure({ kind: 'phase', vmin: 0.37, vmax: Ph.VMAX });
+    else bview.configure({ kind: sc.kind, vmin: sc.vmin, vmax: sc.vmax * (sc.kind === 'phase' ? 1.04 : 1) });
+    bview.resize();
+    sim.exact = sc.kind === 'engine';
+    $('#boxcap').innerHTML = I18N.t(sc.kind === 'engine' ? 'capEngine' : 'capPhase');
+  }
+
+  // ---------- state & timeline ----------
+  const TL = { sc: null, t: 0, playing: false, speed: 1, mode: RM.matches ? 'steps' : 'continuous', step: 0, anim: null, hold: 0 };
+  let exploreState = Ph.single(0.8, 1.0, 'liquid');
+  let exploreRegion = 'liquid';
+  let cur = null;
+
+  function stateNow() {
+    const sc = TL.sc;
+    if (!sc || sc.explore) return { st: exploreState, w: W3(exploreState.T, exploreState.P, exploreState.v), seg: -1, gl: 0 };
+    return evalAt(sc, TL.t, TL.mode === 'steps' && !!TL.anim);
+  }
+  function snapBox() { const s = stateNow(); sim.snap(s.st); }
+
+  function recView(sc) {
+    if (!sc || sc.explore) return VIEWS.d3();
+    const v = sc.view;
+    const pts = sc.pts.slice();
+    (v.extra || []).forEach(([T, p, vv]) => pts.push(W3(T, p, vv)));
+    return fit(v.az, v.el, pts, v.maxZoom || 3, 1.3);
+  }
+  let activeView = 'rec';
+  function setView(name, instant) {
+    activeView = name;
+    const v = name === 'rec' ? recView(TL.sc) : VIEWS[name]();
+    goView(v, instant);
+    $$('#vbtns [data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+  }
+
+  function loadScenario(id, opts = {}) {
+    const sc = id === 'explore' ? EXPLORE : SCS.find(s => s.id === id);
+    TL.sc = sc; TL.t = 0; TL.hold = 0; TL.anim = null; TL.step = 0;
+    document.body.classList.toggle('is-explore', !!sc.explore);
+    $$('.chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.s === id)));
+    configureBox(sc);
+    const rv = recView(sc);
+    buildPath(sc, rv.zoom);
+    setView('rec', opts.instant);
+    aboutPinned = null;
+    if (!sc.explore) {
+      buildTicks(sc);
+      TL.playing = TL.mode === 'continuous';
+    } else TL.playing = false;
+    snapBox();
+    lastCardKey = null;
+    updateTransport();
+  }
+
+  function segStartTime(k) { return TL.sc.segs[k].t0; }
+  function stepTime(k) { return k === 0 ? 0 : TL.sc.segs[k - 1].t1; }
+  function curSeg() { return evalAt(TL.sc, TL.t).seg; }
+
+  function next() {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    const n = sc.segs.length;
+    if (TL.mode === 'steps') {
+      let k = TL.step;
+      if (k >= n) { if (!sc.cycle) return; k = 0; TL.t = 0; }
+      TL.anim = { to: sc.segs[k].t1 }; TL.t = sc.segs[k].t0; TL.step = k + 1; TL.playing = true;
+    } else {
+      const i = curSeg();
+      if (i + 1 < n) TL.t = segStartTime(i + 1) + 1e-6; else TL.t = sc.cycle ? 1e-6 : sc.total;
+      TL.hold = 0; snapBox();
+    }
+    updateTransport();
+  }
+  function prev() {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    if (TL.mode === 'steps') {
+      if (TL.step === 0) return;
+      TL.step -= 1; TL.anim = null; TL.playing = false; TL.t = stepTime(TL.step);
+    } else {
+      const i = curSeg();
+      if (TL.t - segStartTime(i) > 0.8 || i === 0) TL.t = segStartTime(i) + 1e-6; else TL.t = segStartTime(i - 1) + 1e-6;
+      TL.hold = 0;
+    }
+    snapBox(); updateTransport();
+  }
+  function playPause() {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    if (TL.mode === 'steps') { // replay current step
+      if (TL.step === 0) { next(); return; }
+      const k = TL.step - 1; TL.t = sc.segs[k].t0; snapBox(); TL.anim = { to: sc.segs[k].t1 }; TL.playing = true;
+    } else {
+      if (!TL.playing && !sc.cycle && TL.t >= sc.total - 1e-6) { TL.t = 0; snapBox(); }
+      TL.playing = !TL.playing; TL.hold = 0;
+    }
+    updateTransport();
+  }
+  function setMode(m) {
+    if (TL.mode === m) return;
+    const sc = TL.sc; TL.mode = m; TL.anim = null;
+    if (sc && !sc.explore) {
+      if (m === 'steps') { const i = curSeg(); const atEnd = TL.t >= sc.total - 1e-6; TL.step = atEnd ? sc.segs.length : i; TL.t = stepTime(TL.step); TL.playing = false; snapBox(); }
+      else { TL.playing = true; }
+    }
+    $$('#modes [data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === m)));
+    $('#card').setAttribute('aria-live', m === 'steps' ? 'polite' : 'off');
+    updateTransport();
+  }
+  function tick(dt) {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    if (TL.mode === 'continuous') {
+      if (!TL.playing) return;
+      TL.t += dt * TL.speed;
+      if (TL.t >= sc.total) {
+        if (sc.cycle) TL.t -= sc.total;
+        else {
+          TL.t = sc.total; TL.hold += dt;
+          if (TL.hold > 1.8) { TL.t = 0; TL.hold = 0; snapBox(); }
+        }
+      }
+    } else if (TL.anim) {
+      TL.t += dt * TL.speed;
+      if (TL.t >= TL.anim.to) { TL.t = TL.anim.to; TL.anim = null; TL.playing = false; updateTransport(); }
+    }
+  }
+
+  // ---------- UI: transport ----------
+  const scrub = $('#scrub'), ticksEl = $('#ticks');
+  function buildTicks(sc) {
+    ticksEl.innerHTML = '';
+    sc.segs.forEach((g, k) => { if (k === 0) return; const d = document.createElement('span'); d.style.left = (100 * g.t0 / sc.total) + '%'; ticksEl.appendChild(d); });
+  }
+  let scrubbing = false;
+  scrub.addEventListener('input', () => {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    scrubbing = true;
+    TL.t = sc.total * scrub.value / 1000; TL.hold = 0; TL.anim = null;
+    if (TL.mode === 'steps') { const i = curSeg(); TL.step = TL.t >= sc.total - 1e-6 ? sc.segs.length : i + 1; TL.playing = false; }
+    updateTransport();
+  });
+  scrub.addEventListener('change', () => { scrubbing = false; });
+  const ICON = {
+    play: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M6 4.2v11.6L15.5 10z"/></svg>',
+    pause: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5.5 4h3v12h-3zM11.5 4h3v12h-3z"/></svg>',
+    replay: '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4a6 6 0 1 1-5.7 7.9l1.9-.6A4 4 0 1 0 10 6v2.6L6 5l4-3.6z"/></svg>'
+  };
+  function updateTransport() {
+    const sc = TL.sc; if (!sc || sc.explore) return;
+    const steps = TL.mode === 'steps', n = sc.segs.length;
+    const bp = $('#bPlay'), bn = $('#bNext'), bpr = $('#bPrev');
+    const t = I18N.t, lab = (el, k) => { el.setAttribute('aria-label', t(k)); el.title = t(k); };
+    lab(bpr, 'prev'); lab(bn, 'next');
+    if (steps) {
+      bp.innerHTML = ICON.replay; lab(bp, 'replay');
+      bp.disabled = TL.step === 0;
+      bn.disabled = !sc.cycle && TL.step >= n; bpr.disabled = TL.step === 0;
+      $('#bNextLab').textContent = TL.step === 0 ? t('start') : t('next');
+    } else {
+      const playing = TL.playing;
+      bp.innerHTML = playing ? ICON.pause : ICON.play; lab(bp, playing ? 'pause' : 'play');
+      bp.disabled = false; bn.disabled = false; bpr.disabled = false;
+    }
+    document.body.classList.toggle('is-steps', steps);
+  }
+  $('#bPlay').addEventListener('click', playPause);
+  $('#bNext').addEventListener('click', next);
+  $('#bPrev').addEventListener('click', prev);
+  $$('#modes [data-mode]').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+  $$('#speeds [data-speed]').forEach(b => b.addEventListener('click', () => {
+    TL.speed = +b.dataset.speed;
+    $$('#speeds [data-speed]').forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+  }));
+  $$('.chip').forEach(c => c.addEventListener('click', () => loadScenario(c.dataset.s)));
+  $$('#vbtns [data-view]').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
+  const toggles = { labels: true, iso: true };
+  A.walls.visible = false; // the P–T and P–V views replace the wall projections
+  $$('#vbtns [data-toggle]').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.toggle; toggles[k] = !toggles[k]; b.setAttribute('aria-pressed', String(toggles[k]));
+    A.isoGroup.visible = toggles.iso; A.critLine.visible = toggles.iso;
+    camChanged();
+  }));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, select') || e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === ' ' && !e.target.closest('button')) { e.preventDefault(); TL.mode === 'steps' ? next() : playPause(); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  });
+
+  // ---------- UI: side panel ----------
+  const fmt = (x, d) => I18N.num(x, d);
+  const fmtP = p => p < 0.1 ? fmt(p, 4) : fmt(p, 3);
+  const fmtV = v => v < 10 ? fmt(v, 3) : fmt(v, 1);
+  function regionName(st) {
+    const r = st.region;
+    if (r === 'gas') return I18N.t(st.T < 1 ? 'rVapor' : 'rGas');
+    return REG[r] ? I18N.reg(r).name : r;
+  }
+  const setText = (el, s) => { if (el.__v !== s) { el.innerHTML = s; el.__v = s; } };
+  const rT = $('#rT'), rP = $('#rP'), rV = $('#rV'), rR = $('#rRegion'), legend = $('#legend');
+  const bars = { s: $('#pbS'), l: $('#pbL'), g: $('#pbG') };
+  function updateReadout(st) {
+    setText(rT, fmt(st.T, 3)); setText(rP, fmtP(st.P)); setText(rV, fmtV(st.v));
+    setText(rR, regionName(st));
+    const sc = st.region === 'sc' || (st.T >= 1 && st.fg > 0.99 && st.P >= 1);
+    const w = { s: st.fs, l: st.fl, g: st.fg };
+    for (const k in bars) { const pct = (100 * w[k]).toFixed(1) + '%'; if (bars[k].__w !== pct) { bars[k].style.width = pct; bars[k].__w = pct; } }
+    bars.g.classList.toggle('sc', sc);
+    const parts = [], t = I18N.t, pc = t('pct');
+    if (st.fs > 0.005) parts.push(`${t('solid')} ${pc(st.fs)}`);
+    if (st.fl > 0.005) parts.push(`${t('liquid')} ${pc(st.fl)}`);
+    if (st.fg > 0.005) parts.push(`${t(sc ? 'scfluid' : (st.T >= 1 ? 'gas' : 'vapor'))} ${pc(st.fg)}`);
+    let txt = parts.join(', ');
+    txt = txt.charAt(0).toUpperCase() + txt.slice(1);
+    setText(legend, txt);
+  }
+  let lastCardKey = null;
+  function updateCard(seg) {
+    const sc = TL.sc;
+    let key, stepLab, title, text;
+    const Lg = I18N.L, t = I18N.t;
+    if (sc.explore) { key = 'explore:' + I18N.lang; stepLab = ''; title = Lg(sc.intro.title); text = Lg(sc.intro.text); }
+    else {
+      const n = sc.segs.length;
+      let k = TL.mode === 'steps' ? TL.step : (TL.t <= 1e-6 && !TL.playing ? 0 : seg + 1);
+      if (TL.mode === 'continuous' && TL.playing) k = seg + 1;
+      key = sc.id + ':' + k + ':' + TL.mode + ':' + I18N.lang;
+      if (k === 0) { stepLab = t('intro')(Lg(sc.name)); title = Lg(sc.intro.title); text = Lg(sc.intro.text); }
+      else {
+        const g = sc.segs[k - 1];
+        const m = sc.markers;
+        const from = m[k - 1].label, to = sc.cycle ? m[k % n].label : m[k].label;
+        stepLab = t('stepOf')(k, n, from, to); title = Lg(g.title); text = Lg(g.text);
+      }
+    }
+    if (key === lastCardKey) return;
+    lastCardKey = key;
+    $('#cStep').textContent = stepLab;
+    $('#cTitle').innerHTML = title;
+    $('#cText').innerHTML = text;
+    const ex = $('#cExtra');
+    if (sc.effText) { ex.innerHTML = Lg(sc.effText); ex.hidden = false; } else ex.hidden = true;
+    const card = $('#card'); card.classList.remove('fresh'); void card.offsetWidth; card.classList.add('fresh');
+  }
+  let aboutPinned = null, lastAbout = null;
+  function updateAbout(stRegion) {
+    const key = aboutPinned || stRegion;
+    const k2 = key + (aboutPinned ? ':p' : '') + ':' + I18N.lang;
+    if (k2 === lastAbout) return; lastAbout = k2;
+    if (!REG[key]) return;
+    const r = I18N.reg(key);
+    $('#aTitle').textContent = r.name;
+    $('#aSwatch').style.background = `var(--c-${r.color === 'ink' ? 'ink' : r.color.toLowerCase()})`;
+    $('#aText').innerHTML = r.text;
+    $('#aLead').textContent = I18N.t(aboutPinned ? 'leadPinned' : 'lead');
+    $('#aUnpin').hidden = !aboutPinned;
+  }
+  $('#aUnpin').addEventListener('click', () => { aboutPinned = null; });
+
+  // ---------- picking ----------
+  const ray = new THREE.Raycaster();
+  const pickables = [...surfMeshes, A.cpPick, A.tripPick];
+  function pick(cx, cy) {
+    const r = canvas.getBoundingClientRect();
+    const ndc = new THREE.Vector2(((cx - r.left) / r.width) * 2 - 1, -((cy - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    const hits = ray.intersectObjects(pickables, false);
+    if (!hits.length) return null;
+    // prefer the special pick volumes when they are hit close to the front
+    const first = hits[0];
+    const special = hits.find(h => (h.object === A.cpPick || h.object === A.tripPick) && h.distance < first.distance + 0.35);
+    const h = special || first;
+    return { region: h.object.userData.region, p: h.point };
+  }
+  function stateFromHit(region, p) {
+    let T = clamp(Tinv(p.z), Ph.TMIN, Ph.TMAX), v = Vinv(clamp(p.x, 0, WX)), P = Pinv(clamp(p.y, 0, HY));
+    const { Tt, TMC, PMAX } = Ph;
+    switch (region) {
+      case 'solid': { const pb = T < Tt ? Ph.Psub(T) : Ph.Pmelt(T); T = Math.min(T, TMC); return Ph.single(T, clamp(P, pb, PMAX), 'solid'); }
+      case 'liquid': { T = clamp(T, Tt + 1e-4, 0.999); const ps = Ph.sat(T).P; return Ph.single(T, clamp(P, ps, Math.min(Ph.Pmelt(T), PMAX)), 'liquid'); }
+      case 'sc': { T = Math.max(T, 1); const pp = clamp(P, 1, PMAX), vv = Ph.vLiq(T, pp); return Ph.fluidState(T, pp, vv, 'liquid'); }
+      case 'gas': { if (T < 1) { const vg = T < Tt ? Ph.vGas(T, Ph.Psub(T)) : Ph.sat(T).vg; v = Math.max(v, Math.min(vg, Ph.VMAX)); } return Ph.fluidState(T, Ph.Pvdw(T, v), v, 'gas'); }
+      case 'LV': { T = clamp(T, Tt, 0.999); const s = Ph.sat(T); v = clamp(v, s.vl, s.vg); return Ph.coex(T, s.P, s.vl, s.vg, 'liquid', 'gas', (v - s.vl) / (s.vg - s.vl)); }
+      case 'SL': { T = clamp(T, Tt, TMC); const pm = Ph.Pmelt(T), vs = Ph.vSolid(T, pm), vl = Ph.vLiq(T, pm); v = clamp(v, vs, vl); return Ph.coex(T, pm, vs, vl, 'solid', 'liquid', (v - vs) / (vl - vs)); }
+      case 'SV': { T = clamp(T, Ph.TMIN, Tt); const ps = Ph.Psub(T), vs = Ph.vSolid(T, ps), vg = Ph.vGas(T, ps); v = clamp(v, vs, Math.min(vg, Ph.VMAX)); return Ph.coex(T, ps, vs, vg, 'solid', 'gas', (v - vs) / (vg - vs)); }
+      case 'triple': {
+        const vs = Ph.vSolid(Tt, Ph.Pt), vl = Ph.TRIPLE.vl, vg = Ph.TRIPLE.vg, fl = 0.3;
+        let fg = clamp((v - fl * vl - (1 - fl) * vs) / (vg - vs), 0, 1 - fl); const fs = 1 - fl - fg;
+        return { T: Tt, P: Ph.Pt, v: fs * vs + fl * vl + fg * vg, fs, fl, fg, coh: null, region: 'triple' };
+      }
+      case 'critical': { const st = Ph.fluidState(1, 1, 1, 'liquid'); st.region = 'critical'; return st; }
+    }
+    return null;
+  }
+
+  // ---------- pointer: orbit / pan / zoom / click ----------
+  const pointers = new Map();
+  let drag = null, pinch = null, hoverXY = null;
+  const tip = $('#tip');
+  function userMoved() { A.cancelTween(); activeView = null; $$('#vbtns [data-view]').forEach(b => b.setAttribute('aria-pressed', 'false')); camChanged(); }
+  canvas.addEventListener('pointerdown', e => {
+    canvas.setPointerCapture(e.pointerId);
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) drag = { x: e.clientX, y: e.clientY, moved: 0, pan: e.button === 2 || e.shiftKey, button: e.button };
+    else if (pointers.size === 2) { const [a, b] = [...pointers.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), zoom: cam.zoom, mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2 }; if (drag) drag.moved = 99; }
+    tip.hidden = true;
+  });
+  canvas.addEventListener('pointermove', e => {
+    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinch && pointers.size === 2) {
+      const [a, b] = [...pointers.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      cam.zoom = clamp(pinch.zoom * d / Math.max(10, pinch.d), 0.4, 8);
+      panBy(mx - pinch.mx, my - pinch.my); pinch.mx = mx; pinch.my = my;
+      userMoved(); return;
+    }
+    if (drag && pointers.size === 1) {
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+      drag.moved += Math.abs(dx) + Math.abs(dy);
+      if (drag.moved < 4) return;
+      if (drag.pan) panBy(dx, dy);
+      else { cam.az -= dx * 0.008; cam.el = clamp(cam.el + dy * 0.008, -0.1, 1.5); }
+      userMoved(); return;
+    }
+    if (e.pointerType === 'mouse') hoverXY = { x: e.clientX, y: e.clientY };
+  });
+  function panBy(dx, dy) {
+    const { right, up } = basis(cam.az, cam.el);
+    const k = (A.VIEW_H / cam.zoom) / Math.max(50, vp.clientHeight);
+    cam.target.addScaledVector(right, -dx * k).addScaledVector(up, dy * k);
+  }
+  function endPointer(e) {
+    const wasClick = drag && drag.moved < 5 && pointers.size === 1 && drag.button === 0;
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinch = null;
+    if (pointers.size === 0) { if (wasClick) onClick(e.clientX, e.clientY); drag = null; }
+  }
+  canvas.addEventListener('pointerup', endPointer);
+  canvas.addEventListener('pointercancel', e => { pointers.delete(e.pointerId); pinch = null; drag = null; });
+  canvas.addEventListener('pointerleave', () => { hoverXY = null; tip.hidden = true; setHover(null); });
+  canvas.addEventListener('contextmenu', e => e.preventDefault());
+  canvas.addEventListener('wheel', e => {
+    e.preventDefault();
+    const r = canvas.getBoundingClientRect();
+    const mx = e.clientX - r.left - r.width / 2, my = e.clientY - r.top - r.height / 2;
+    const z0 = cam.zoom, z1 = clamp(z0 * Math.exp(-e.deltaY * 0.0016), 0.4, 8);
+    // zoom toward the cursor
+    const k0 = (A.VIEW_H / z0) / r.height, k1 = (A.VIEW_H / z1) / r.height;
+    const { right, up } = basis(cam.az, cam.el);
+    cam.target.addScaledVector(right, mx * (k0 - k1)).addScaledVector(up, -my * (k0 - k1));
+    cam.zoom = z1; userMoved();
+  }, { passive: false });
+  canvas.addEventListener('dblclick', () => setView('rec'));
+
+  let hovered = null;
+  function setHover(region) {
+    if (hovered === region) return;
+    hovered = region;
+    surfMeshes.forEach(m => { m.material.emissive.setHex(0); });
+    if (region && A.surfMats[region]) A.surfMats[region].emissive.set(document.documentElement.dataset.scheme === 'dark' ? 0x2a2a2a : 0x262626);
+  }
+  function onClick(cx, cy) {
+    const h = pick(cx, cy);
+    if (!h) return;
+    if (TL.sc && TL.sc.explore) {
+      const st = stateFromHit(h.region, h.p);
+      if (st) { exploreState = st; exploreRegion = h.region; aboutPinned = null; }
+    } else {
+      aboutPinned = h.region;
+    }
+  }
+  function doHover() {
+    if (!hoverXY || drag) { return; }
+    const h = pick(hoverXY.x, hoverXY.y);
+    if (!h) { tip.hidden = true; setHover(null); canvas.style.cursor = 'grab'; return; }
+    setHover(h.region);
+    const r = I18N.reg(h.region);
+    const hint = I18N.t(TL.sc && TL.sc.explore ? 'tipExplore' : 'tipRead');
+    setText(tip, `<b><span class="sw" style="background:var(--c-${r.color === 'ink' ? 'ink' : r.color.toLowerCase()})"></span>${r.name}</b><span>${hint}</span>`);
+    const vr = vp.getBoundingClientRect();
+    let x = hoverXY.x - vr.left + 14, y = hoverXY.y - vr.top + 16;
+    x = Math.min(x, vr.width - 190); y = Math.min(y, vr.height - 60);
+    tip.style.transform = `translate(${x}px, ${y}px)`; tip.hidden = false;
+    canvas.style.cursor = 'pointer';
+  }
+
+  // ---------- labels per frame ----------
+  const tmpV = new THREE.Vector3();
+  function updateLabels(now) {
+    const { w, h } = { w: vp.clientWidth, h: vp.clientHeight };
+    const vk = viewKind(), d = A.dirOf(cam.az, cam.el);
+    const occ = vk === 'd3' && A.getCamDirty() && now - A.getOcclusionAt() > 120;
+    if (occ) A.setOcclusionAt(now);
+    for (const L of labels) {
+      let show = true;
+      if (L.group === 'region') show = toggles.labels;
+      if (L.axis) show = Math.abs(L.axis.dot(d)) < 0.9;
+      if (L.text) { const t = L.text(vk); if (L.el.__t !== t) { L.el.innerHTML = t; L.el.__t = t; } }
+      if (!show) { if (L.el.style.display !== 'none') L.el.style.display = 'none'; continue; }
+      if (L.el.style.display === 'none') L.el.style.display = '';
+      tmpV.copy(L.pos).project(camera);
+      const x = (tmpV.x + 1) / 2 * w, y = (1 - tmpV.y) / 2 * h;
+      let out = x < -40 || x > w + 40 || y < -20 || y > h + 20;
+      if (L.group === 'region') {
+        if (L.el.__ow == null || L.el.__owt !== L.el.textContent) { L.el.__ow = L.el.offsetWidth; L.el.__owt = L.el.textContent; }
+        out = x - L.el.__ow / 2 < 4 || x + L.el.__ow / 2 > w - 4 || y < 52 || y > h - 30;
+      }
+      L.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+      L.el.classList.toggle('off', out);
+      if (vk !== 'd3') L.el.classList.remove('hidden');
+      else if (occ && (L.group === 'region' || L.group === 'marker')) {
+        ray.set(L.pos.clone().addScaledVector(d, 60), d.clone().negate());
+        const hit = ray.intersectObjects(surfMeshes, false)[0];
+        L.el.classList.toggle('hidden', !!hit && hit.distance < 60 - 0.15);
+      }
+    }
+    // markers that land on the same screen spot (a coexistence stage seen end-on) share one label
+    const seen = [];
+    for (const m of markerObjs) {
+      const L = m.label; tmpV.copy(L.pos).project(camera);
+      const x = tmpV.x * w / 2, y = tmpV.y * h / 2;
+      const hit = seen.find(o => Math.hypot(o.x - x, o.y - y) < 14);
+      if (hit) { hit.parts.push(L.html); L.el.style.display = 'none'; }
+      else seen.push({ x, y, L, parts: [L.html] });
+    }
+    seen.forEach(o => { const t = o.parts.join(', '); if (o.L.el.__t !== t) { o.L.el.textContent = t; o.L.el.__t = t; } });
+    if (occ) A.clearCamDirty();
+  }
+
+  // ---------- theme ----------
+  function applyTheme() {
+    A.readTheme();
+    for (const k in A.surfMats) A.surfMats[k].color.set(C[k]);
+    A.inkTubeMat.color.set(C.ink); A.isoMat.color.set(C.iso); A.critMat.color.set(C.ink);
+    A.wallMat.color.set(C.wall); A.wallLine.color.set(C.ink); A.wallFrame.color.set(C.muted); A.edgeMat.color.set(C.ink); A.axisMat.color.set(C.ink);
+    for (const k in A.fillMats) A.fillMats[k].color.set(C[k]);
+    [redMat, redFaint, redGhost, dotMat, shMat].forEach(m => m.color.set(C.red)); shadowMat.color.set(C.red);
+    haloMat.color.set(C.paper); markMat.color.set(C.ink);
+    document.documentElement.dataset.scheme = matchMedia('(prefers-color-scheme: dark)').matches && document.documentElement.dataset.theme !== 'light' || document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  }
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  applyTheme();
+
+  // ---------- sizing ----------
+  function resize() {
+    const w = vp.clientWidth, h = vp.clientHeight;
+    renderer.setSize(w, h, false);
+    camChanged();
+  }
+  new ResizeObserver(() => { resize(); if (activeView) setView(activeView, true); }).observe(vp);
+  new ResizeObserver(() => bview.resize()).observe(boxCanvas);
+  resize();
+
+  // ---------- language ----------
+  function applyLang() {
+    const t = I18N.t;
+    document.documentElement.lang = I18N.lang;
+    document.title = t('docTitle');
+    $$('[data-i18n]').forEach(el => { el.innerHTML = t(el.dataset.i18n); });
+    $$('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    $$('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+    $$('.chip[data-s]').forEach(c => {
+      const sc = c.dataset.s === 'explore' ? null : SCS.find(x => x.id === c.dataset.s);
+      c.textContent = sc ? I18N.L(sc.name) : t('explore');
+    });
+    $$('#speeds [data-speed]').forEach(b => { b.textContent = I18N.num(+b.dataset.speed, b.dataset.speed.includes('.') ? 1 : 0) + '×'; });
+    const lb = $('#langBtn'); lb.textContent = t('langBtn'); lb.setAttribute('aria-label', t('langAria')); lb.lang = I18N.lang === 'en' ? 'sv' : 'en';
+    lastCardKey = null; lastAbout = null;
+    labels.forEach(L => { L.el.__t = null; L.el.__ow = null; });
+    if (TL.sc) $('#boxcap').innerHTML = t(TL.sc.kind === 'engine' ? 'capEngine' : 'capPhase');
+    tip.hidden = true; if (tip.__v) tip.__v = null;
+    updateTransport();
+  }
+  $('#langBtn').addEventListener('click', () => I18N.set(I18N.lang === 'en' ? 'sv' : 'en'));
+  I18N.on(applyLang);
+  const noteBtn = $('#noteBtn'), note = $('#note');
+  noteBtn.addEventListener('click', () => { const open = note.hidden; note.hidden = !open; noteBtn.setAttribute('aria-expanded', String(open)); });
+  $('#noteClose').addEventListener('click', () => { note.hidden = true; noteBtn.setAttribute('aria-expanded', 'false'); noteBtn.focus(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !note.hidden) { note.hidden = true; noteBtn.setAttribute('aria-expanded', 'false'); } });
+
+  // ---------- loop ----------
+  let last = performance.now(), hoverAt = 0, zoomCheckAt = 0;
+  function frame(now) {
+    const dt = clamp((now - last) / 1000, 0, 0.05); last = Math.max(last, now);
+    stepTween(now);
+    if (!A.tween && now - zoomCheckAt > 250) {
+      zoomCheckAt = now;
+      A.buildBounds(cam.zoom);
+      if (TL.sc && !TL.sc.explore && Math.abs(Math.log(cam.zoom / pathZoom)) > 0.22) buildTubes(TL.sc, cam.zoom);
+    }
+    tick(dt);
+    cur = stateNow();
+    const st = cur.st;
+    dot.position.copy(cur.w); halo.position.copy(cur.w);
+    const s = 1 / Math.pow(cam.zoom, 0.9); dot.scale.setScalar(s); halo.scale.setScalar(s);
+    markerObjs.forEach(m => m.mesh.scale.setScalar(s));
+    shPT.position.set(XW + 0.04, cur.w.y, cur.w.z); shPV.position.set(cur.w.x, cur.w.y, ZW + 0.04);
+    shPT.scale.setScalar(s); shPV.scale.setScalar(s);
+    if (TL.sc && !TL.sc.explore) {
+      setTraversed(cur.gl / Math.max(1e-9, TL.sc.len));
+      if (!scrubbing) scrub.value = String(Math.round(1000 * TL.t / TL.sc.total));
+      const g = TL.sc.segs[Math.max(0, cur.seg)];
+      const deco = Object.assign({}, g.deco);
+      if (TL.mode === 'steps' && TL.step === 0) deco.heat = deco.heat === 'insul' ? 'insul' : null;
+      if (TL.sc.kind === 'phase' && TL.mode === 'continuous' && TL.hold > 0) { /* hold at end */ }
+      sim.setState(st); sim.step(dt); C.txt = I18N.D[I18N.lang]; bview.draw(deco, C);
+      updateCard(cur.seg);
+    } else {
+      sim.setState(st); sim.step(dt); C.txt = I18N.D[I18N.lang]; bview.draw({ heat: null, piston: 'free' }, C);
+      updateCard(-1);
+    }
+    updateReadout(st);
+    updateAbout(st.region);
+    if (now - hoverAt > 60) { hoverAt = now; doHover(); }
+    const sm = x => { x = clamp(x, 0, 1); return x * x * (3 - 2 * x); };
+    const proj = (1 - sm(cam.el / 0.18)) * (1 - sm(Math.min(Math.abs(Math.sin(cam.az)), Math.abs(Math.cos(cam.az))) / 0.18));
+    const dv = A.dirOf(cam.az, cam.el);
+    A.wallPT.visible = Math.abs(dv.x) > 0.12; A.wallPV.visible = Math.abs(dv.z) > 0.12;
+    const dk = document.documentElement.dataset.scheme === 'dark' ? 0.86 : 1;
+    A.amb.intensity = dk * lerp(0.6, 0.84, proj); A.sun.intensity = dk * lerp(0.52, 0.26, proj);
+    applyCam();
+    renderer.render(scene, camera);
+    updateLabels(now);
+    requestAnimationFrame(frame);
+  }
+  $$('#modes [data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.mode === TL.mode)));
+  $('#card').setAttribute('aria-live', TL.mode === 'steps' ? 'polite' : 'off');
+  applyLang();
+  loadScenario('explore', { instant: true });
+  requestAnimationFrame(frame);
+  window.__PVT = { loadScenario, setView, next, prev, playPause, setMode, TL, cam, SCS, sim, bview, get cur() { return cur; } };
+})();
+
+</script>
+</body>
+</html>
