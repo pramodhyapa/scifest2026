@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ferrofluid: vätskan som dansar · Ferrofluid: the dancing liquid</title>
+<meta name="description" content="Kan en vätska dansa till musik? / Can a liquid dance to music? SciFest 2026, Uppsala universitet.">
+<meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/uu_logo.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/familjen-grotesk-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/ibm-plex-mono-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<!--PAGE-START-->
+<script>
+/* Pick the language before the page paints: saved choice, else the phone's language, else Swedish. */
+(function () {
+  var r = document.documentElement, l = null;
+  try { l = localStorage.getItem('scifest-lang'); } catch (e) {}
+  if (l !== 'sv' && l !== 'en') {
+    var ls = navigator.languages || [navigator.language || ''];
+    l = 'sv';
+    for (var i = 0; i < ls.length; i++) {
+      if (/^sv/i.test(ls[i])) { l = 'sv'; break; }
+      if (/^en/i.test(ls[i])) { l = 'en'; break; }
+    }
+  }
+  r.setAttribute('data-show', l); r.lang = l;
+})();
+</script>
+
+<div class="page" data-station="2"
+     data-title-en="Ferrofluid: the dancing liquid · SciFest 2026"
+     data-title-sv="Ferrofluid: vätskan som dansar · SciFest 2026">
+
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="./">
+        <img src="assets/uu_logo.svg" alt="Uppsala universitet / Uppsala University" width="34" height="34">
+        <span>SciFest 2026
+          <small lang="sv">Materialteori · Uppsala universitet</small>
+          <small lang="en">Materials Theory · Uppsala University</small>
+        </span>
+      </a>
+      <div class="langswitch" role="group" aria-label="Språk / Language">
+        <button type="button" class="both" lang="sv" data-set-lang="sv" aria-label="Svenska" aria-pressed="false">SV</button>
+        <span class="sep" aria-hidden="true">/</span>
+        <button type="button" class="both" lang="en" data-set-lang="en" aria-label="English" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="entry">
+      <p class="meta">
+        <span lang="sv"><b>Magneter</b></span><span lang="en"><b>Magnets</b></span>
+        <span lang="sv">partiklar ≈ 10 nm</span><span lang="en">particles ≈ 10 nm</span>
+      </p>
+      <h1 class="title">
+        <span class="both" lang="sv">Ferrofluid: vätskan som dansar</span>
+        <span class="both" lang="en">Ferrofluid: the dancing liquid</span>
+      </h1>
+      <figure class="fig">
+        <div class="print">
+          <video autoplay muted loop playsinline preload="auto" poster="assets/media/ferrofluid-poster.jpg"
+                 aria-label="Svart ferrofluid i en glaskupa bildar taggar i takt med musik. / Black ferrofluid in a glass dome forms spikes to the beat of music.">
+            <source src="assets/media/ferrofluid.mp4" type="video/mp4">
+          </video>
+        </div>
+        <figcaption>
+          <span lang="sv"><b>Fig. 1</b> Ferrofluidhögtalaren i vår monter, med musik.</span>
+          <span lang="en"><b>Fig. 1</b> The ferrofluid speaker at our booth, playing music.</span>
+        </figcaption>
+      </figure>
+      <p class="lead">
+        <span lang="sv">Ferrofluid är en vätska full av pyttesmå magneter. <mark>Taggarna visar magnetfältets form.</mark></span>
+        <span lang="en">Ferrofluid is a liquid full of tiny magnets. <mark>The spikes show you the shape of the magnetic field.</mark></span>
+      </p>
+    </div>
+
+    <main>
+      <!-- Observation -->
+      <section aria-labelledby="h-saw">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Observation</span><span lang="en">Observation</span></p>
+          <h2 id="h-saw"><span lang="sv">Vad såg du?</span><span lang="en">What did you see?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Inuti högtalaren finns en svart vätska. I vår monter kunde du få den att röra sig på tre sätt:</p>
+          <p lang="en">Inside the speaker is a black liquid. At our booth you could make it move in three ways:</p>
+        </div>
+        <div class="saw">
+          <p lang="sv"><b>Musik.</b> Vätskan bildar taggar som dansar i takt med musiken.</p>
+          <p lang="en"><b>Music.</b> The liquid forms spikes that dance to the beat.</p>
+          <p lang="sv"><b>Din röst.</b> Utan musik reagerar den på ljud omkring sig. Prata, sjung eller klappa!</p>
+          <p lang="en"><b>Your voice.</b> With no music playing, it reacts to sounds around it. Talk, sing or clap!</p>
+          <p lang="sv"><b>Handmagneten.</b> Håll magneten mot glaset: vätskan följer efter och växer taggar.</p>
+          <p lang="en"><b>The hand magnet.</b> Hold the magnet against the glass: the liquid follows it and grows spikes.</p>
+        </div>
+      </section>
+
+      <!-- Explanation -->
+      <section aria-labelledby="h-why">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Förklaring</span><span lang="en">Explanation</span></p>
+          <h2 id="h-why"><span lang="sv">Hur kan en vätska få taggar?</span><span lang="en">How can a liquid grow spikes?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Ferrofluid är olja full av magnetiska partiklar som bara är ungefär 10 nanometer stora – omkring 8 000 gånger tunnare än ett hårstrå. Varje partikel är en liten magnet med ett tunt hölje, så att de inte klumpar ihop sig.</p>
+          <p lang="en">Ferrofluid is oil full of magnetic particles only about 10 nanometres across – around 8,000 times thinner than a hair. Each particle is a tiny magnet with a thin coating, so they don't clump together.</p>
+          <p lang="sv">Utan magnet pekar de små magneterna åt alla håll, och vätskan är helt vanlig. Kommer en magnet nära ställer de sig i linje med magnetfältet och drar vätskan längs fältlinjerna. Då bildas taggarna.</p>
+          <p lang="en">With no magnet nearby, the tiny magnets point every which way, and the liquid is completely ordinary. When a magnet comes close, they line up with the magnetic field and pull the liquid along the field lines. That's what makes the spikes.</p>
+          <p lang="sv">I högtalaren sitter en elektromagnet under vätskan. Musiken gör magneten starkare och svagare i takt, så taggarna dansar.</p>
+          <p lang="en">In the speaker, an electromagnet sits under the liquid. The music makes the magnet stronger and weaker to the beat, so the spikes dance.</p>
+        </div>
+        <figure class="sketch" style="max-width:34rem">
+          <svg viewBox="0 0 520 220" role="img" aria-labelledby="sp-sv sp-en">
+            <title id="sp-sv" lang="sv">Mobilen skickar musik till en elektromagnet under vätskan, som bildar taggar.</title>
+            <title id="sp-en" lang="en">The phone sends music to an electromagnet under the liquid, which forms spikes.</title>
+            <rect class="magnet" x="20" y="60" width="70" height="120" rx="10"/>
+            <path class="fl" d="M34,120 l8,-14 l8,28 l8,-34 l8,40 l8,-20" />
+            <path class="lead-line" d="M92,120 C150,120 160,170 220,170"/>
+            <path class="fl" d="M118,120 q8,-10 16,0 t16,0 t16,0" />
+            <rect class="magnet" x="220" y="150" width="270" height="40"/>
+            <g class="tick"><line x1="236" y1="154" x2="242" y2="186"/><line x1="252" y1="154" x2="258" y2="186"/><line x1="268" y1="154" x2="274" y2="186"/>
+              <line x1="284" y1="154" x2="290" y2="186"/><line x1="300" y1="154" x2="306" y2="186"/><line x1="316" y1="154" x2="322" y2="186"/>
+              <line x1="332" y1="154" x2="338" y2="186"/><line x1="348" y1="154" x2="354" y2="186"/><line x1="364" y1="154" x2="370" y2="186"/>
+              <line x1="380" y1="154" x2="386" y2="186"/><line x1="396" y1="154" x2="402" y2="186"/><line x1="412" y1="154" x2="418" y2="186"/>
+              <line x1="428" y1="154" x2="434" y2="186"/><line x1="444" y1="154" x2="450" y2="186"/><line x1="460" y1="154" x2="466" y2="186"/></g>
+            <path d="M230,140 L230,120 L262,118 L278,70 L294,118 L322,118 L338,60 L354,118 L382,118 L398,72 L414,118 L446,120 L480,120 L480,140 Z" class="fluid"/>
+            <path d="M226,80 L226,144 L484,144 L484,80" fill="none" stroke="currentColor" class="tick" style="stroke-width:2"/>
+            <text class="svg-label" x="55" y="205" text-anchor="middle" lang="sv">mobil</text>
+            <text class="svg-label" x="55" y="205" text-anchor="middle" lang="en">phone</text>
+            <text class="svg-label" x="355" y="212" text-anchor="middle" lang="sv">elektromagnet</text>
+            <text class="svg-label" x="355" y="212" text-anchor="middle" lang="en">electromagnet</text>
+            <text class="svg-label" x="355" y="40" text-anchor="middle" lang="sv">ferrofluid</text>
+            <text class="svg-label" x="355" y="40" text-anchor="middle" lang="en">ferrofluid</text>
+          </svg>
+          <figcaption class="caption">
+            <span lang="sv"><b>Fig. 2</b> Musiken styr en elektromagnet under vätskan. Starkare magnet, högre taggar.</span>
+            <span lang="en"><b>Fig. 2</b> The music drives an electromagnet under the liquid. Stronger magnet, taller spikes.</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <!-- Try it -->
+      <section aria-labelledby="h-try">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Testa själv</span><span lang="en">Try it</span></p>
+          <h2 id="h-try"><span lang="sv">Skruva upp magneten</span><span lang="en">Turn up the magnet</span></h2>
+        </div>
+        <div class="lab" data-sim="ferro">
+          <canvas width="600" height="300" role="img" aria-label="Ferrofluid sedd från sidan. Taggarna växer när magneten blir starkare. / Ferrofluid seen from the side. The spikes grow as the magnet gets stronger."></canvas>
+          <div class="controls-row">
+            <label for="mag"><span lang="sv">Magnetens styrka</span><span lang="en">Magnet strength</span></label>
+            <span class="mono" data-out="B"></span>
+            <input id="mag" type="range" min="0" max="100" step="1" value="20">
+          </div>
+          <div><button type="button" class="btn" data-music aria-pressed="false"><span lang="sv">♪ Spela musik</span><span lang="en">♪ Play music</span></button></div>
+          <p class="status" data-out="status" aria-live="polite"></p>
+          <p class="caption">
+            <span lang="sv"><b>Fig. 3</b> Märker du? Ingenting händer förrän magneten är tillräckligt stark – sedan dyker alla taggar upp på en gång.</span>
+            <span lang="en"><b>Fig. 3</b> Notice: nothing happens until the magnet is strong enough – then all the spikes pop up at once.</span>
+          </p>
+        </div>
+        <aside class="obs">
+          <span class="tag">OBS!</span>
+          <p lang="sv">Vätskan är ingen magnet. Ta bort magneten så flyter den ut till en vanlig pöl igen.</p>
+          <p lang="en">The liquid itself isn't a magnet. Take the magnet away and it flows back into an ordinary puddle.</p>
+        </aside>
+      </section>
+
+      <!-- Going deeper -->
+      <section aria-labelledby="h-more">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Fördjupning</span><span lang="en">Going deeper</span></p>
+          <h2 id="h-more"><span lang="sv">Vill du veta mer?</span><span lang="en">Want to know more?</span></h2>
+        </div>
+        <div class="more">
+          <details>
+            <summary><span><span lang="sv">Varför just taggar?</span><span lang="en">Why spikes, of all shapes?</span></span></summary>
+            <div class="body">
+              <p lang="sv">Två krafter tävlar. Magnetfältet vill dra upp vätskan längs fältlinjerna. Tyngdkraften och ytspänningen vill hålla ytan platt. När magneten är svag vinner den platta ytan. Över en viss styrka vinner magneten plötsligt, och ytan bildar taggar i ett jämnt mönster.</p>
+              <p lang="en">Two forces compete. The magnetic field wants to pull the liquid up along the field lines. Gravity and surface tension want to keep the surface flat. When the magnet is weak, the flat surface wins. Above a certain strength the magnet suddenly wins, and the surface forms spikes in a regular pattern.</p>
+            </div>
+          </details>
+          <details>
+            <summary><span><span lang="sv">Uppfunnen för rymden</span><span lang="en">Invented for space</span></span></summary>
+            <div class="body">
+              <p lang="sv">Ferrofluid uppfanns vid NASA på 1960-talet. Tanken var att styra raketbränsle med magneter i tyngdlöshet, där vätskor annars flyter omkring hur som helst.</p>
+              <p lang="en">Ferrofluid was invented at NASA in the 1960s. The idea was to steer rocket fuel with magnets in weightlessness, where liquids otherwise float around anywhere.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- Applications -->
+      <section aria-labelledby="h-uses">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Tillämpningar</span><span lang="en">Applications</span></p>
+          <h2 id="h-uses"><span lang="sv">Var används det?</span><span lang="en">Where is it used?</span></h2>
+        </div>
+        <div class="uses">
+          <div class="use">
+            <span class="code"><span lang="sv">LJUD</span><span lang="en">AUDIO</span></span>
+            <h3><span lang="sv">Högtalare</span><span lang="en">Loudspeakers</span></h3>
+            <p lang="sv">Många vanliga högtalare har lite ferrofluid inuti som kyler och dämpar spolen.</p>
+            <p lang="en">Many ordinary loudspeakers have a little ferrofluid inside to cool and steady the coil.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">TÄTNING</span><span lang="en">SEALS</span></span>
+            <h3><span lang="sv">Tätningar</span><span lang="en">Seals</span></h3>
+            <p lang="sv">En ring av ferrofluid, hållen på plats av magneter, kan täta runt en snurrande axel och hålla damm ute.</p>
+            <p lang="en">A ring of ferrofluid, held in place by magnets, can seal around a spinning shaft and keep dust out.</p>
+          </div>
+          <div class="use">
+            <span class="code">MED</span>
+            <h3><span lang="sv">Medicin</span><span lang="en">Medicine</span></h3>
+            <p lang="sv">Forskare undersöker hur magnetiska nanopartiklar kan styra mediciner rätt i kroppen och ge skarpare bilder i magnetkameror.</p>
+            <p lang="en">Researchers are exploring how magnetic nanoparticles can steer medicines to the right place in the body and sharpen MRI images.</p>
+          </div>
+          <div class="use">
+            <span class="code"><span lang="sv">KONST</span><span lang="en">ART</span></span>
+            <h3><span lang="sv">Konst</span><span lang="en">Art</span></h3>
+            <p lang="sv">Konstnärer gör rörliga skulpturer av ferrofluid och elektromagneter.</p>
+            <p lang="en">Artists make moving sculptures out of ferrofluid and electromagnets.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Self-test -->
+      <section aria-labelledby="h-quiz">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Självtest</span><span lang="en">Self-test</span></p>
+          <h2 id="h-quiz"><span lang="sv">Testa dig själv</span><span lang="en">Test yourself</span></h2>
+        </div>
+        <div class="quiz">
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 1/3</span><span lang="en">Question 1/3</span></span>
+              <span><span lang="sv">Vad finns i ferrofluid?</span><span lang="en">What is inside ferrofluid?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Bläck</span><span lang="en">Ink</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Pyttesmå magnetiska partiklar</span><span lang="en">Tiny magnetic particles</span></span></button>
+              <button type="button"><span><span lang="sv">Små batterier</span><span lang="en">Tiny batteries</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Varje partikel är en liten magnet.</span><span lang="en">Right! Each particle is a tiny magnet.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 2/3</span><span lang="en">Question 2/3</span></span>
+              <span><span lang="sv">Vad händer när magneten tas bort?</span><span lang="en">What happens when the magnet is taken away?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Taggarna stannar kvar</span><span lang="en">The spikes stay</span></span></button>
+              <button type="button"><span><span lang="sv">Vätskan fryser</span><span lang="en">The liquid freezes</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Den blir en vanlig pöl igen</span><span lang="en">It becomes an ordinary puddle</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Utan magnet pekar partiklarna åt alla håll.</span><span lang="en">Right! Without a magnet, the particles point every which way.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+          <div class="q">
+            <h3><span class="num"><span lang="sv">Fråga 3/3</span><span lang="en">Question 3/3</span></span>
+              <span><span lang="sv">Hur stora är partiklarna?</span><span lang="en">How big are the particles?</span></span></h3>
+            <div class="options">
+              <button type="button"><span><span lang="sv">Som ett sandkorn</span><span lang="en">Like a grain of sand</span></span></button>
+              <button type="button"><span><span lang="sv">Som ett hårstrå</span><span lang="en">Like a hair</span></span></button>
+              <button type="button" data-correct><span><span lang="sv">Tusentals gånger tunnare än ett hårstrå</span><span lang="en">Thousands of times thinner than a hair</span></span></button>
+            </div>
+            <p class="feedback" aria-live="polite"></p>
+            <div class="fb-right" hidden><span lang="sv">Rätt! Ungefär 10 nanometer.</span><span lang="en">Right! About 10 nanometres.</span></div>
+            <div class="fb-wrong" hidden><span lang="sv">Inte riktigt – försök igen.</span><span lang="en">Not quite – try again.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- About us -->
+      <section aria-labelledby="h-us">
+        <div class="sec-head">
+          <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
+          <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
+        </div>
+        <div class="prose">
+          <p lang="sv">Vi är avdelningen för materialteori vid Uppsala universitet. Vi använder fysik och datorer för att förstå hur material fungerar – och för att förutsäga helt nya material, ibland innan någon har tillverkat dem.</p>
+          <p lang="en">We are the Division of Materials Theory at Uppsala University. We use physics and computers to figure out how materials work – and to predict brand-new ones, sometimes before anyone has made them.</p>
+        </div>
+        <nav class="links" aria-label="Länkar / Links">
+          <a href="./" lang="sv">Alla försök från vår monter</a>
+          <a href="./" lang="en">All experiments from our booth</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/forskning/materialteori" lang="sv">Avdelningen för materialteori</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/research/materials-theory" lang="en">Division of Materials Theory</a>
+          <a href="https://www.uu.se/institution/fysik-och-astronomi/utbildning" lang="sv">Studera fysik vid Uppsala universitet</a>
+          <a href="https://www.uu.se/en/department/physics-and-astronomy/education" lang="en">Study physics at Uppsala University</a>
+        </nav>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="wrap">
+      <img src="assets/uu_logo.svg" alt="" width="38" height="38">
+      <div>
+        <div lang="sv">SciFest 2026 · Fyrishov, Uppsala · 8–10 oktober</div>
+        <div lang="en">SciFest 2026 · Fyrishov, Uppsala · 8–10 October</div>
+        <div lang="sv">Avdelningen för materialteori, Uppsala universitet</div>
+        <div lang="en">Division of Materials Theory, Uppsala University</div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script src="assets/site.js"></script>
+<script src="assets/sims.js"></script>
+<!--PAGE-END-->
+</body>
+</html>

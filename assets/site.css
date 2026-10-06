@@ -185,12 +185,33 @@ section { display: grid; gap: 14px; }
 .magnet { fill: var(--paper-solid); stroke: var(--ink); stroke-width: 1.5; }
 .ordinary { fill: var(--muted); fill-opacity: .18; stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 4 3; }
 .sc-disc { fill: var(--ink); }
+.fluid { fill: #121418; stroke: var(--ink); stroke-width: 1.5; }
 .frost { fill: var(--accent); fill-opacity: .12; }
 .tick { stroke: var(--ink); stroke-width: 1.2; }
 .scale-line { stroke: var(--ink); stroke-width: 2; }
 .sc-band { fill: var(--accent-soft); }
 .mark-dot { fill: var(--accent); }
 .lead-line { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 2 3; }
+
+/* Try-it widget */
+.lab { background: var(--paper-solid); border: 1.5px solid var(--ink); padding: 12px; display: grid; gap: 12px; max-width: 40rem; }
+.lab canvas { width: 100%; height: auto; display: block; }
+.lab .controls-row { display: grid; grid-template-columns: 1fr auto; gap: 10px 14px; align-items: center; }
+.lab label { font-family: var(--font-mono); font-size: .85rem; font-weight: 500; }
+.lab input[type=range] { width: 100%; accent-color: var(--accent); min-height: 36px; grid-column: 1 / -1; }
+.lab .readouts { display: flex; flex-wrap: wrap; gap: 6px 18px; font-family: var(--font-mono); font-size: .85rem; color: var(--muted); }
+.lab .readouts b { color: var(--ink); font-weight: 600; }
+.lab .status { font-size: 1rem; font-weight: 600; color: var(--accent); min-height: 2.6em; }
+.lab .btn {
+  font: 600 .88rem/1 var(--font-mono); cursor: pointer; padding: 10px 12px; min-height: 42px;
+  background: var(--paper-solid); color: var(--ink); border: 1.5px solid var(--ink);
+}
+.lab .btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--paper-solid); }
+.lab input[type=range]:disabled { opacity: .6; }
+
+/* Short list of what visitors saw */
+.saw { display: grid; gap: 10px; max-width: 62ch; }
+.saw p b { color: var(--accent); }
 
 /* Further reading (details) */
 .more { display: grid; border-top: 1px solid var(--grid-strong); max-width: 62ch; }
