@@ -41,6 +41,30 @@
     });
   });
 
+  /* Landing page: filter the photos by topic. */
+  var tiles = Array.prototype.slice.call(document.querySelectorAll('.tiles > .tile'));
+  document.querySelectorAll('[data-filter]').forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var f = chip.getAttribute('data-filter');
+      document.querySelectorAll('[data-filter]').forEach(function (c) {
+        c.setAttribute('aria-pressed', String(c === chip));
+      });
+      tiles.forEach(function (t) {
+        t.hidden = !(f === 'all' || t.getAttribute('data-station') === f);
+      });
+    });
+  });
+
+  /* Landing page: "Surprise me!" opens a random experiment that has a page. */
+  var surprise = document.querySelector('[data-surprise]');
+  if (surprise) {
+    surprise.addEventListener('click', function () {
+      var live = tiles.filter(function (t) { return t.tagName === 'A' && !t.hidden; });
+      if (!live.length) live = tiles.filter(function (t) { return t.tagName === 'A'; });
+      if (live.length) window.location.href = live[Math.floor(Math.random() * live.length)].href;
+    });
+  }
+
   /* Respect "reduce motion": stop the looping video and show its controls. */
   var mq = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   if (mq && mq.matches) {

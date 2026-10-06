@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Materialteoris labbok · The Materials Theory lab notebook</title>
+<title>Materialteori på SciFest 2026 · Materials Theory at SciFest 2026</title>
 <meta name="description" content="Försöken från avdelningen för materialteori, Uppsala universitet, på SciFest 2026. / The experiments from the Division of Materials Theory, Uppsala University, at SciFest 2026.">
 <meta name="theme-color" content="#F8F7F3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#13151C" media="(prefers-color-scheme: dark)">
@@ -32,8 +32,8 @@
 </script>
 
 <div class="page" data-station="4"
-     data-title-en="The Materials Theory lab notebook · SciFest 2026"
-     data-title-sv="Materialteoris labbok · SciFest 2026">
+     data-title-en="Materials Theory at SciFest 2026"
+     data-title-sv="Materialteori på SciFest 2026">
 
   <header class="topbar">
     <div class="wrap">
@@ -52,122 +52,178 @@
     </div>
   </header>
 
-  <div class="wrap">
-    <div class="entry">
-      <p class="meta">
-        <span><b>SciFest 2026</b></span>
-        <span>Fyrishov, Uppsala</span>
-        <span>8–10.10.2026</span>
-      </p>
+  <div class="wrap" style="max-width:64rem">
+    <div class="profile">
+      <div class="avatar"><img src="assets/media/thumbs/ferrofluid.jpg" alt="" width="104" height="104"></div>
       <h1 class="title">
-        <span class="both" lang="sv">Materialteoris labbok</span>
-        <span class="both" lang="en">The Materials Theory lab notebook</span>
+        <span class="both" lang="sv">Materialteori på SciFest</span>
+        <span class="both" lang="en">Materials Theory at SciFest</span>
       </h1>
-      <p class="lead">
-        <span lang="sv">Alla försök från vår monter. <mark>Läs vad du såg, varför det händer</mark> och vad forskare använder det till.</span>
-        <span lang="en">Every experiment from our booth. <mark>Read what you saw, why it happens</mark> and what scientists use it for.</span>
+      <p class="bio">
+        <span lang="sv">Fysik du kan se med egna ögon. <mark>Tryck på en bild</mark> för att ta reda på vad som händer – och varför.</span>
+        <span lang="en">Physics you can see with your own eyes. <mark>Tap a picture</mark> to find out what happens – and why.</span>
       </p>
+      <p class="where">Fyrishov, Uppsala · 8–10.10.2026</p>
+      <div class="controls" role="group" aria-label="Välj ämne / Choose a topic">
+        <button type="button" class="chip" data-filter="all" aria-pressed="true"><span lang="sv">Alla</span><span lang="en">All</span></button>
+        <button type="button" class="chip" data-filter="1" aria-pressed="false"><span lang="sv">Kallt</span><span lang="en">Cold</span></button>
+        <button type="button" class="chip" data-filter="2" aria-pressed="false"><span lang="sv">Magneter</span><span lang="en">Magnets</span></button>
+        <button type="button" class="chip" data-filter="3" aria-pressed="false"><span lang="sv">Atomer</span><span lang="en">Atoms</span></button>
+        <button type="button" class="chip" data-filter="4" aria-pressed="false"><span lang="sv">Ljus</span><span lang="en">Light</span></button>
+        <button type="button" class="chip surprise" data-surprise><span lang="sv">Överraska mig!</span><span lang="en">Surprise me!</span></button>
+      </div>
     </div>
 
     <main>
-      <nav class="toc" aria-label="Innehåll / Contents">
+      <div class="tiles">
 
-        <section class="toc-group" data-station="1" aria-labelledby="st1">
-          <h2 id="st1"><span class="sec-label">Station 1</span><span><span lang="sv">Superkallt och kvant</span><span lang="en">Super-cold and quantum</span></span></h2>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 01</span><span lang="en">Exp. 01</span></span>
-            <h3><span lang="sv">Flytande kväve</span><span lang="en">Liquid nitrogen</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Vad händer med saker vid −196 °C?</span><span lang="en">What happens to things at −196 °C?</span></p>
-          </div>
-          <a class="entry-row" href="superconductor.html">
-            <span class="no"><span lang="sv">Försök 02</span><span lang="en">Exp. 02</span></span>
-            <h3><span lang="sv">Den svävande supraledaren</span><span lang="en">The floating superconductor</span></h3>
-            <span class="status"><span lang="sv">läs</span><span lang="en">read</span></span>
-            <p><span lang="sv">Varför svävar en kall skiva ovanför magneter?</span><span lang="en">Why does a cold disc float above magnets?</span></p>
-          </a>
-        </section>
+        <!-- Cold -->
+        <div class="tile soon" data-station="1">
+          <span class="photo"><img src="assets/media/thumbs/liquid-nitrogen.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Kallt</span><span lang="en">Cold</span></span>
+          <span class="tile-title"><span lang="sv">Flytande kväve</span><span lang="en">Liquid nitrogen</span></span>
+          <span class="tile-hook"><span lang="sv">Vad händer med saker vid −196 °C?</span><span lang="en">What happens to things at −196 °C?</span></span>
+        </div>
+        <a class="tile" data-station="1" href="superconductor.html">
+          <span class="photo"><img src="assets/media/thumbs/superconductor.jpg" alt="" loading="lazy"></span>
+          <span class="topic"><span lang="sv">Kallt</span><span lang="en">Cold</span></span>
+          <span class="tile-title"><span lang="sv">Den svävande supraledaren</span><span lang="en">The floating superconductor</span></span>
+          <span class="tile-hook"><span lang="sv">Hur kan något sväva utan snören?</span><span lang="en">How can something float with no strings?</span></span>
+          <span class="go"><span lang="sv">Utforska</span><span lang="en">Explore</span></span>
+        </a>
 
-        <section class="toc-group" data-station="2" aria-labelledby="st2">
-          <h2 id="st2"><span class="sec-label">Station 2</span><span><span lang="sv">Se magnetism</span><span lang="en">Seeing magnetism</span></span></h2>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 03</span><span lang="en">Exp. 03</span></span>
-            <h3><span lang="sv">Ferrofluidhögtalaren</span><span lang="en">The ferrofluid speaker</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">En vätska som dansar till musik.</span><span lang="en">A liquid that dances to music.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 04</span><span lang="en">Exp. 04</span></span>
-            <h3><span lang="sv">Kompassgittret</span><span lang="en">The compass lattice</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Hur små magneter blir en stor.</span><span lang="en">How tiny magnets make a big one.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 05</span><span lang="en">Exp. 05</span></span>
-            <h3><span lang="sv">Magnetisk visningsfilm</span><span lang="en">Magnetic viewing film</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Se magnetfält med egna ögon.</span><span lang="en">See magnetic fields with your own eyes.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 06</span><span lang="en">Exp. 06</span></span>
-            <h3><span lang="sv">Den magnetiska skattjakten</span><span lang="en">The magnetic treasure hunt</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Hitta magneterna som gömmer sig bakom affischen.</span><span lang="en">Find the magnets hidden behind the poster.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 07</span><span lang="en">Exp. 07</span></span>
-            <h3><span lang="sv">Lavaspelet</span><span lang="en">The lava-field game</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Styr en figur genom lavan med en magnet.</span><span lang="en">Steer a figure through lava with a magnet.</span></p>
-          </div>
-        </section>
+        <!-- Magnets -->
+        <div class="tile soon" data-station="2">
+          <span class="photo"><img src="assets/media/thumbs/ferrofluid.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Magneter</span><span lang="en">Magnets</span></span>
+          <span class="tile-title"><span lang="sv">Ferrofluid</span><span lang="en">Ferrofluid</span></span>
+          <span class="tile-hook"><span lang="sv">Kan en vätska dansa till musik?</span><span lang="en">Can a liquid dance to music?</span></span>
+        </div>
+        <div class="tile soon" data-station="2">
+          <span class="photo"><img src="assets/media/thumbs/compass-lattice.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Magneter</span><span lang="en">Magnets</span></span>
+          <span class="tile-title"><span lang="sv">Kompassgittret</span><span lang="en">The compass grid</span></span>
+          <span class="tile-hook"><span lang="sv">Vad gör en magnet till en magnet?</span><span lang="en">What makes a magnet a magnet?</span></span>
+        </div>
+        <div class="tile soon" data-station="2">
+          <span class="photo"><img src="assets/media/thumbs/magnetic-film.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Magneter</span><span lang="en">Magnets</span></span>
+          <span class="tile-title"><span lang="sv">Magnetfilmen</span><span lang="en">Magnetic film</span></span>
+          <span class="tile-hook"><span lang="sv">Kan du se ett magnetfält?</span><span lang="en">Can you see a magnetic field?</span></span>
+        </div>
+        <div class="tile soon" data-station="2">
+          <span class="photo">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <rect width="400" height="300" fill="#BFD7E8"/>
+              <path d="M60,150 C55,90 120,55 190,62 C250,40 330,70 345,125 C362,185 320,240 245,246 C180,262 105,245 78,210 C62,192 62,170 60,150 Z" fill="#E3CC92" stroke="#B89A55" stroke-width="3"/>
+              <path d="M95,205 C130,190 140,150 175,150 S230,120 255,105" fill="none" stroke="#8A5A2B" stroke-width="3" stroke-dasharray="8 7"/>
+              <g stroke="#B5332A" stroke-width="7" stroke-linecap="round"><line x1="246" y1="94" x2="268" y2="116"/><line x1="268" y1="94" x2="246" y2="116"/></g>
+              <circle cx="300" cy="190" r="56" fill="#2E8B6A" fill-opacity=".55" stroke="#16192B" stroke-width="7"/>
+              <g stroke="#B8F0D8" stroke-width="5" stroke-opacity=".9"><line x1="268" y1="160" x2="268" y2="220"/><line x1="288" y1="150" x2="288" y2="230"/><line x1="308" y1="150" x2="308" y2="230"/><line x1="328" y1="160" x2="328" y2="220"/></g>
+              <line x1="340" y1="232" x2="378" y2="272" stroke="#16192B" stroke-width="14" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Magneter</span><span lang="en">Magnets</span></span>
+          <span class="tile-title"><span lang="sv">Magnetisk skattjakt</span><span lang="en">Magnetic treasure hunt</span></span>
+          <span class="tile-hook"><span lang="sv">Var gömmer sig magneterna?</span><span lang="en">Where are the magnets hiding?</span></span>
+        </div>
+        <div class="tile soon" data-station="2">
+          <span class="photo">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <rect width="400" height="300" fill="#E4572E"/>
+              <circle cx="70" cy="70" r="46" fill="#B92D1F"/><circle cx="300" cy="230" r="58" fill="#B92D1F"/>
+              <circle cx="210" cy="60" r="26" fill="#B92D1F"/><circle cx="110" cy="240" r="34" fill="#B92D1F"/>
+              <circle cx="345" cy="70" r="22" fill="#F2A541"/><circle cx="160" cy="150" r="14" fill="#F2A541"/><circle cx="40" cy="190" r="10" fill="#F2A541"/>
+              <g fill="#5E5A57"><ellipse cx="40" cy="270" rx="26" ry="14"/><ellipse cx="95" cy="225" rx="24" ry="13"/><ellipse cx="135" cy="180" rx="24" ry="13"/>
+                <ellipse cx="195" cy="155" rx="24" ry="13"/><ellipse cx="250" cy="125" rx="24" ry="13"/><ellipse cx="285" cy="80" rx="24" ry="13"/><ellipse cx="345" cy="45" rx="26" ry="14"/></g>
+              <g fill="#8C8682"><ellipse cx="40" cy="266" rx="20" ry="8"/><ellipse cx="95" cy="221" rx="18" ry="7"/><ellipse cx="135" cy="176" rx="18" ry="7"/>
+                <ellipse cx="195" cy="151" rx="18" ry="7"/><ellipse cx="250" cy="121" rx="18" ry="7"/><ellipse cx="285" cy="76" rx="18" ry="7"/><ellipse cx="345" cy="41" rx="20" ry="8"/></g>
+              <line x1="352" y1="40" x2="352" y2="6" stroke="#FFFFFF" stroke-width="3"/><path d="M352 6 L380 14 L352 22 Z" fill="#FFFFFF"/>
+              <circle cx="135" cy="152" r="10" fill="#FFFFFF"/><rect x="128" y="162" width="14" height="16" rx="4" fill="#FFFFFF"/>
+            </svg>
+          </span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Magneter</span><span lang="en">Magnets</span></span>
+          <span class="tile-title"><span lang="sv">Lavaspelet</span><span lang="en">The lava game</span></span>
+          <span class="tile-hook"><span lang="sv">Kan ni ta er över lavan tillsammans?</span><span lang="en">Can you cross the lava as a team?</span></span>
+        </div>
 
-        <section class="toc-group" data-station="3" aria-labelledby="st3">
-          <h2 id="st3"><span class="sec-label">Station 3</span><span><span lang="sv">Atomer, kristaller och faser</span><span lang="en">Atoms, crystals and phases</span></span></h2>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 08</span><span lang="en">Exp. 08</span></span>
-            <h3><span lang="sv">Atomfiske</span><span lang="en">Atom fishing</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Hur forskare flyttar enskilda atomer.</span><span lang="en">How scientists move single atoms.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 09</span><span lang="en">Exp. 09</span></span>
-            <h3><span lang="sv">Kristallmodeller</span><span lang="en">Crystal models</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Hur ser salt ut, atom för atom?</span><span lang="en">What does salt look like, atom by atom?</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 10</span><span lang="en">Exp. 10</span></span>
-            <h3><span lang="sv">Gallium</span><span lang="en">Gallium</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">En metall som smälter i handen.</span><span lang="en">A metal that melts in your hand.</span></p>
-          </div>
-          <a class="entry-row" href="pvt-surface.html">
-            <span class="no"><span lang="sv">Försök 11</span><span lang="en">Exp. 11</span></span>
-            <h3><span lang="sv">P–V–T-ytan</span><span lang="en">The P–V–T surface</span></h3>
-            <span class="status"><span lang="sv">läs</span><span lang="en">read</span></span>
-            <p><span lang="sv">Vrid och vänd en 3D-karta över fast, flytande och gas.</span><span lang="en">Turn a 3D map of solid, liquid and gas.</span></p>
-          </a>
-        </section>
+        <!-- Atoms -->
+        <div class="tile soon" data-station="3">
+          <span class="photo"><img src="assets/media/thumbs/atom-fishing.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Atomer</span><span lang="en">Atoms</span></span>
+          <span class="tile-title"><span lang="sv">Atomfiske</span><span lang="en">Atom fishing</span></span>
+          <span class="tile-hook"><span lang="sv">Kan man flytta en enda atom?</span><span lang="en">Can you move a single atom?</span></span>
+        </div>
+        <div class="tile soon" data-station="3">
+          <span class="photo"><img src="assets/media/thumbs/crystal-models.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Atomer</span><span lang="en">Atoms</span></span>
+          <span class="tile-title"><span lang="sv">Kristallmodeller</span><span lang="en">Crystal models</span></span>
+          <span class="tile-hook"><span lang="sv">Hur ser salt ut på riktigt nära håll?</span><span lang="en">What does salt look like up really close?</span></span>
+        </div>
+        <div class="tile soon" data-station="3">
+          <span class="photo">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <defs>
+                <linearGradient id="ga1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E9ECF0"/><stop offset=".5" stop-color="#A9B0B9"/><stop offset="1" stop-color="#6E757F"/></linearGradient>
+                <linearGradient id="ga2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#DDE1E6"/><stop offset="1" stop-color="#7C838D"/></linearGradient>
+              </defs>
+              <rect width="400" height="300" fill="#ECE9E1"/>
+              <polygon points="70,190 95,110 160,90 200,140 185,205 120,220" fill="url(#ga1)" stroke="#5E646E" stroke-width="2"/>
+              <polyline points="95,110 135,150 200,140 M135,150 120,220" fill="none" stroke="#5E646E" stroke-width="1.5"/>
+              <path d="M185,205 C205,215 210,232 240,236 C290,242 345,236 350,222 C356,206 318,198 292,204 C262,210 238,196 200,188 Z" fill="url(#ga2)" stroke="#5E646E" stroke-width="2"/>
+              <ellipse cx="300" cy="216" rx="26" ry="6" fill="#FFFFFF" opacity=".7"/>
+              <text x="300" y="120" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="34" font-weight="600" fill="#16192B">30 °C</text>
+              <path d="M300 132 L300 176" stroke="#16192B" stroke-width="2.5" stroke-dasharray="5 5"/>
+            </svg>
+          </span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Atomer</span><span lang="en">Atoms</span></span>
+          <span class="tile-title"><span lang="sv">Gallium</span><span lang="en">Gallium</span></span>
+          <span class="tile-hook"><span lang="sv">Kan metall smälta i handen?</span><span lang="en">Can metal melt in your hand?</span></span>
+        </div>
+        <a class="tile" data-station="3" href="pvt-surface.html">
+          <span class="photo"><img src="assets/media/thumbs/pvt-surface.jpg" alt="" loading="lazy"></span>
+          <span class="topic"><span lang="sv">Atomer</span><span lang="en">Atoms</span></span>
+          <span class="tile-title"><span lang="sv">P–V–T-ytan</span><span lang="en">The P–V–T surface</span></span>
+          <span class="tile-hook"><span lang="sv">Snurra på en 3D-karta över is, vatten och ånga.</span><span lang="en">Spin a 3D map of ice, water and steam.</span></span>
+          <span class="go"><span lang="sv">Utforska</span><span lang="en">Explore</span></span>
+        </a>
 
-        <section class="toc-group" data-station="4" aria-labelledby="st4">
-          <h2 id="st4"><span class="sec-label">Station 4</span><span><span lang="sv">Ljus och material</span><span lang="en">Light and materials</span></span></h2>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 12</span><span lang="en">Exp. 12</span></span>
-            <h3><span lang="sv">Polarisationsfilter</span><span lang="en">Polarising filters</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Hur din mobilskärm använder ljus.</span><span lang="en">How your phone screen uses light.</span></p>
-          </div>
-          <div class="entry-row soon">
-            <span class="no"><span lang="sv">Försök 13</span><span lang="en">Exp. 13</span></span>
-            <h3><span lang="sv">Ljuskvarnen</span><span lang="en">The light mill</span></h3>
-            <span class="status"><span lang="sv">kommer snart</span><span lang="en">coming soon</span></span>
-            <p><span lang="sv">Vad får vingarna att snurra?</span><span lang="en">What makes the vanes spin?</span></p>
-          </div>
-        </section>
-      </nav>
+        <!-- Light -->
+        <div class="tile soon" data-station="4">
+          <span class="photo">
+            <svg viewBox="0 0 400 300" aria-hidden="true">
+              <rect width="400" height="300" fill="#F3F1EA"/>
+              <g fill="#2B2D3A" fill-opacity=".42" stroke="#2B2D3A" stroke-opacity=".6" stroke-width="2">
+                <rect x="70" y="60" width="150" height="150" transform="rotate(-8 145 135)"/>
+                <rect x="165" y="80" width="150" height="150" transform="rotate(22 240 155)"/>
+                <rect x="120" y="120" width="150" height="150" transform="rotate(62 195 195)"/>
+              </g>
+            </svg>
+          </span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Ljus</span><span lang="en">Light</span></span>
+          <span class="tile-title"><span lang="sv">Polarisationsfilter</span><span lang="en">Polarising filters</span></span>
+          <span class="tile-hook"><span lang="sv">Hur kan två filter släcka ljuset?</span><span lang="en">How can two filters switch off the light?</span></span>
+        </div>
+        <div class="tile soon" data-station="4">
+          <span class="photo"><img src="assets/media/thumbs/light-mill.jpg" alt="" loading="lazy"></span>
+          <span class="stamp"><span lang="sv">Snart!</span><span lang="en">Soon!</span></span>
+          <span class="topic"><span lang="sv">Ljus</span><span lang="en">Light</span></span>
+          <span class="tile-title"><span lang="sv">Ljuskvarnen</span><span lang="en">The light mill</span></span>
+          <span class="tile-hook"><span lang="sv">Vad får vingarna att snurra?</span><span lang="en">What makes the vanes spin?</span></span>
+        </div>
+      </div>
 
-      <section aria-labelledby="h-us">
+      <section class="about" aria-labelledby="h-us">
         <div class="sec-head">
           <p class="sec-label"><span lang="sv">Om oss</span><span lang="en">About us</span></p>
           <h2 id="h-us"><span lang="sv">Vilka är vi?</span><span lang="en">Who are we?</span></h2>
